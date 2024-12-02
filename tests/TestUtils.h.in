@@ -1,0 +1,18 @@
+#pragma once
+#define TEST_PATH "@BINMORPH_TEST_UTILS_DIR@"
+#define TEST_SCHEMAS_PATH "@BINMORPH_TEST_UTILS_DIR@/schemas"
+#define TEST_DATA_PATH "@BINMORPH_TEST_UTILS_DIR@/data"
+
+#include <filesystem>
+#include <initializer_list>
+namespace test_utils{
+
+static std::filesystem::path toPath(std::initializer_list<std::filesystem::path> args){
+    std::filesystem::path ret;
+    for(const auto& arg : args){
+        ret = ret / arg;
+    }
+    return ret;
+}
+
+}

@@ -19,6 +19,9 @@ public:
     bool isValid() const noexcept { return state_ == SchemaFileStatus::VALID; }
     const nlohmann::json& json() const noexcept { return m_json_data; }
     
+    [[nodiscard]] const auto field(unsigned int index) const noexcept {
+        return m_json_data["fields"][index];
+    }
 private:
     SchemaFileState state_ { SchemaFileState::InvalidState() };
     // std::future<nlohmann::json> m_json_res_;

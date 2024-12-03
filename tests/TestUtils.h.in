@@ -2,17 +2,31 @@
 #define TEST_PATH "@BINMORPH_TEST_UTILS_DIR@"
 #define TEST_SCHEMAS_PATH "@BINMORPH_TEST_UTILS_DIR@/schemas"
 #define TEST_DATA_PATH "@BINMORPH_TEST_UTILS_DIR@/data"
-
+#include "@HEADER_fsUtils@"
 #include <filesystem>
 #include <initializer_list>
-namespace test_utils{
+#include <map>
+namespace test_utils
+{
 
-static std::filesystem::path toPath(std::initializer_list<std::filesystem::path> args){
-    std::filesystem::path ret;
-    for(const auto& arg : args){
-        ret = ret / arg;
+    static std::filesystem::path toPath(std::initializer_list<std::filesystem::path> args)
+    {
+        std::filesystem::path ret;
+        for (const auto &arg : args)
+        {
+            ret = ret / arg;
+        }
+        return ret;
     }
-    return ret;
-}
 
+    static const std::map<std::string, std::filesystem::path> JSON_Test_Schemas = {
+        {"simple", test_utils::toPath({TEST_SCHEMAS_PATH, "simple.json"})}};
+
+    static constexpr auto JSONFrom = [](const std::string &key)
+    {
+        const auto filePath = JSON_Test_Schemas.at(key);
+        std::ifstream in{filePath};
+        const auto ret = nlohmann::json::parse(in);
+        return ret;
+    };
 }

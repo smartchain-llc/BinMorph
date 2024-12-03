@@ -1,5 +1,13 @@
 set(BINMORPH_TEST_UTILS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/utils)
-message(${BINMORPH_TEST_UTILS_DIR})
+
+file(GLOB_RECURSE TEST_INCLUDES "./*.h")
+foreach(HEADER ${TEST_INCLUDES})
+    get_filename_component(HEADER_NAME ${HEADER} NAME_WE)
+    set(HEADER_${HEADER_NAME} ${HEADER})
+    message("== [BinMorph]<Tests> HEADER_${HEADER_NAME}")
+endforeach()
+
+
 configure_file(TestUtils.h.in ./TestUtils.h)
 
 file(GLOB TEST_CATEGORY "./*")

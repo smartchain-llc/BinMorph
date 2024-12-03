@@ -1,0 +1,8 @@
+{
+    "scllc_data": {
+        "header":[
+            {"name": "tag", "length": 4, "endian": "big"},
+            {"name": "version", "length": 4, "endian": "big"}
+        ]
+    }
+}

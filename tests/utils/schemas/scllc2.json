@@ -1,0 +1,18 @@
+{
+    "scllc_data": {
+        "test": {"name": "Test", "length": 420},
+        "header":{
+            "length": 36,
+            "fields":[
+                {"name": "tag", "length": 4, "endian": "big"},
+                {"name": "version", "length": 4, "endian": "big"},
+                {"name": "RESERVED", "length": 28, "endian": "big"}
+            ]
+        },
+        "content":{
+            "fields":[
+                {"name": "content", "endian": "big"}
+            ]
+        }
+    }
+}

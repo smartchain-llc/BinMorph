@@ -9,14 +9,38 @@
 #include <fstream>
 
 using namespace bm;
+
+/**************************************************
+== TESTS: SchemaFileState
+**************************************************/
 TEST(SchemaFileState, CanCompareStateAgainstStatus){
     const auto v = SchemaFileState::ValidState();
     ASSERT_TRUE(v == SchemaFileStatus::VALID);
 }
 
-TEST(SchemaFile, HasInvalidStateInitially){
+/**************************************************
+== TESTS: SchemaFile
+**************************************************/
+
+TEST(SchemaFile, HasInvalidStateOnInitFailure){
     SchemaFile f{""};
     ASSERT_FALSE(f.isValid());
+}
+
+/**************************************************
+== TESTS: SchemaFile (Fixture)
+**************************************************/
+
+class SchemaFile_F : public testing::Test {
+protected:
+    SchemaFile_F():s{test_utils::toPath({TEST_SCHEMAS_PATH, "simple.json"})}{}
+    SchemaFile s;
+};
+
+TEST_F(SchemaFile_F, PopualatesJSONDataMember){
+    ASSERT_TRUE(s.json() != nullptr);
+    ASSERT_TRUE(s.field(0) != nullptr);
+    ASSERT_EQ(s.field(0)["name"], "header");
 }
 
 TEST(SchemaFile, PopulatesJSONSchemaDataMember){
@@ -38,7 +62,10 @@ TEST(SchemaFileJSON, CanValidateBinDataWithSchema){
     uint16_t value = headerEndianess == "big"
         ? (test_utils::data::Simple[0] << 8) | (test_utils::data::Simple[1])
         : (test_utils::data::Simple[1] << 8) | (test_utils::data::Simple[0]);
-    ASSERT_TRUE(value != 0x00);
+    ASSERT_EQ(value, 258);
+}
+TEST(SchemaFileJSON, CanIndexJSONFromSchemaFileObject){
+
 }
 // using json = nlohmann::json;
 

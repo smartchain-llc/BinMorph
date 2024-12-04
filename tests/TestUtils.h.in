@@ -21,7 +21,8 @@ namespace test_utils
 
     static const std::map<std::string, std::filesystem::path> JSON_Test_Schemas = {
         {"simple", test_utils::toPath({TEST_SCHEMAS_PATH, "simple.json"})},
-        {"scllc2", test_utils::toPath({TEST_SCHEMAS_PATH, "scllc2.json"})}
+        {"scllc2", test_utils::toPath({TEST_SCHEMAS_PATH, "scllc2.json"})},
+        {"header", test_utils::toPath({TEST_SCHEMAS_PATH, "header.json"})}
     };
 
     static constexpr auto JSONFrom = [](const std::string &key)

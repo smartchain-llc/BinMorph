@@ -1,0 +1,14 @@
+{
+    "header": {
+        "length": 32,
+        "fields": [
+            {"name":"header", "length": 32, "endian": "big"}
+        ]
+    },
+    "data":{
+        "length": 256,
+        "fields":[
+            {"endian": "big"}
+        ]
+    }
+}

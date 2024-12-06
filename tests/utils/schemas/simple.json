@@ -1,7 +1,7 @@
 {
     "fields": [
-      { "name": "header", "type": "uint16", "endian": "big" },
-      { "name": "length", "type": "uint32", "endian": "little" },
-      { "name": "payload", "type": "bytes", "length": "length" }
+      { "name": "header", "length": 16, "endian": "big" },
+      { "name": "payload", "length": 256, "endian": "big" },
+      { "name": "footer", "length": 8, "endian": "little", "test":"extratag" }
     ]
 }

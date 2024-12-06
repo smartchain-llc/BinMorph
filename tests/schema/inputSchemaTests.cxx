@@ -67,32 +67,3 @@ TEST(SchemaFileJSON, CanValidateBinDataWithSchema){
 TEST(SchemaFileJSON, CanIndexJSONFromSchemaFileObject){
 
 }
-// using json = nlohmann::json;
-
-// struct SchemaFile{
-//     SchemaFile(const std::filesystem::path& filePath): m_path_{std::move(filePath)}{
-//         m_in_stream_ = std::ifstream(m_path_);
-
-//     }
-//     SchemaFile(std::filesystem::path&& filePath): SchemaFile(filePath){}
-
-//     const std::filesystem::path& path() const noexcept { return m_path_; }
-//     std::ifstream& stream() { return m_in_stream_; }
-//     [[nodiscard]] operator std::ifstream&() noexcept { return m_in_stream_; }
-//     std::filesystem::path m_path_;
-//     std::ifstream m_in_stream_;
-// };
-
-// TEST(Schema_TEST_SETUP, CanFindSchemaTestFile){
-//     const auto file = toPath({TEST_SCHEMAS_PATH, "simple.json"});
-//     SchemaFile inSchema { file };
-//     ASSERT_TRUE(std::filesystem::exists(inSchema.path()));
-//     ASSERT_TRUE(inSchema.m_in_stream_.is_open());
-// }
-
-// TEST(SchemaFile, CanPassDataToJSONParser){
-//     const auto file = toPath({TEST_SCHEMAS_PATH, "simple.json"});
-//     SchemaFile inSchema { file };
-//     const auto schemaData = json::parse(inSchema);
-    
-// }

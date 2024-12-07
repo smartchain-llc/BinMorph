@@ -61,4 +61,49 @@ namespace test_utils
         out.write((char *)buffer, len);
         out.close();
     };
+
+#include <functional>
+    template <std::size_t Length>
+    struct WriteStrategy
+    {
+        explicit WriteStrategy(std::function<void(const std::size_t& i, uint8_t& c)> writer): _m_writer{ std::move(writer) }{}
+        // const std::size_t writeLength() const noexcept { return Length; }
+        void operator()(uint8_t *dest) { 
+            for(auto i = 0; i < Length; i++)
+                _m_writer(i, dest[i]); 
+        }
+
+    private:
+        std::function<void(const std::size_t& i, uint8_t& c)> _m_writer;
+        std::size_t _m_write_len;
+    };
+
+    template <std::size_t Length>
+    struct GenerateBinaryData
+    {
+        uint8_t *operator()() noexcept { return m_data; }
+        void set(const std::size_t &from, std::function<void(uint8_t *)> DataSetter)
+        {
+            DataSetter(&m_data[from]);
+        }
+        template <std::size_t WriteLength>
+        void operator+=(WriteStrategy<WriteLength> &DataWriter)
+        {
+            if(WriteLength > Length){
+                std::cerr << "DataWriter write length (" << WriteLength << ") exceeds buffer size  (" << Length << ")\n";
+                return;
+            }
+            if (WriteLength + _m_write_i > Length)
+            {
+                _m_write_i = Length - WriteLength;
+                std::cerr << "WriteStrategy write length would exceed buffer size\nWriting from byte position: " << _m_write_i << "\n";
+            }
+            DataWriter(&m_data[_m_write_i]);
+            _m_write_i += WriteLength;
+        }
+
+    private:
+        std::size_t _m_write_i{0};
+        uint8_t m_data[Length];
+    };
 }

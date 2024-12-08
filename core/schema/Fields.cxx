@@ -2,11 +2,17 @@
 
 #include <iostream>
 using namespace bm;
+using EndianTypePtr = std::variant<std::shared_ptr<LittleEndian>, std::shared_ptr<BigEndian>>;
+using EndianMapType = std::unordered_map<
+    std::string,
+    EndianTypePtr
+>;
 
-template<typename E>
-void read(const Endian<E>& endian, uint8_t* data){
-    
-}
+static const EndianMapType EndianType = {
+    {"big", std::make_shared<BigEndian>()},
+    {"little", std::make_shared<LittleEndian>()}
+};
+
 
 void SetEndian(const std::string &jsonValue, std::variant<LittleEndian, BigEndian>& endian)
 {
@@ -29,14 +35,5 @@ Field::Field(const nlohmann::json &json)
 }
 
 void Field::setEndian(const std::string &jsonValue){
-    if(jsonValue == "big") { 
-        _m_endian = BigEndian();
-        
-        // reader = Reader(BigEndian{});
-    }
-    else { 
-        _m_endian = LittleEndian();
-        
-        // reader = Reader(LittleEndian{});
-    };
+    _m_endian = EndianType.at(jsonValue);
 }

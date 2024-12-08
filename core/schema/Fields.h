@@ -44,21 +44,16 @@ BigEndian() : Endian(){}
 };
 
 
-
 class Field{
 public:
+    using EndianTypePtr = std::variant<std::shared_ptr<LittleEndian>, std::shared_ptr<BigEndian>>;
     Field(const nlohmann::json& json);
     void read(uint8_t*);
 private:
     std::string _m_name;
     std::size_t _m_length;
-    std::variant<LittleEndian, BigEndian> _m_endian;
+    EndianTypePtr _m_endian;
     uint8_t* _m_field_data { nullptr };
-    template<typename E>
-    struct Reader {
-        Reader(Endian<E>& endian): _e{endian}{}
-        Endian<E> _e;
-    };
     
 private:
     void setEndian(const std::string &);

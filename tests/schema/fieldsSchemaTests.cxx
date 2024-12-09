@@ -1,18 +1,26 @@
 #include <gtest/gtest.h>
 #include <TestUtils.h>
 
-#include <schema/Fields.h>
+#include <schema/data/Fields.h>
+// #include <schema/json/FieldAttribute.h>
+
+using namespace bm;
 
 static auto SimpleJSONSchema = test_utils::JSONFrom("simple");
 
-TEST(Fields, ParsesCorrectEndianessFromJSON){
+TEST(FieldAttribute, ParsesCorrectEndianessFromJSON){
     std::vector<nlohmann::json> fields;
     for(const auto& [key, value] : SimpleJSONSchema.items()){
         value.template get_to(fields);
     }
 
-    const auto field = bm::Field(fields[0]);
+    const auto fa = json::FieldAttribute(fields[0]);
+    ASSERT_EQ(fa.name, "header");
+    ASSERT_EQ(fa.length, 16);
 
+    const auto fieldData = data::Field(fa);
+    ASSERT_EQ(fieldData.name(), "header");
+    ASSERT_EQ(fieldData.endian()->type(), "big");
 }
 TEST(Fields, UtilizesEndianValueToFormatData){
 
@@ -33,7 +41,7 @@ TEST(Fields, UtilizesEndianValueToFormatData){
         value.template get_to(fields);
     }
 
-    const auto field = bm::Field(fields[0]);
+    // const auto field = bm::Field(fields[0]);
 
     // const auto data = field.read(data);
 

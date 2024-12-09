@@ -3,13 +3,12 @@
 #include <type_traits>
 #include <variant>
 
-namespace bm::data
+namespace bm
 {
-
     class Field
     {
     public:
-        Field(const json::FieldAttribute &data);
+        Field(const FieldAttribute &data);
         inline const std::size_t &length() const noexcept { return _m_length; }
         inline std::string_view name() const noexcept { return _m_name; }
         inline const std::shared_ptr<Endian> endian() const noexcept { return _m_endian; }
@@ -23,5 +22,10 @@ namespace bm::data
     private:
         void setEndian(const std::string &);
     };
+    // void from_json(const nlohmann::json& json, FieldAttribute& f){
+    //         json["name"].get_to(name);
+    //         json["length"].get_to(length);
+    //         json["endian"].get_to(endian);
 
+    // }
 }

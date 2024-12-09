@@ -3,8 +3,7 @@
 
 #include <unordered_map>
 
-using namespace bm::data;
-using namespace bm::json;
+using namespace bm;
 
 // LittleEndian.h
 struct LittleEndian
@@ -34,6 +33,6 @@ std::unordered_map<std::string, std::shared_ptr<Endian>> Endianess = {
     {"little", std::make_shared<Endian>(LittleEndian{})}
 };
 
-std::shared_ptr<Endian> GetEndian(const FieldAttribute& attribute){
+std::shared_ptr<Endian> bm::GetEndian(const FieldAttribute& attribute){
     return Endianess.at(attribute.endian);
 }

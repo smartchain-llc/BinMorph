@@ -82,6 +82,8 @@ namespace test_utils
     struct GenerateBinaryData
     {
         uint8_t *operator()() noexcept { return m_data; }
+        operator uint8_t*() noexcept { return m_data; }
+        
         void set(const std::size_t &from, std::function<void(uint8_t *)> DataSetter)
         {
             DataSetter(&m_data[from]);

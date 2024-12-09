@@ -14,11 +14,11 @@ TEST(FieldAttribute, ParsesCorrectEndianessFromJSON){
         value.template get_to(fields);
     }
 
-    const auto fa = json::FieldAttribute(fields[0]);
+    const auto fa = FieldAttribute(fields[0]);
     ASSERT_EQ(fa.name, "header");
     ASSERT_EQ(fa.length, 16);
 
-    const auto fieldData = data::Field(fa);
+    const auto fieldData = Field(fa);
     ASSERT_EQ(fieldData.name(), "header");
     ASSERT_EQ(fieldData.endian()->type(), "big");
 }
@@ -41,8 +41,10 @@ TEST(Fields, UtilizesEndianValueToFormatData){
         value.template get_to(fields);
     }
 
-    // const auto field = bm::Field(fields[0]);
+    const Field fdata { FieldAttribute{fields[0]} };
+    uint8_t edata[256];
+    fdata.endian()->read(data, edata, fdata.length());
 
-    // const auto data = field.read(data);
-
+    ASSERT_EQ(edata[0], 15);
+    ASSERT_EQ(edata[15], 0);
 }

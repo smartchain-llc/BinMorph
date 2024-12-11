@@ -1,14 +1,56 @@
 {
-    "header": {
-        "length": 32,
+    "start": {
+        "offset": 0,
         "fields": [
-            {"name":"header", "length": 32, "endian": "big"}
+            {
+                "name": "header",
+                "length": 16,
+                "endian": "big",
+                "fields": [
+                    {
+                        "name": "tag",
+                        "length": 4
+                    }
+                ]
+            },
+            {
+                "name": "payload",
+                "length": 256,
+                "endian": "big"
+            },
+            {
+                "name": "footer",
+                "length": 8,
+                "endian": "little",
+                "test": "extratag"
+            }
         ]
-    },
-    "data":{
-        "length": 256,
-        "fields":[
-            {"endian": "big"}
+    },    
+    "payload": {
+        "offset": 280,
+        "fields": [
+            {
+                "name": "header",
+                "length": 16,
+                "endian": "big",
+                "fields": [
+                    {
+                        "name": "tag",
+                        "length": 4
+                    }
+                ]
+            },
+            {
+                "name": "payload",
+                "length": 256,
+                "endian": "big"
+            },
+            {
+                "name": "footer",
+                "length": 8,
+                "endian": "little",
+                "test": "extratag"
+            }
         ]
     }
 }

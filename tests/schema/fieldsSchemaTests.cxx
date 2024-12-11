@@ -48,3 +48,4 @@ TEST(Fields, UtilizesEndianValueToFormatData){
     ASSERT_EQ(edata[0], 15);
     ASSERT_EQ(edata[15], 0);
 }
+

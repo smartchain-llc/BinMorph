@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/tests/TEST_inputSchemaTests",
+            "program": "${workspaceFolder}/build/tests/TEST_schemaParserTests",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

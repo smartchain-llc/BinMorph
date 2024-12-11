@@ -1,7 +1,0 @@
-{
-    "fields": [
-      { "name": "header", "type": "uint16", "endian": "big" },
-      { "name": "length", "type": "uint32", "endian": "little" },
-      { "name": "payload", "type": "bytes", "length": "length" }
-    ]
-}

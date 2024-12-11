@@ -1,7 +1,10 @@
 {
-    "fields": [
-      { "name": "header", "length": 16, "endian": "big", "fields":[{"name":"tag", "length": 4}] },
-      { "name": "payload", "length": 256, "endian": "big" },
-      { "name": "footer", "length": 8, "endian": "little", "test":"extratag" }
-    ]
+    "start": {
+      "offset": 0, 
+        "fields": [
+        { "name": "header", "length": 16, "endian": "big", "fields":[{"name":"tag", "length": 4}] },
+        { "name": "payload", "length": 256, "endian": "big" },
+        { "name": "footer", "length": 8, "endian": "little", "test":"extratag" }
+      ]
+  }
 }

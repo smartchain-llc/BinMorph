@@ -28,6 +28,7 @@ namespace bm
         void __init(const nlohmann::json &json)
         {
             json.at("offset").get_to(offset);
+            
             for (const auto &fieldsJSON : json.at("fields"))
             {
                 auto attribute = FieldAttribute{fieldsJSON};

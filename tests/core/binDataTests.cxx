@@ -1,68 +1,66 @@
 #include <gtest/gtest.h>
 #include <TestUtils.h>
-#include <schema/Fields.h>
-#include <schema/Endian.h>
+#include <schema/Parser.h>
+#include <schema/data/Endian.h>
+using namespace bm;
+using namespace nlohmann;
 
-TEST(TestUtils_GenerateData, GeneratesDataAccordingToWriteStrategy){
-    auto data = test_utils::GenerateBinaryData<256>();
-    auto WriteIndexValue = test_utils::WriteStrategy<16>{[](const std::size_t& i, uint8_t& c){ 
-        c = i; 
-    }};
-    auto WriteIfMod_5 = test_utils::WriteStrategy<257>{[](const std::size_t& i, uint8_t& c){ 
-        if(i % 5 == 0) c = i;
-        else c = 0xFF; 
-    }};
+static const auto ValidJSON = json::parse(R"(
+    {
+        "p1":{
+            "offset":0,
+            "fields":[
+                {"name":"h1","length":8,"endian":"big"},
+                {"name":"h2","length":8,"endian":"big"}
+            ]
+        },"p2":{
+            "offset":16,
+            "fields":[
+                {"name":"p2","length":16,"endian":"big"}
+            ]
+        }
+    }
+)");
+static const auto BinaryData = []()
+{
+    auto WriteHeader = test_utils::WriteStrategy<16>([](const std::size_t& i, uint8_t& c){
+        c = (i % 2 == 0) ? 0xFF : 0x69;
+    });
+    auto WritePayload = test_utils::WriteStrategy<16>([](const std::size_t& i, uint8_t& c){
+        c = i;
+    });
 
-    data += WriteIndexValue;
-    data += WriteIfMod_5;
-    auto readme = data();
-    ASSERT_TRUE(data() != nullptr);
-}
-TEST(Endian, FormatsBinaryDataAccordingToEndianType){
-    auto data = test_utils::GenerateBinaryData<256>();
-    auto WriteIndexValue = test_utils::WriteStrategy<16>{[](const std::size_t& i, uint8_t& c){ 
-        c = i; 
-    }};
-    auto WriteIfMod_5 = test_utils::WriteStrategy<128>{[](const std::size_t& i, uint8_t& c){ 
-        if(i % 5 == 0) c = i;
-        else c = 0xFF; 
-    }};
-    data += WriteIndexValue;
-    data += WriteIfMod_5;
+    auto genData = test_utils::GenerateBinaryData<32>();
+    genData += WriteHeader;
+    genData += WritePayload;
+    return genData;
+};
 
-    // bm::BigEndian big;
+struct Reader {
+    static void read(const LayoutAttribute& layout, uint8_t* src, uint8_t* dest){
+        auto readOffset = layout.startOffset();
 
-    // uint8_t output[256];
-    // big.read(data(), output, 16);
-    // ASSERT_EQ(output[15],0x00);
-    // ASSERT_EQ(output[2],0x0D);
-}
-
-
-struct LittleEndian {
-    void read(uint8_t* data, uint8_t* dest, const std::size_t& length) const {
-        for(auto i = 0; i < length; i++)
-            dest[i] = data[i];
+        for(const auto& field : layout.fields){
+            GetEndian(field)->read(&src[readOffset], &dest[readOffset], field.length);
+            readOffset += field.length;
+        }
     }
 };
-TEST(Endian, TypeErasedImpl){
-    auto data = test_utils::GenerateBinaryData<256>();
-    auto WriteIndexValue = test_utils::WriteStrategy<16>{[](const std::size_t& i, uint8_t& c){ 
-        c = i; 
-    }};
-    auto WriteIfMod_5 = test_utils::WriteStrategy<128>{[](const std::size_t& i, uint8_t& c){ 
-        if(i % 5 == 0) c = i;
-        else c = 0xFF; 
-    }};
-    data += WriteIndexValue;
-    data += WriteIfMod_5;
+struct BinData{
+    BinData(uint8_t* d, const std::size_t& len): data{memcpy(data, d, len)}{}
+    uint8_t* data { nullptr };
+};
+TEST(BinaryDataFromSchema, CanReadBinaryDataAccordingToSchema)
+{
+    Schema schema;
+    Parser::ParseTo(schema, ValidJSON);
 
-    auto useEndian = [&](const bm::Endian& e){
-        uint8_t output[256];
-        e.read(data(), output, 16);
-        ASSERT_EQ(output[15],0x00);
-        ASSERT_EQ(output[2],0x0D);
-    };
-
-    useEndian(bm::Endian{ LittleEndian{} });
+    auto data = BinaryData();
+    uint8_t formattedData[32];
+    for(const auto& part : schema){
+        Reader::read(part, data, formattedData);
+    }
+    uint64_t* head = (uint64_t*)(formattedData);
+    uint64_t expected = 0x69FF69FF69FF69FF;
+    ASSERT_EQ(*head, 0x69FF69FF69FF69FF);
 }

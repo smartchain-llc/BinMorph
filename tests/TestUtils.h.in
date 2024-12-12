@@ -2,10 +2,12 @@
 #define TEST_PATH "@BINMORPH_TEST_UTILS_DIR@"
 #define TEST_SCHEMAS_PATH "@BINMORPH_TEST_UTILS_DIR@/schemas"
 #define TEST_DATA_PATH "@BINMORPH_TEST_UTILS_DIR@/data"
+#include <schema/json/FieldAttribute.h>
 #include "@HEADER_fsUtils@"
 #include <filesystem>
 #include <initializer_list>
 #include <map>
+#include <json.hpp>
 namespace test_utils
 {
 
@@ -23,8 +25,7 @@ namespace test_utils
         {"simple", test_utils::toPath({TEST_SCHEMAS_PATH, "simple.json"})},
         {"scllc2", test_utils::toPath({TEST_SCHEMAS_PATH, "scllc2.json"})},
         {"header", test_utils::toPath({TEST_SCHEMAS_PATH, "header.json"})},
-        {"multispec", test_utils::toPath({TEST_SCHEMAS_PATH, "multispec.json"})}
-    };
+        {"multispec", test_utils::toPath({TEST_SCHEMAS_PATH, "multispec.json"})}};
 
     static constexpr auto JSONFrom = [](const std::string &key)
     {
@@ -33,4 +34,33 @@ namespace test_utils
         const auto ret = nlohmann::json::parse(in);
         return ret;
     };
+
+    class EndianJSON
+    {
+    public:
+        static EndianJSON Big() {}
+        static EndianJSON Little() {}
+        operator std::string() const { return _m_type; }
+
+    private:
+        EndianJSON(std::string type) : _m_type{std::move(type)} {}
+        std::string _m_type;
+    };
+    
+    struct InlineJSON{
+        InlineJSON& operator<<(const std::string& rawJSON){
+            const auto processJSON = nlohmann::json::parse(rawJSON);
+            json += processJSON;
+        }
+        operator const nlohmann::json() const { return json; }
+        nlohmann::json json;
+    };
+
+    // static constexpr auto AppendAttributeJSON = []( 
+    //                                                 bm::LayoutAttribute& to,
+    //                                                 const std::size_t &offset,
+    //                                                 const std::size_t &length,
+    //                                                 EndianJSON &&endian) {
+        
+    // }
 }

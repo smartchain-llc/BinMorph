@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "TEST_binDataTests",
+            "name": "TEST_OUTPUT",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/tests/TEST_binDataTests",
+            "program": "${workspaceFolder}/build/tests/TEST_processedOutputTests",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

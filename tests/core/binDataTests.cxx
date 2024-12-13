@@ -36,31 +36,3 @@ static const auto BinaryData = []()
     return genData;
 };
 
-struct Reader {
-    static void read(const LayoutAttribute& layout, uint8_t* src, uint8_t* dest){
-        auto readOffset = layout.startOffset();
-
-        for(const auto& field : layout.fields){
-            GetEndian(field)->read(&src[readOffset], &dest[readOffset], field.length);
-            readOffset += field.length;
-        }
-    }
-};
-struct BinData{
-    BinData(uint8_t* d, const std::size_t& len): data{memcpy(data, d, len)}{}
-    uint8_t* data { nullptr };
-};
-TEST(BinaryDataFromSchema, CanReadBinaryDataAccordingToSchema)
-{
-    Schema schema;
-    Parser::ParseTo(schema, ValidJSON);
-
-    auto data = BinaryData();
-    uint8_t formattedData[32];
-    for(const auto& part : schema){
-        Reader::read(part, data, formattedData);
-    }
-    uint64_t* head = (uint64_t*)(formattedData);
-    uint64_t expected = 0x69FF69FF69FF69FF;
-    ASSERT_EQ(*head, 0x69FF69FF69FF69FF);
-}

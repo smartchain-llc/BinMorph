@@ -1,0 +1,15 @@
+{
+    "header":{
+        "offset": 0,
+        "fields":[
+            {"name": "magic", "length": 8, "endian": "little"},
+            {"name": "reserved", "length": 8, "endian": "little"}
+        ]
+    },
+    "data":{
+        "offset":16,
+        "fields":[
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    }
+}

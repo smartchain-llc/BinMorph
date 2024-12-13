@@ -25,7 +25,9 @@ namespace test_utils
         {"simple", test_utils::toPath({TEST_SCHEMAS_PATH, "simple.json"})},
         {"scllc2", test_utils::toPath({TEST_SCHEMAS_PATH, "scllc2.json"})},
         {"header", test_utils::toPath({TEST_SCHEMAS_PATH, "header.json"})},
-        {"multispec", test_utils::toPath({TEST_SCHEMAS_PATH, "multispec.json"})}};
+        {"multispec", test_utils::toPath({TEST_SCHEMAS_PATH, "multispec.json"})},
+        {"256", test_utils::toPath({TEST_SCHEMAS_PATH, "256.json"})}
+    };
 
     static constexpr auto JSONFrom = [](const std::string &key)
     {

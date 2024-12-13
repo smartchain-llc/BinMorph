@@ -1,0 +1,12 @@
+services:
+  devel:
+    container_name: BM_devel
+    hostname: binmorph-devel
+    build: ./dev/images/devel
+    volumes:
+      - ./core:/home/dev/BinMorph/core
+      - ./tests:/home/dev/BinMorph/tests
+    working_dir: /home/dev/BinMorph
+    environment:
+      - BM_SRC=/home/dev/BinMorph
+      - BM_BUILD=/home/dev/BinMorph/build

@@ -6,7 +6,7 @@
             {"name": "reserved", "length": 8, "endian": "little"}
         ]
     },
-    "data":{
+    "payload":{
         "offset":16,
         "fields":[
             {"name": "unknown", "length": 240, "endian": "little"}

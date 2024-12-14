@@ -5,6 +5,7 @@ namespace bm
 {
     struct FieldAttribute
     {
+        FieldAttribute() = default;
         FieldAttribute(const nlohmann::json &json)
         {
             json["name"].get_to(name);
@@ -15,6 +16,7 @@ namespace bm
         std::string name;
         std::string endian;
     };
+    void from_json(const nlohmann::json& json, FieldAttribute& att);
 
     /**
         ### Schema JSON Attribute: BinaryLayout
@@ -36,7 +38,8 @@ namespace bm
                 length += attribute.length;
             }
         }
-
+        // Remove Default Cnstr
+        LayoutAttribute(){}
         LayoutAttribute(const nlohmann::json &json) { __init(json); }
         LayoutAttribute(const std::string &id, const nlohmann::json &json) : id{id}
         {
@@ -76,8 +79,4 @@ namespace bm
         }
     };
     // why multiple def here?
-    // void from_json(const nlohmann::json& json, FieldAttribute& att){
-
-    // }
-
 }

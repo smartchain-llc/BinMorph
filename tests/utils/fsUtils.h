@@ -66,15 +66,16 @@ namespace test_utils
     template <std::size_t Length>
     struct WriteStrategy
     {
-        explicit WriteStrategy(std::function<void(const std::size_t& i, uint8_t& c)> writer): _m_writer{ std::move(writer) }{}
+        explicit WriteStrategy(std::function<void(const std::size_t &i, uint8_t &c)> writer) : _m_writer{std::move(writer)} {}
         // const std::size_t writeLength() const noexcept { return Length; }
-        void operator()(uint8_t *dest) { 
-            for(auto i = 0; i < Length; i++)
-                _m_writer(i, dest[i]); 
+        void operator()(uint8_t *dest)
+        {
+            for (auto i = 0; i < Length; i++)
+                _m_writer(i, dest[i]);
         }
 
     private:
-        std::function<void(const std::size_t& i, uint8_t& c)> _m_writer;
+        std::function<void(const std::size_t &i, uint8_t &c)> _m_writer;
         std::size_t _m_write_len;
     };
 
@@ -82,8 +83,8 @@ namespace test_utils
     struct GenerateBinaryData
     {
         uint8_t *operator()() noexcept { return m_data; }
-        operator uint8_t*() noexcept { return m_data; }
-        
+        operator uint8_t *() noexcept { return m_data; }
+
         void set(const std::size_t &from, std::function<void(uint8_t *)> DataSetter)
         {
             DataSetter(&m_data[from]);
@@ -91,7 +92,8 @@ namespace test_utils
         template <std::size_t WriteLength>
         void operator+=(WriteStrategy<WriteLength> &DataWriter)
         {
-            if(WriteLength > Length){
+            if (WriteLength > Length)
+            {
                 std::cerr << "DataWriter write length (" << WriteLength << ") exceeds buffer size  (" << Length << ")\n";
                 return;
             }
@@ -108,4 +110,5 @@ namespace test_utils
         std::size_t _m_write_i{0};
         uint8_t m_data[Length];
     };
+
 }

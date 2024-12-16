@@ -57,12 +57,23 @@ namespace test_utils
         operator const nlohmann::json() const { return json; }
         nlohmann::json json;
     };
-
-    // static constexpr auto AppendAttributeJSON = []( 
-    //                                                 bm::LayoutAttribute& to,
-    //                                                 const std::size_t &offset,
-    //                                                 const std::size_t &length,
-    //                                                 EndianJSON &&endian) {
-        
-    // }
+    static std::pair<GenerateBinaryData<256>, const nlohmann::json> Generate256Bytes()
+    {
+        auto data = test_utils::GenerateBinaryData<256>();
+        auto DataWriter = test_utils::WriteStrategy<256>([](const auto &i, uint8_t &c)
+                                                         {
+        if(i < 16)
+            c = (i % 3) ? i : 0x01;
+        if(i < (256-16) && i > 16){
+            if(i % 4)
+                c = 0x04;
+            if(i % 6)
+                c = 0x69;
+            if(i % 9)
+                c = 0xFF;
+        } });
+        data += DataWriter;
+        CreateAndWrite(std::filesystem::path(TEST_DATA_PATH) / "256.bin", data, 256);
+        return {data, test_utils::JSONFrom("256")};
+    }
 }

@@ -5,7 +5,6 @@ namespace bm
 {
     struct FieldAttribute
     {
-        FieldAttribute() = default;
         FieldAttribute(const nlohmann::json &json)
         {
             json["name"].get_to(name);

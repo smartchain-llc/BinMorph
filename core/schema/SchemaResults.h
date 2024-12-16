@@ -3,23 +3,10 @@
 #include <schema/Schema.h>
 #include <schema/data/Endian.h>
 #include <schema/data/BinData.h>
-
+#include <schema/data/Reader.h>
 namespace bm
 {
 
-    struct Reader
-    {
-        static void read(const LayoutAttribute &layout, uint8_t *src, uint8_t *dest)
-        {
-            auto readOffset = layout.startOffset();
-
-            for (const auto &field : layout.fields)
-            {
-                GetEndian(field)->read(&src[readOffset], &dest[readOffset], field.length);
-                readOffset += field.length;
-            }
-        }
-    };
 
     class SchemaDataMapper
     {
@@ -34,6 +21,7 @@ namespace bm
                 Reader::read(part, dataProvider, buffer.data);
             }
 
+            // Mapping FN
             _m_results = nlohmann::json::object();
             for (const auto &part : schema)
             {

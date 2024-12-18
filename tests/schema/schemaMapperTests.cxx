@@ -69,7 +69,7 @@ void serialize(L &&l, uint8_t *from, uint8_t *to)
     l.serialize(from, to);
 }
 
-struct MemReader
+struct MemWriter
 {
     static void read(const bm::Schema &schema, uint8_t *from, uint8_t *to)
     {
@@ -80,16 +80,31 @@ struct MemReader
         }
     }
 };
+struct FromBuffer {
+    FromBuffer(uint8_t* buffer, std::size_t byteLength):
+        _buf{buffer},
+        _len{byteLength}
+    {}
+    void readTo(uint8_t* dest, std::size_t len){
+        memcpy(dest, _buf, _len);
+    }
+    std::size_t length() noexcept { return _len; }
+    uint8_t* _buf;
+    std::size_t _len;
+};
+
 struct ToMemMapper
 {
     ~ToMemMapper() { delete[] _m_mem; }
     using ResultsType = uint8_t *;
-    void map(const bm::Schema &schema, uint8_t *dataProvider)
+    template<bm::DataProvider D>
+    void map(const bm::Schema &schema, D& dataProvider)
     {
         auto dataLen = schema.calculatedSize();
         _m_mem = new uint8_t[(dataLen * 2)];
-
-        MemReader::read(schema, dataProvider, _m_mem);
+        uint8_t binData[2048];
+        dataProvider.readTo(binData, dataLen);
+        MemWriter::read(schema, binData, _m_mem);
     }
     uint8_t *results() const noexcept { return _m_mem; }
     uint8_t *_m_mem{nullptr};
@@ -101,20 +116,21 @@ TEST(JSONMapper, MapsBinDataAgainstSchemaToJSONResults)
     bm::Schema schema;
     bm::Parser::ParseTo(schema, inschema);
 
-    bm::SchemaMapper<bm::ToJSONMapper> mapper;
-    mapper.map(schema, data);
+    bm::SchemaMapper<bm::ToJSONMapper> mapper; 
+    FromBuffer from{data, 256};
+    mapper.map(schema, from);
 
     ASSERT_TRUE(!mapper.results()["header"].is_null());
 
     bm::SchemaMapper<ToMemMapper> memMap;
-    memMap.map(schema, data);
+    memMap.map(schema, from);
     auto mem = memMap.results();
     ASSERT_FALSE(mem == nullptr);
 }
-struct ResultsOutput{
-    template<typename M>
-    ResultsOutput(const bm::SchemaMapper<M> m){}
-};
+// struct ResultsOutput{
+//     template<typename M>
+//     ResultsOutput(const bm::SchemaMapper<M> m){}
+// };
 struct JSONFileOutput {
     template<typename M>
     JSONFileOutput(const bm::SchemaMapper<M>& m){
@@ -130,9 +146,47 @@ TEST(MapperResultsOutput, CanTakeAnyMapperResultsAndOutputAsDesired){
     bm::Parser::ParseTo(schema, inschema);
 
     bm::SchemaMapper<ToMemMapper> mapper;
-    mapper.map(schema, data);
+    FromBuffer from{data, 256};
+    mapper.map(schema, from);
     JSONFileOutput out { mapper };
     // mapper.map(schema, data);
 
 
+}
+#include <schema/data/BinData.h>
+#include <bm/input.h>
+struct FileDataProvider : public bm::InputFile<bm::DefaultFileValidator>{
+    FileDataProvider(std::filesystem::path filePath): 
+        bm::InputFile<bm::DefaultFileValidator>(filePath)
+    {
+        if(!isValid()) throw "File failed validation";
+        _m_in = std::ifstream { filePath };
+        _m_byteLength = std::filesystem::file_size(filePath);
+    }
+    void readTo(uint8_t* dest, std::size_t len) { 
+        const auto fileSize = std::filesystem::file_size(filePath());
+        _m_in.read((char*)dest, len);
+    }
+    std::size_t length() const noexcept { return _m_byteLength; }
+    std::ifstream _m_in;
+    std::size_t _m_byteLength;
+};
+
+TEST(DataProviderConcept, CanBeUsedWithSchemaMapper){
+    auto [data, inschema] = test_utils::Generate256Bytes();
+    bm::Schema schema;
+    bm::Parser::ParseTo(schema, inschema);
+
+    bm::SchemaMapper<ToMemMapper> mapper;
+    const auto binFile = std::filesystem::path(TEST_DATA_PATH) / "256.bin";
+    FileDataProvider bin {binFile};
+    mapper._map(schema, bin);
+}
+TEST(CleanDP, ShouldBeAbleToOnlyPassProviderType){
+    std::filesystem::path inSchemaPath{std::filesystem::path(TEST_SCHEMAS_PATH) / "256.json"};
+    bm::SchemaFile schemaFile{inSchemaPath};
+    bm::_SchemaMapper<bm::ToJSONMapper> mapper;
+    FileDataProvider { schemaFile };
+    mapper.map(schemaFile);
+    // mapper.map<FileDataProvider>(schemaFile.get())
 }

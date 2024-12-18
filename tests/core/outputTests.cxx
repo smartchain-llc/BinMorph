@@ -91,7 +91,6 @@ struct ToJSON
                 fieldStartOffset += field.length;
             }
         }
-        std::cout << _m_results << std::endl;
     }
     nlohmann::json _m_results;
 };

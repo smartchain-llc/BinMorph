@@ -16,7 +16,8 @@ Is stored in memory as: `0xFF 69 FF 69 FF 69 FF 69` (little-endian)
 template<std::size_t Length>
 struct BinData{
     BinData(){}
-    BinData(uint8_t* d){
+    BinData(uint8_t* d)
+    {
         memcpy(data, d, Length);
     }
     BinData(std::initializer_list<uint8_t> bytes){

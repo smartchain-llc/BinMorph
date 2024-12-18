@@ -35,6 +35,7 @@ foreach(DIR ${TEST_CATEGORY})
                 PUBLIC ${CMAKE_BINARY_DIR}/include
                 PUBLIC ${BINMORPH_TEST_UTILS_DIR}
                 PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
+                PUBLIC ${Boost_INCLUDE_DIR}
             )
         endif()
         

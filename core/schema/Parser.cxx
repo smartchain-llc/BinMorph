@@ -7,3 +7,8 @@ void Parser::ParseTo(Schema& schema, const nlohmann::json& json){
         schema << LayoutAttribute{key, value};
     }
 }
+Schema Parser::Parse(const nlohmann::json& json){
+    Schema ret;
+    Parser::ParseTo(ret, json);
+    return ret;
+}

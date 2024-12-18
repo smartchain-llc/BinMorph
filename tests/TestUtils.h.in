@@ -2,6 +2,7 @@
 #define TEST_PATH "@BINMORPH_TEST_UTILS_DIR@"
 #define TEST_SCHEMAS_PATH "@BINMORPH_TEST_UTILS_DIR@/schemas"
 #define TEST_DATA_PATH "@BINMORPH_TEST_UTILS_DIR@/data"
+#define CROW_USE_BOOST
 #include <schema/json/FieldAttribute.h>
 #include "@HEADER_fsUtils@"
 #include <filesystem>

@@ -82,6 +82,25 @@
         "typeinfo": "cpp",
         "valarray": "cpp",
         "variant": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "strstream": "cpp",
+        "barrier": "cpp",
+        "complex": "cpp",
+        "coroutine": "cpp",
+        "csetjmp": "cpp",
+        "csignal": "cpp",
+        "expected": "cpp",
+        "source_location": "cpp",
+        "rope": "cpp",
+        "slist": "cpp",
+        "generator": "cpp",
+        "latch": "cpp",
+        "print": "cpp",
+        "scoped_allocator": "cpp",
+        "spanstream": "cpp",
+        "stacktrace": "cpp",
+        "syncstream": "cpp",
+        "*.def": "cpp",
+        "*.inc": "cpp"
     }
 }

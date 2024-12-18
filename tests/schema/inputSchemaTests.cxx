@@ -5,7 +5,7 @@
 #include <iostream>
 #include <fstream>
 
-#include <schema/schema.h>
+#include <bm/schema.h>
 #include <schema/data/Fields.h>
 
 using namespace bm;

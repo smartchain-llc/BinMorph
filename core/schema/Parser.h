@@ -8,6 +8,7 @@ namespace bm{
 class Parser{
 public:
     static void ParseTo(Schema& schema, const nlohmann::json& json);
+    static Schema Parse(const nlohmann::json& json);
 };
 
 }

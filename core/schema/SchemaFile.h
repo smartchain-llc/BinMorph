@@ -32,8 +32,10 @@ namespace bm
         Schema schema() const noexcept {
             return _m_schema;
         }
+        operator Schema() const noexcept { return _m_schema; }
     private:
         Schema _m_schema;
     };
+
 
 }

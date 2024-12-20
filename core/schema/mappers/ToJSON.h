@@ -7,7 +7,7 @@ namespace bm
     {
     public:
         using ResultsType = const nlohmann::json &;
-        template <bm::DataProvider D>
+        template <typename D> requires DataProvider<D>
         void map(const Schema &schema, D &dataProvider)
         {
             auto dataLen = schema.calculatedSize();

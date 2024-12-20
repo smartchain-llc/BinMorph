@@ -180,13 +180,13 @@ TEST(DataProviderConcept, CanBeUsedWithSchemaMapper){
     bm::SchemaMapper<ToMemMapper> mapper;
     const auto binFile = std::filesystem::path(TEST_DATA_PATH) / "256.bin";
     FileDataProvider bin {binFile};
-    mapper._map(schema, bin);
+    mapper.map(schema, bin);
 }
 TEST(CleanDP, ShouldBeAbleToOnlyPassProviderType){
     std::filesystem::path inSchemaPath{std::filesystem::path(TEST_SCHEMAS_PATH) / "256.json"};
     bm::SchemaFile schemaFile{inSchemaPath};
-    bm::_SchemaMapper<bm::ToJSONMapper> mapper;
-    FileDataProvider { schemaFile };
-    mapper.map(schemaFile);
-    // mapper.map<FileDataProvider>(schemaFile.get())
+    
+    bm::SchemaMapper<bm::ToJSONMapper> mapper;
+    mapper.map(schemaFile, FileDataProvider{schemaFile});
+    std::cout << mapper.results() << std::endl;
 }

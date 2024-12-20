@@ -23,8 +23,9 @@ Use a schema file for analyzing unknown binary file formats.
 BinMorph outputs generated C++ source from a processed schema file to provide functionality for parsing and serializing code that matches the schema.
 
 ## Alternative Tool Comparisons
-#### Protobuf
+### Protobuf
 **BinMorph**: Describes and parses any binary data structure, regardless of origin or format
+
 **Protobuf**: Requires a predefined `.proto` schema.
 
 **Summary of Differences**
@@ -38,3 +39,36 @@ BinMorph outputs generated C++ source from a processed schema file to provide fu
 |Field Dependencies|	Supports conditional and dynamic fields.|	Fixed schema, no dynamic dependencies.
 |Serialization Format|	Works with arbitrary formats.|	Protobuf-specific format.
 |Tooling|	Custom tooling for binary analysis.|	Mature Protobuf ecosystem.
+
+### Data Format Description Language (DFDL)
+DFDL is a standardized modeling language designed to describe various data formats, both textual and binary, in a platform-independent manner. It leverages a subset of W3C XML Schema (XSD) to define the logical structure of data and uses annotations to specify its physical representation.
+
+**Summary of Differences**
+- Schema Language: JSON (BinMorph) is a more easily digested schema language than XML (DFDL).
+The declarative binary data structure project you envision and **Apache DFDL (Data Format Description Language)** share some conceptual similarities in terms of describing and parsing binary data. However, there are fundamental differences in their design philosophies, use cases, and implementation approaches. Here’s an in-depth comparison:
+
+
+
+### **Summary of Differences**
+
+| **Feature**                  | **Declarative Binary Data Structure Project**         | **Apache DFDL**                            |
+|------------------------------|-----------------------------------------------------|--------------------------------------------|
+| **Primary Focus**             | Arbitrary binary data formats.                     | Mixed binary and textual data formats.     |
+| **Schema Format**             | JSON/YAML or custom DSL, developer-centric.        | XML-based, W3C XML Schema standard.        |
+| **Target Audience**           | Developers, reverse engineers, embedded systems.   | Enterprises, data interoperability.        |
+| **Integration**               | Tight language integration (e.g., C++ API).        | Platform-agnostic tools like Apache Daffodil. |
+| **Performance**               | High performance, low overhead.                   | Moderate, with emphasis on portability.    |
+| **Ease of Use**               | Simpler, developer-friendly.                      | More verbose, requires understanding XML.  |
+| **Standardization**           | No adherence to external standards.                | Strict adherence to DFDL and XML Schema.   |
+
+---
+
+### **Differentiating BinMorph**
+1. **Developer Focus**:
+   - Emphasize ease of use, performance, and tight language integration.
+2. **Lightweight Approach**:
+   - Provide a simpler schema format (e.g., JSON/YAML) for binary-only use cases.
+3. **Advanced Features**:
+   - Support bit-level fields, conditional parsing, nested structures, and dynamic lengths.
+4. **Open Scope**:
+   - Cater to reverse engineering, embedded systems, and proprietary formats.

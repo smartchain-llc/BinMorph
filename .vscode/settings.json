@@ -102,5 +102,6 @@
         "syncstream": "cpp",
         "*.def": "cpp",
         "*.inc": "cpp"
-    }
+    },
+    "rust-analyzer.cargo.allTargets": true
 }

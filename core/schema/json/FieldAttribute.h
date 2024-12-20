@@ -3,6 +3,9 @@
 
 namespace bm
 {
+    extern "C" {
+        struct FieldAttribute;
+    }
     struct FieldAttribute
     {
         FieldAttribute(const nlohmann::json &json)

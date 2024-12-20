@@ -1,0 +1,14 @@
+[package]
+name = "BinMorphRoot"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "binmorph"
+path = "packages/rust/binmorph/src/lib.rs"
+
+[[bin]]
+name = "binmorph_test"
+path = "packages/rust/main.rs"
+
+[dependencies]

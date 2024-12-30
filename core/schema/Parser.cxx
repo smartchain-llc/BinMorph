@@ -12,3 +12,8 @@ Schema Parser::Parse(const nlohmann::json& json){
     Parser::ParseTo(ret, json);
     return ret;
 }
+Schema bm::create_schema(const nlohmann::json& inputJSON){
+    Schema ret;
+    Parser::ParseTo(ret, inputJSON);
+    return std::move(ret);
+}

@@ -1,44 +1,24 @@
 #pragma once
 #include <schema/Schema.h>
-#include <concepts>
-#include <type_traits>
+#include <bm/traits.h>
 namespace bm
 {
-    template <typename T>
-    concept BytePointer = std::same_as<T, char *> || std::same_as<uint8_t *, T>;
-    template <typename T>
-    concept DataProvider = requires(T t) {
-        { t.length() } noexcept -> std::same_as<std::size_t>;
-        requires(requires(char *src, std::size_t len) { t.readTo(src, len); }) ||
-                    (requires(uint8_t *src, std::size_t len) { t.readTo(src, len); });
-    };
-    template <typename T>
-    concept SchemaProvider = requires {
-        requires(
-            std::derived_from<Schema, T> || std::convertible_to<Schema, T> ||
-            requires(T t){{ t.schema() } noexcept -> std::same_as<Schema>;}
-        );
-    };
-    template <typename T, typename SP, typename DP>
-    concept SchemaMappable = requires {
-        requires(SchemaProvider<SP> && DataProvider<DP>);
-        requires(
-            requires(T t, SP &sp, DP &dp) { {t.map(sp, dp)} -> std::same_as<void>; });
-    };
 
     template <typename MapImpl>
-    class SchemaMapper
+    class _SchemaMapper
     {
     public:
-        SchemaMapper() {}
-        SchemaMapper(MapImpl &&mapper) : _m_mapper{mapper} {}
-        template <typename S, typename D> requires SchemaProvider<S> && DataProvider<D>
-        void map(const S &schema, D& dataProvider)
+        _SchemaMapper() {}
+        _SchemaMapper(MapImpl &&mapper) : _m_mapper{mapper} {}
+        template <typename S, typename D>
+            requires SchemaProvider<S> && DataProvider<D>
+        void map(const S &schema, D &dataProvider)
         {
             _m_mapper.map(schema, dataProvider);
         }
-        template <typename S, typename D> requires SchemaProvider<S> && DataProvider<D>
-        void map(const S &schema, D&& dataProvider)
+        template <typename S, typename D>
+            requires SchemaProvider<S> && DataProvider<D>
+        void map(const S &schema, D &&dataProvider)
         {
             _m_mapper.map(schema, dataProvider);
         }
@@ -48,4 +28,51 @@ namespace bm
     private:
         MapImpl _m_mapper;
     };
+
+    class SchemaMapper
+    {
+    public:
+        template<typename T>
+        struct Results{
+            Results(const T& r): results{std::move(r)}{}
+            T results;
+        };
+        template <typename MapImpl, typename S, typename D>
+            requires bm::SchemaProvider<S> && bm::DataProvider<D>
+        SchemaMapper(MapImpl &&mapper, const S &sp, D &dp)
+        {
+            mapper.map(sp, dp);
+        }
+        template <typename MapImpl, typename S, typename D>
+            requires bm::SchemaProvider<S> && bm::DataProvider<D>
+        static Results<typename MapImpl::ResultsType> map(const S &sp, D &dp)
+        {
+            return { map_data_against_schema<MapImpl>(sp, dp) };
+        }
+    };
+
+    template <typename MapImpl, typename S, typename D>
+        requires bm::SchemaProvider<S> && bm::DataProvider<D>
+    void map_data_against_schema(MapImpl &&mapper, const S &sp, D &dp)
+    {
+        mapper.map(sp, dp);
+    }
+    template <typename MapImpl, typename S, typename D>
+        requires bm::SchemaProvider<S> && bm::DataProvider<D>
+
+    MapImpl::ResultsType map_data_against_schema(const S &sp, const D &dp)
+    {
+        MapImpl _mapper;
+        _mapper.map(sp, dp);
+        return _mapper.results();
+    }
+    template <typename MapImpl, typename S, typename D>
+        requires bm::SchemaProvider<S> && bm::DataProvider<D>
+
+    MapImpl::ResultsType map_data_against_schema(const S &sp, D &&dp)
+    {
+        MapImpl _mapper;
+        _mapper.map(sp, dp);
+        return _mapper.results();
+    }
 }

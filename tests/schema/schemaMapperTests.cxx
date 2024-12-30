@@ -116,13 +116,13 @@ TEST(JSONMapper, MapsBinDataAgainstSchemaToJSONResults)
     bm::Schema schema;
     bm::Parser::ParseTo(schema, inschema);
 
-    bm::SchemaMapper<bm::ToJSONMapper> mapper; 
+    bm::_SchemaMapper<bm::ToJSONMapper> mapper; 
     FromBuffer from{data, 256};
     mapper.map(schema, from);
 
     ASSERT_TRUE(!mapper.results()["header"].is_null());
 
-    bm::SchemaMapper<ToMemMapper> memMap;
+    bm::_SchemaMapper<ToMemMapper> memMap;
     memMap.map(schema, from);
     auto mem = memMap.results();
     ASSERT_FALSE(mem == nullptr);
@@ -133,7 +133,7 @@ TEST(JSONMapper, MapsBinDataAgainstSchemaToJSONResults)
 // };
 struct JSONFileOutput {
     template<typename M>
-    JSONFileOutput(const bm::SchemaMapper<M>& m){
+    JSONFileOutput(const bm::_SchemaMapper<M>& m){
         std::ofstream outFile { std::filesystem::path(TEST_DATA_PATH) / "out", std::ios::trunc };
         const auto results = m.results();
         outFile << results;
@@ -145,7 +145,7 @@ TEST(MapperResultsOutput, CanTakeAnyMapperResultsAndOutputAsDesired){
     bm::Schema schema;
     bm::Parser::ParseTo(schema, inschema);
 
-    bm::SchemaMapper<ToMemMapper> mapper;
+    bm::_SchemaMapper<ToMemMapper> mapper;
     FromBuffer from{data, 256};
     mapper.map(schema, from);
     JSONFileOutput out { mapper };
@@ -177,7 +177,7 @@ TEST(DataProviderConcept, CanBeUsedWithSchemaMapper){
     bm::Schema schema;
     bm::Parser::ParseTo(schema, inschema);
 
-    bm::SchemaMapper<ToMemMapper> mapper;
+    bm::_SchemaMapper<ToMemMapper> mapper;
     const auto binFile = std::filesystem::path(TEST_DATA_PATH) / "256.bin";
     FileDataProvider bin {binFile};
     mapper.map(schema, bin);
@@ -186,7 +186,7 @@ TEST(CleanDP, ShouldBeAbleToOnlyPassProviderType){
     std::filesystem::path inSchemaPath{std::filesystem::path(TEST_SCHEMAS_PATH) / "256.json"};
     bm::SchemaFile schemaFile{inSchemaPath};
     
-    bm::SchemaMapper<bm::ToJSONMapper> mapper;
+    bm::_SchemaMapper<bm::ToJSONMapper> mapper;
     mapper.map(schemaFile, FileDataProvider{schemaFile});
     std::cout << mapper.results() << std::endl;
 }

@@ -55,6 +55,6 @@ TEST(BinaryFile, ContainsBinaryDataFromFile)
     bm::InputFile inBin { binFile };
 
     std::ifstream in { inBin.filePath() };
-    bm::SchemaMapper<bm::ToJSONMapper> mapper;
+    bm::_SchemaMapper<bm::ToJSONMapper> mapper;
     // mapper.map(inSchema.get(), in);
 }

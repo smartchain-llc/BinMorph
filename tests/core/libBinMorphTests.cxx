@@ -8,7 +8,7 @@ TEST(LibraryDevAPI, IsSeamless)
 {
     std::filesystem::path inSchemaPath{std::filesystem::path(TEST_SCHEMAS_PATH) / "256.json"};
     bm::SchemaFile schemaFile{inSchemaPath};
-    bm::SchemaMapper<bm::ToJSONMapper> mapper;
+    bm::_SchemaMapper<bm::ToJSONMapper> mapper;
 
     const auto binFilePath = std::filesystem::path(TEST_DATA_PATH) / "256.bin";
     bm::InputFile bin { binFilePath };

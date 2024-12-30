@@ -10,5 +10,5 @@ public:
     static void ParseTo(Schema& schema, const nlohmann::json& json);
     static Schema Parse(const nlohmann::json& json);
 };
-
+Schema create_schema(const nlohmann::json& inputJSON);
 }

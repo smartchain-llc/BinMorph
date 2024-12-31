@@ -1,19 +1,24 @@
 #include <schema/Parser.h>
 #include <iostream>
-using namespace bm;
 
-void Parser::ParseTo(Schema& schema, const nlohmann::json& json){
+void bm::Parser::ParseTo(bm::Schema& schema, const nlohmann::json& json){
     for(const auto&[key, value] : json.items()){
-        schema << LayoutAttribute{key, value};
+        schema << bm::LayoutAttribute{key, value};
     }
 }
-Schema Parser::Parse(const nlohmann::json& json){
-    Schema ret;
-    Parser::ParseTo(ret, json);
+bm::Schema bm::Parser::Parse(const nlohmann::json& json){ // Create InputJSONProvider trait
+    bm::Schema ret;
+    bm::Parser::ParseTo(ret, json);
     return ret;
 }
-Schema bm::create_schema(const nlohmann::json& inputJSON){
-    Schema ret;
-    Parser::ParseTo(ret, inputJSON);
+bm::Schema bm::create_schema(const nlohmann::json& inputJSON){
+    bm::Schema ret;
+    bm::Parser::ParseTo(ret, inputJSON);
     return std::move(ret);
 }
+// template<typename T> requires bm::traits::InputJSONProvider<T>
+// bm::Schema create_schema_t(T input){
+//     bm::Schema ret;
+//     bm::Parser::ParseTo(ret, input.getJSON());
+//     return std::move(ret);
+// }

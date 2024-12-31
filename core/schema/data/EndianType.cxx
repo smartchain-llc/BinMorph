@@ -8,7 +8,8 @@ using namespace bm;
 // LittleEndian.h
 struct LittleEndian
 {
-    static constexpr std::string Type = std::string("little");
+    // static constexpr std::string Type = std::string("little");
+    static constexpr const char* Type ="little";
     void read(uint8_t *data, uint8_t *dest, const std::size_t &length) const
     {
         for (auto i = 0; i < length; i++)
@@ -19,7 +20,8 @@ struct LittleEndian
 // BigEndian.h
 struct BigEndian
 {
-    static constexpr std::string Type = std::string("big");
+    // static constexpr std::string Type = std::string("big");
+    static constexpr const char* Type ="big";
     void read(uint8_t *data, uint8_t *dest, const std::size_t &length) const
     {
         std::size_t srcIndex = length;

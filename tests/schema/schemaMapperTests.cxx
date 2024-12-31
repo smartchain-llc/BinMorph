@@ -31,9 +31,9 @@ struct SLayout : public bm::LayoutAttribute
     std::function<void(uint8_t *)> _m_serialize;
 };
 
-struct S
+struct Schema_t
 {
-    S(const bm::LayoutAttribute &l) : _m_lref{l} {}
+    Schema_t(const bm::LayoutAttribute &l) : _m_lref{l} {}
     void serialize(uint8_t *from, uint8_t *to) noexcept
     {
         std::size_t putIndex{_m_lref.startOffset()};
@@ -76,7 +76,7 @@ struct MemWriter
         std::size_t putIndex{0};
         for (const auto &part : schema)
         {
-            serialize(S{part}, from, to);
+            serialize(Schema_t{part}, from, to);
         }
     }
 };

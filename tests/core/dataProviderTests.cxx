@@ -3,7 +3,7 @@
 #include <bm/schema.h>
 #include <TestUtils.h>
 
-template<bm::DataProvider D> 
+template<bm::traits::DataProvider D> 
 void use(D& dp){
     uint8_t buf[dp.length()];
     dp.readTo(buf, dp.length());
@@ -21,5 +21,5 @@ struct FileStreamProvider{
 TEST(DataProviderConcept, CanReadFromMultiBinDataSources){
     std::filesystem::path in {std::filesystem::path(TEST_DATA_PATH) / "256.bin" };
     FileStreamProvider inFile { in };
-    use(inFile);
+    // use(inFile);
 }

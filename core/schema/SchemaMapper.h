@@ -1,77 +1,73 @@
 #pragma once
 #include <schema/Schema.h>
 #include <bm/traits.h>
+#include <schema/mappers/Results.h>
 namespace bm
 {
 
-    template <typename MapImpl>
+    template <typename Mapper>
     class _SchemaMapper
     {
     public:
         _SchemaMapper() {}
-        _SchemaMapper(MapImpl &&mapper) : _m_mapper{mapper} {}
-        template <typename S, typename D>
-            requires SchemaProvider<S> && DataProvider<D>
-        void map(const S &schema, D &dataProvider)
+        _SchemaMapper(Mapper &&mapper) : _m_mapper{mapper} {}
+        template <typename Schema_t, typename DataProvider>
+            requires traits::SchemaProvider<Schema_t> && traits::DataProvider<DataProvider>
+        void map(const Schema_t &schema, DataProvider &dataProvider)
         {
             _m_mapper.map(schema, dataProvider);
         }
-        template <typename S, typename D>
-            requires SchemaProvider<S> && DataProvider<D>
-        void map(const S &schema, D &&dataProvider)
+        template <typename Schema_t, typename DataProvider>
+            requires traits::SchemaProvider<Schema_t> && traits::DataProvider<DataProvider>
+        void map(const Schema_t &schema, DataProvider &&dataProvider)
         {
             _m_mapper.map(schema, dataProvider);
         }
 
-        MapImpl::ResultsType results() const noexcept { return _m_mapper.results(); }
+        Mapper::ResultsType results() const noexcept { return _m_mapper.results(); }
 
     private:
-        MapImpl _m_mapper;
+        Mapper _m_mapper;
     };
 
     class SchemaMapper
     {
     public:
-        template<typename T>
-        struct Results{
-            Results(const T& r): results{std::move(r)}{}
-            T results;
-        };
-        template <typename MapImpl, typename S, typename D>
-            requires bm::SchemaProvider<S> && bm::DataProvider<D>
-        SchemaMapper(MapImpl &&mapper, const S &sp, D &dp)
+        template <typename Mapper, typename Schema_t, typename DataProvider>
+            requires traits::SchemaProvider<Schema_t> && traits::DataProvider<DataProvider>
+        SchemaMapper(Mapper &&mapper, const Schema_t &sp, DataProvider &dp)
         {
             mapper.map(sp, dp);
         }
-        template <typename MapImpl, typename S, typename D>
-            requires bm::SchemaProvider<S> && bm::DataProvider<D>
-        static Results<typename MapImpl::ResultsType> map(const S &sp, D &dp)
+        template <typename Mapper, typename Schema_t, typename DataProvider>
+            requires traits::SchemaProvider<Schema_t> && traits::DataProvider<DataProvider>
+        static Results<typename Mapper::ResultsType> map(const Schema_t &sp, DataProvider &dp)
         {
-            return { map_data_against_schema<MapImpl>(sp, dp) };
+            return { map_data_against_schema<Mapper>(sp, dp) };
         }
     };
 
-    template <typename MapImpl, typename S, typename D>
-        requires bm::SchemaProvider<S> && bm::DataProvider<D>
-    void map_data_against_schema(MapImpl &&mapper, const S &sp, D &dp)
+    template <typename Mapper, typename Schema_t, typename DataProvider>
+        requires traits::SchemaProvider<Schema_t> && traits::DataProvider<DataProvider>
+    void map_data_against_schema(Mapper &&mapper, const Schema_t &sp, DataProvider &dp)
     {
         mapper.map(sp, dp);
     }
-    template <typename MapImpl, typename S, typename D>
-        requires bm::SchemaProvider<S> && bm::DataProvider<D>
+    template <typename Mapper, typename Schema_t, typename DataProvider>
+        requires traits::SchemaProvider<Schema_t> && traits::DataProvider<DataProvider>
 
-    MapImpl::ResultsType map_data_against_schema(const S &sp, const D &dp)
+    Mapper::ResultsType map_data_against_schema(const Schema_t &sp, const DataProvider &dp)
     {
-        MapImpl _mapper;
+        Mapper _mapper;
         _mapper.map(sp, dp);
         return _mapper.results();
     }
-    template <typename MapImpl, typename S, typename D>
-        requires bm::SchemaProvider<S> && bm::DataProvider<D>
+    template <typename Mapper, typename Schema_t, typename DataProvider>
+        requires traits::SchemaProvider<Schema_t> && traits::DataProvider<DataProvider>
 
-    MapImpl::ResultsType map_data_against_schema(const S &sp, D &&dp)
+    Mapper::ResultsType map_data_against_schema(const Schema_t &sp, DataProvider &&dp)
     {
-        MapImpl _mapper;
+        Mapper _mapper;
         _mapper.map(sp, dp);
         return _mapper.results();
     }

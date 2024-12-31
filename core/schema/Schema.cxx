@@ -1,4 +1,5 @@
 #include <schema/Schema.h>
+#include <sstream>
 #include <algorithm>
 
 using namespace bm;

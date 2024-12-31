@@ -4,7 +4,7 @@ file(GLOB_RECURSE TEST_INCLUDES "./*.h")
 foreach(HEADER ${TEST_INCLUDES})
     get_filename_component(HEADER_NAME ${HEADER} NAME_WE)
     set(HEADER_${HEADER_NAME} ${HEADER})
-    message("== [BinMorph]<Tests> HEADER_${HEADER_NAME}")
+    # message("== [BinMorph]<Tests> HEADER_${HEADER_NAME}")
 endforeach()
 
 
@@ -19,7 +19,7 @@ foreach(DIR ${TEST_CATEGORY})
         if(NOT IS_DIRECTORY ${TEST})
             get_filename_component(EXEC_NAME ${TEST} NAME_WE)
             set(EXEC_TARGET "TEST_${EXEC_NAME}")
-            message("TEST: ${TEST} => ${EXEC_TARGET}")
+            # message("TEST: ${TEST} => ${EXEC_TARGET}")
 
             add_executable(
                 "${EXEC_TARGET}"

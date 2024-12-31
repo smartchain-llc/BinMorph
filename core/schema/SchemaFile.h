@@ -9,7 +9,7 @@ namespace bm
 
     template <typename V>
     concept InputSchemaValidator = requires(V v) {
-        requires bm::FileValidator<V>;
+        requires traits::FileValidator<V>;
         { v.getSchema() } -> std::same_as<bm::Schema>;
     };
     struct SchemaFileValidator : public bm::DefaultFileValidator

@@ -3,8 +3,8 @@
 #include <type_traits>
 #include <filesystem>
 
-namespace bm
-{
+namespace bm {
+namespace traits{
     template <typename T>
     concept IsPathConvertible =
         std::convertible_to<T, std::filesystem::path>;
@@ -23,7 +23,8 @@ namespace bm
     concept SchemaProvider = requires {
         requires(
             std::derived_from<Schema, T> || std::convertible_to<Schema, T> ||
-            requires(T t) {{ t.schema() } noexcept -> std::same_as<Schema>; });
+            requires(T t) {{ t.schema() } noexcept -> std::same_as<Schema>; }
+        );
     };
     template <typename T, typename SP, typename DP>
     concept SchemaMappable = requires {
@@ -31,4 +32,4 @@ namespace bm
         requires(
             requires(T t, SP &sp, DP &dp) { {t.map(sp, dp)} -> std::same_as<void>; });
     };
-}
+}}

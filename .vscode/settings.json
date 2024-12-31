@@ -102,5 +102,8 @@
         "syncstream": "cpp",
         "*.def": "cpp",
         "*.inc": "cpp"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
 }

@@ -1,8 +1,17 @@
 #include "ToJSON.h"
-#include <schema/data/BinData.h>
-#include <schema/data/Reader.h>
+#include <bm/io.h>
 using namespace bm;
 
+// template<>
+// struct Serializer<ToJSONMapper::ResultsType> {
+// protected:
+//     Serializer(ToJSONMapper::ResultsType& results);
+//     // Serializer(ToJSONMapper::ResultsType& results): _mref_results{results}{}
+//     void serialize(char* dest);
+//     inline std::size_t size() const noexcept { return _mref_results.size(); }
+// private:
+//     ToJSONMapper::ResultsType& _mref_results;
+// };
 // template <bm::DataProvider D>
 // void ToJSONMapper::map(const Schema &schema, D &dataProvider)
 // {

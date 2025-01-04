@@ -56,7 +56,7 @@ namespace bm
     template <typename Mapper, typename Schema_t, typename DataProvider>
         requires traits::SchemaProvider<Schema_t> && traits::DataProvider<DataProvider>
 
-    Mapper::ResultsType map_data_against_schema(const Schema_t &sp, const DataProvider &dp)
+    Results<typename Mapper::ResultsType> map_data_against_schema(const Schema_t &sp, const DataProvider &dp)
     {
         Mapper _mapper;
         _mapper.map(sp, dp);
@@ -65,10 +65,19 @@ namespace bm
     template <typename Mapper, typename Schema_t, typename DataProvider>
         requires traits::SchemaProvider<Schema_t> && traits::DataProvider<DataProvider>
 
-    Mapper::ResultsType map_data_against_schema(const Schema_t &sp, DataProvider &&dp)
+    Results<typename Mapper::ResultsType> map_data_against_schema(const Schema_t &sp, DataProvider &&dp)
     {
         Mapper _mapper;
-        _mapper.map(sp, dp);
+        _mapper.map(static_cast<Schema>(sp), dp);
         return _mapper.results();
+    }
+
+
+    template <typename Mapper, typename Schema_t, typename DataProvider>
+        requires traits::SchemaProvider<Schema_t> && traits::DataProvider<DataProvider>
+    Results<typename Mapper::ResultsType> get_results_of(const Schema_t &sp, DataProvider &&dp){
+        Mapper _mapper;
+        _mapper.map(static_cast<Schema>(sp), dp);
+        return { _mapper.results() };
     }
 }

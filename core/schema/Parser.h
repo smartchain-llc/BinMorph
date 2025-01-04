@@ -22,7 +22,7 @@ Schema create_schema(const nlohmann::json& inputJSON);
 template<traits::InputJSONProvider T> 
 Schema create_schema_t(T input){
     bm::Schema ret;
-    if constexpr (traits::IsJSONType<T>)
+    if constexpr (traits::IsJSONType<T>) // SchemaFile already contains Schema member, no need to Parse
         bm::Parser::ParseTo(ret, input);
     else
         bm::Parser::ParseTo(ret, input.getJSON());

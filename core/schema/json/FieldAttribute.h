@@ -1,5 +1,6 @@
 #pragma once
 #include <json.hpp>
+   #include <iostream>
 
 namespace bm
 {
@@ -28,6 +29,8 @@ namespace bm
     {
         void __init(const nlohmann::json &json)
         {
+            std::cout << json << std::endl;
+            /// NOTE: json is filepath for cliExampleTests::48 using SchemaFile
             json.at("offset").get_to(offset);
             
             for (const auto &fieldsJSON : json.at("fields"))

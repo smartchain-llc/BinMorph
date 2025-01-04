@@ -41,8 +41,6 @@ namespace test_utils
     class EndianJSON
     {
     public:
-        static EndianJSON Big() {}
-        static EndianJSON Little() {}
         operator std::string() const { return _m_type; }
 
     private:
@@ -50,14 +48,14 @@ namespace test_utils
         std::string _m_type;
     };
     
-    struct InlineJSON{
-        InlineJSON& operator<<(const std::string& rawJSON){
-            const auto processJSON = nlohmann::json::parse(rawJSON);
-            json += processJSON;
-        }
-        operator const nlohmann::json() const { return json; }
-        nlohmann::json json;
-    };
+    // struct InlineJSON{
+    //     InlineJSON& operator<<(const std::string& rawJSON){
+    //         const auto processJSON = nlohmann::json::parse(rawJSON);
+    //         json += processJSON;
+    //     }
+    //     operator const nlohmann::json() const { return json; }
+    //     nlohmann::json json;
+    // };
     static std::pair<GenerateBinaryData<256>, const nlohmann::json> Generate256Bytes()
     {
         auto data = test_utils::GenerateBinaryData<256>();

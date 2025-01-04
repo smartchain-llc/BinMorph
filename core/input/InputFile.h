@@ -5,13 +5,14 @@ namespace bm
 {
     namespace traits
     {
+        
         template <typename V>
         concept FileValidator = requires(V v, std::filesystem::path f) {
             std::is_same_v<bool, decltype(v.validate(f))>;
             { v.validate(f) };
         };
     }
-    
+    /// @brief Default implementation of `FileValidator`
     struct DefaultFileValidator
     {
         bool validate(const std::filesystem::path &filePath)
@@ -28,10 +29,9 @@ namespace bm
         }
     };
 
-/**
- * ### NOTE: Should not be constructable, only extendable.
- * Use `InputFile` implementations such as `bm::SchemaFile`.
- */
+    /// @brief  Input from file on filesystem 
+    /// TODO: Make usage as: `InputFile<V> SchemaFile` OR keep as `SchemaFile: InputFile<V>`?
+    /// @tparam V `traits::FileValidator` implementation \see DefaultFileValidator
     template <traits::FileValidator V = DefaultFileValidator>
     class InputFile
     {
@@ -42,11 +42,13 @@ namespace bm
         operator std::filesystem::path() const noexcept { return _m_path; }
         
     protected:
-        InputFile(std::filesystem::path filePath) : _m_path{std::move(filePath)}
+        InputFile(std::filesystem::path filePath) : 
+            _m_path{std::move(filePath)}
         {
             _f_init();
         }
-        InputFile(std::filesystem::path &&filePath) : _m_path{std::move(filePath)}
+        InputFile(std::filesystem::path &&filePath) : 
+            _m_path{std::move(filePath)}
         {
             _f_init();
         }

@@ -34,12 +34,12 @@ struct BinData{
             ret.data[retIndex++] = data[i];
         return ret;
     }
-    std::vector<uint8_t> to_vector() const noexcept {
-        std::vector<uint8_t> ret;
-        uint8_t* data;
-        for(auto i = 0; i < Length; i++)
-            ret.push_back(*(data + i));
-    }
+    // std::vector<uint8_t> to_vector() const noexcept {
+    //     std::vector<uint8_t> ret;
+    //     uint8_t* data;
+    //     for(auto i = 0; i < Length; i++)
+    //         ret.push_back(*(data + i));
+    // }
     std::vector<uint8_t> to_vector(const std::size_t& from, const std::size_t& to) const noexcept {
         std::vector<uint8_t> ret;
         for(auto i = from; i < to && i < Length; i++)

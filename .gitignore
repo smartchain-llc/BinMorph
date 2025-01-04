@@ -13,3 +13,5 @@ CMakeUserPresets.json
 
 build/
 tests/utils/data/*
+documentation/html
+documentation/latex

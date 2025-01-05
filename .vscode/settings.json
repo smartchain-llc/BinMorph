@@ -106,5 +106,6 @@
     "[json]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "doxygen_runner.configuration_file_override": "${workspaceFolder}/documentation/Doxyfile"
+    "doxygen_runner.configuration_file_override": "${workspaceFolder}/documentation/Doxyfile",
+    "cmake.buildTask": false
 }

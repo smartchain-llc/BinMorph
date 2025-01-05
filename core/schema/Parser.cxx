@@ -16,9 +16,8 @@ bm::Schema bm::create_schema(const nlohmann::json& inputJSON){
     bm::Parser::ParseTo(ret, inputJSON);
     return std::move(ret);
 }
-// template<typename T> requires bm::traits::InputJSONProvider<T>
-// bm::Schema create_schema_t(T input){
-//     bm::Schema ret;
-//     bm::Parser::ParseTo(ret, input.getJSON());
-//     return std::move(ret);
-// }
+bm::Schema bm::create_schema(const char* json){
+    const auto _json = nlohmann::json::parse(json);
+    auto schema = bm::Parser::Parse(_json);
+    return schema;
+}

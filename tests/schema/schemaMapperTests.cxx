@@ -97,7 +97,7 @@ struct ToMemMapper
 {
     ~ToMemMapper() { delete[] _m_mem; }
     using ResultsType = uint8_t *;
-    template<bm::DataProvider D>
+    template<bm::traits::DataProvider D>
     void map(const bm::Schema &schema, D& dataProvider)
     {
         auto dataLen = schema.calculatedSize();
@@ -127,10 +127,6 @@ TEST(JSONMapper, MapsBinDataAgainstSchemaToJSONResults)
     auto mem = memMap.results();
     ASSERT_FALSE(mem == nullptr);
 }
-// struct ResultsOutput{
-//     template<typename M>
-//     ResultsOutput(const bm::SchemaMapper<M> m){}
-// };
 struct JSONFileOutput {
     template<typename M>
     JSONFileOutput(const bm::_SchemaMapper<M>& m){

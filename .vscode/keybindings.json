@@ -1,0 +1,12 @@
+[
+    {
+      "key": "ctrl+alt+b",
+      "command": "cmake.cleanRebuild"
+    },
+    {
+      "key": "ctrl+alt+d",
+      "command": "workbench.action.tasks.runTask",
+      "args": "Clean Rebuild and Document"
+    }
+  ]
+  

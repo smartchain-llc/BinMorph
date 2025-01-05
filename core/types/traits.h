@@ -5,6 +5,12 @@
 
 namespace bm {
 namespace traits{
+    template<typename T>
+    concept IsByteType = requires{
+        sizeof(T) == 1;
+    };
+    static_assert(IsByteType<double>);
+    
     template <typename T>
     concept IsPathConvertible =
         std::convertible_to<T, std::filesystem::path>;

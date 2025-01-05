@@ -5,31 +5,6 @@
 namespace bm
 {
 
-    template <typename Mapper>
-    class _SchemaMapper
-    {
-    public:
-        _SchemaMapper() {}
-        _SchemaMapper(Mapper &&mapper) : _m_mapper{mapper} {}
-        template <typename Schema_t, typename DataProvider>
-            requires traits::SchemaProvider<Schema_t> && traits::DataProvider<DataProvider>
-        void map(const Schema_t &schema, DataProvider &dataProvider)
-        {
-            _m_mapper.map(schema, dataProvider);
-        }
-        template <typename Schema_t, typename DataProvider>
-            requires traits::SchemaProvider<Schema_t> && traits::DataProvider<DataProvider>
-        void map(const Schema_t &schema, DataProvider &&dataProvider)
-        {
-            _m_mapper.map(schema, dataProvider);
-        }
-
-        Mapper::ResultsType results() const noexcept { return _m_mapper.results(); }
-
-    private:
-        Mapper _m_mapper;
-    };
-
     class SchemaMapper
     {
     public:
@@ -43,7 +18,7 @@ namespace bm
             requires traits::SchemaProvider<Schema_t> && traits::DataProvider<DataProvider>
         static Results<typename Mapper::ResultsType> map(const Schema_t &sp, DataProvider &dp)
         {
-            return { map_data_against_schema<Mapper>(sp, dp) };
+            return {map_data_against_schema<Mapper>(sp, dp)};
         }
     };
 
@@ -72,12 +47,45 @@ namespace bm
         return _mapper.results();
     }
 
-
     template <typename Mapper, typename Schema_t, typename DataProvider>
         requires traits::SchemaProvider<Schema_t> && traits::DataProvider<DataProvider>
-    Results<typename Mapper::ResultsType> get_results_of(const Schema_t &sp, DataProvider &&dp){
+    Results<typename Mapper::ResultsType> get_results_of(const Schema_t &sp, DataProvider &&dp)
+    {
         Mapper _mapper;
         _mapper.map(static_cast<Schema>(sp), dp);
-        return { _mapper.results() };
+        return {_mapper.results()};
+    }
+
+    template <typename Mapper, typename SchemaProvider, bm::traits::IsByteType Data>
+        requires traits::SchemaProvider<SchemaProvider>
+    Results<typename Mapper::ResultsType> get_results_of(const SchemaProvider &sp, Data data)
+    {
+        Mapper _mapper;
+        _mapper.map(static_cast<Schema>(sp), data);
+        return {_mapper.results()};
+    }
+    namespace clean
+    {
+        template <typename M>
+        using mapper_results = decltype(std::declval<M>().results());
+
+        template<typename S>
+        concept is_schema_type = std::same_as<bm::Schema, S> || std::convertible_to<S, bm::Schema>;
+
+
+
+        template <typename M, typename S, typename D>
+        concept is_mappable = is_schema_type<S> && bm::traits::DataProvider<D> && requires(M m, S s, D d) {
+            typename M::ResultsType;
+            
+            { m.map(s, d) };
+            { m.results() } noexcept -> std::convertible_to<typename M::ResultsType>;
+        };
+
+        template<typename M, is_schema_type S, bm::traits::DataProvider D> requires is_mappable<M, S, D>
+        bm::Results<typename M::ResultsType> get_results_of(const S& schema, const D& data){
+
+        }
+
     }
 }

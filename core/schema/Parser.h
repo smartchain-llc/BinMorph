@@ -18,7 +18,10 @@ public:
     static void ParseTo(Schema& schema, const nlohmann::json& json);
     static Schema Parse(const nlohmann::json& json);
 };
+
 Schema create_schema(const nlohmann::json& inputJSON);
+Schema create_schema(const char* json);
+
 template<traits::InputJSONProvider T> 
 Schema create_schema_t(T input){
     bm::Schema ret;

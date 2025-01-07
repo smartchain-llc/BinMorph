@@ -46,9 +46,13 @@ struct BinData{
             ret.push_back(data[i]);
         return ret;
     }
+    [[nodiscard]] inline const std::size_t& length() const noexcept { return _length; }
+    void read(char* dest, std::size_t n){
 
-
+    }
     uint8_t data[Length];
+    std::size_t _length { Length };
+    std::size_t _r_i { 0 };
 };
 template<std::size_t Length>
 bool BinaryCompare(const BinData<Length>& input, const BinData<Length>& output){

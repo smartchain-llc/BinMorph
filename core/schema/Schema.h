@@ -8,6 +8,7 @@ namespace bm
 
     bool areOverlapping(const LayoutAttribute &, const LayoutAttribute &);
 
+
     class Schema
     {
     public:

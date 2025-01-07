@@ -10,35 +10,6 @@ static auto SimpleJSONSchema = test_utils::JSONFrom("simple");
 /**********************************************************************
 TEST: Field Attribute Class
 **********************************************************************/
-// namespace _bm
-// {
-//     struct Field
-//     {
-//         Field() = default;
-//         Field(int i){}
-//         std::size_t length;
-//         std::string name;
-//         std::string endian;
-//     };
-//     void from_json(const nlohmann::json& json, Field& f){
-//     json["name"].get_to(f.name);
-//     json["length"].get_to(f.length);
-//     json["endian"].get_to(f.endian);
-
-//     }
-// }
-// TEST(FieldAttribute, CanUtilize_from_json_FN)
-// {
-//     const auto json = nlohmann::json::parse(R"(
-//     {
-//         "fields":[{"name": "l1f1", "length": 16, "endian": "big"}]  
-
-//     }
-//     )");
-//     auto _l1f1 = json.template get<_bm::Field>();
-//     auto l1f1 = json.template get<FieldAttribute>();
-//     ASSERT_EQ(l1f1.name, "l1f1");
-// }
 
 TEST(FieldAttribute, ParsesCorrectEndianessFromJSON)
 {

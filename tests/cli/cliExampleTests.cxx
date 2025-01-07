@@ -39,7 +39,8 @@ TEST(TraitsSanityCheck, AssertsAllNeededTraits){
     static_assert(
         bm::clean::is_mappable<bm::mappers::ToJSONMapper, bm::Schema, FileStreamProvider>
     );
-    const auto r = bm::Results<int>{69};
+
+    
 }
 
 TEST(CLIUsage, UsingInputSchemaFile){

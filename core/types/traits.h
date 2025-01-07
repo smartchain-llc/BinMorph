@@ -6,10 +6,7 @@
 namespace bm {
 namespace traits{
     template<typename T>
-    concept IsByteType = requires{
-        sizeof(T) == 1;
-    };
-    static_assert(IsByteType<double>);
+    concept IsByteType = sizeof(T) == 1;
     
     template <typename T>
     concept IsPathConvertible =
@@ -20,10 +17,8 @@ namespace traits{
         requires(requires(T t) { t.filePath()->IsPathConvertible; }) || IsPathConvertible<T>;
     };
     template <typename T>
-    concept DataProvider = requires(T t) {
-        { t.length() } noexcept -> std::same_as<std::size_t>;
-        requires(requires(char *src, std::size_t len) { t.readTo(src, len); }) ||
-                    (requires(uint8_t *src, std::size_t len) { t.readTo(src, len); });
-    };
+    concept DataProvider = requires(T t, char* dest, std::size_t n){
+    {t.read(dest, n)};
+};
 
 }}

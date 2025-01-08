@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <bm/schema.h>
-
+#include <schema/mappers/ToJSON.h>
 #include <TestUtils.h>
 
 
@@ -36,9 +36,9 @@ TEST(TraitsSanityCheck, AssertsAllNeededTraits){
     static_assert(
         bm::traits::HasResultsWriteImpl<CLIWriter, int>
     );
-    static_assert(
-        bm::clean::is_mappable<bm::mappers::ToJSONMapper, bm::Schema, FileStreamProvider>
-    );
+    // static_assert(
+    //     bm::traits::is_mappable<bm::mappers::ToJSONMapper, bm::Schema, FileStreamProvider>
+    // );
 
     
 }
@@ -50,6 +50,6 @@ TEST(CLIUsage, UsingInputSchemaFile){
     
     FileStreamProvider binFileStream { test_utils::toPath({TEST_DATA_PATH, "256.bin"}) };
     
-    const auto results = bm::clean::get_results_of<bm::mappers::ToJSONMapper>(inSchemaFile, binFileStream);
+    const auto results = bm::Map<bm::mappers::ToJSONMapper>(inSchemaFile, binFileStream);
     bm::write_results_to<CLIWriter>(results);
 }

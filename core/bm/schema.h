@@ -5,3 +5,4 @@
 #include "schema/SchemaResults.h"
 #include "schema/SchemaFile.h"
 #include "schema/mappers/ToJSON.h"
+#include "schema/mappers/Mapper.h"

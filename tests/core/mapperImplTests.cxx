@@ -25,10 +25,11 @@ const auto schema = bm::create_schema(R"(
     }
 }
 )");
+template<typename M, typename...MapParams>
 struct Mapper{
     template<bm::traits::DataProvider Data>
-    static void map(bm::Schema s, Data d){
-        if()
+    typename M::ResultsType map(bm::Schema s, Data d, MapParams... params){
+        
     }
 };
 
@@ -43,6 +44,14 @@ struct ToStringMapper {
             ss << "0x" << std::hex << (short)buffer[i] << " ";
         return ss.str();
     }
+};
+struct RawByteMapper: public Mapper<std::size_t>{
+    using ResultsType = std::size_t;
+    template<bm::traits::DataProvider Data>
+    ResultsType map(bm::Schema s, Data d, std::size_t len){
+
+    }
+
 };
 template<typename Mapper, bm::clean::is_schema_type S, bm::traits::DataProvider Data>
 bm::Results<typename Mapper::ResultsType> Map(S s, Data d){
@@ -67,6 +76,7 @@ struct InlineData{
 };
 TEST(ConcreteMapperImpl, AbidesByProviderConstraints){
     InlineData data;
+    
     const auto results = Map<ToStringMapper>(schema, data);
     std::cout << results.get() << std::endl;
 }

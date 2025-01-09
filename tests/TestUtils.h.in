@@ -3,7 +3,7 @@
 #define TEST_SCHEMAS_PATH "@BINMORPH_TEST_UTILS_DIR@/schemas"
 #define TEST_DATA_PATH "@BINMORPH_TEST_UTILS_DIR@/data"
 #define CROW_USE_BOOST
-#include <schema/json/FieldAttribute.h>
+#include <schema/FieldAttribute.h>
 #include "@HEADER_fsUtils@"
 #include <filesystem>
 #include <initializer_list>
@@ -72,7 +72,7 @@ namespace test_utils
                 c = 0xFF;
         } });
         data += DataWriter;
-        CreateAndWrite(std::filesystem::path(TEST_DATA_PATH) / "256.bin", data, 256);
+        TestFile<256>(std::filesystem::path(TEST_DATA_PATH) / "256.bin", data);
         return {data, test_utils::JSONFrom("256")};
     }
 }

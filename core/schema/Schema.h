@@ -1,7 +1,7 @@
 #pragma once
 #include <set>
-#include <bm/traits.h>
-#include <schema/json/FieldAttribute.h>
+#include <types/traits.h>
+#include <schema/FieldAttribute.h>
 
 namespace bm
 {
@@ -26,7 +26,7 @@ namespace bm
         }
 
     private:
-        std::set<LayoutAttribute, LayoutOverlapComparator> layouts;
+        std::set<LayoutAttribute, LayoutOverlapComparator> layouts = {};
     };
 
     namespace traits

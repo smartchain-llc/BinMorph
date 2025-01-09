@@ -25,13 +25,15 @@ namespace test_utils
             0xfe, 0x00, 0x00, 0xbe, 0xef};
 
     }
-    static constexpr auto CreateEmptyFile = [](const std::filesystem::path &filePath)
+    template<std::convertible_to<std::filesystem::path> P>
+    static constexpr auto CreateEmptyFile = [](P& filePath)
     {
         std::ofstream of{filePath, std::ios::trunc};
         of.close();
         return filePath;
     };
-    static constexpr auto CreateOpenFile = [](const std::filesystem::path &filePath)
+    template<std::convertible_to<std::filesystem::path> P>
+    static constexpr auto CreateOpenFile = [](P filePath)
     {
         std::ofstream of{filePath, std::ios::trunc};
         of.close();
@@ -43,24 +45,36 @@ namespace test_utils
         LEAVE_OPEN
     };
 
-    std::filesystem::path CreateIfNonexistent(const char *name)
+    template<std::convertible_to<std::filesystem::path> P>
+    std::filesystem::path CreateIfNonexistent(P name)
     {
         return std::filesystem::exists(name)
                    ? std::filesystem::path{name}
-                   : CreateEmptyFile(name);
+                   : CreateEmptyFile<P>(name);
     }
 
-    static constexpr auto CreateAndWrite = [](const std::filesystem::path &filePath, uint8_t *data, const std::size_t &len)
-    {
-        auto outfile = CreateEmptyFile(filePath);
-        std::ofstream out{outfile};
-        uint8_t buffer[len];
+    template<std::size_t Length, std::convertible_to<std::filesystem::path> P>
+    std::ofstream TestFile(P path, uint8_t* data){
+        path = CreateIfNonexistent(path);
+        std::ofstream out{path};
+        uint8_t buffer[Length];
 
-        for (auto i = 0; i < len; i++)
+        for (auto i = 0; i < Length; i++)
             buffer[i] = data[i];
-        out.write((char *)buffer, len);
-        out.close();
-    };
+        out.write((char *)buffer, Length);
+        return out;
+    }
+    // static auto CreateAndWrite = [](const std::filesystem::path &filePath, uint8_t *data, const std::size_t &len)
+    // {
+    //     auto outfile = CreateEmptyFile(filePath);
+    //     std::ofstream out{outfile};
+    //     uint8_t buffer[len];
+
+    //     for (auto i = 0; i < len; i++)
+    //         buffer[i] = data[i];
+    //     out.write((char *)buffer, len);
+    //     out.close();
+    // };
 
 #include <functional>
     template <std::size_t Length>
@@ -82,6 +96,7 @@ namespace test_utils
     template <std::size_t Length>
     struct GenerateBinaryData
     {
+        GenerateBinaryData(): _m_length{ Length }{}
         uint8_t *operator()() noexcept { return m_data; }
         operator uint8_t *() noexcept { return m_data; }
 
@@ -105,8 +120,9 @@ namespace test_utils
             DataWriter(&m_data[_m_write_i]);
             _m_write_i += WriteLength;
         }
-
+        const std::size_t& length() const noexcept { return _m_length; }
     private:
+        std::size_t _m_length;
         std::size_t _m_write_i{0};
         uint8_t m_data[Length];
     };

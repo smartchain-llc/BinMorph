@@ -1,6 +1,6 @@
 #pragma once
 #include <json.hpp>
-   #include <iostream>
+#include <iostream>
 
 namespace bm
 {
@@ -16,7 +16,7 @@ namespace bm
         std::string name;
         std::string endian;
     };
-    void from_json(const nlohmann::json& json, FieldAttribute& att);
+    void from_json(const nlohmann::json &json, FieldAttribute &att);
 
     /**
         ### Schema JSON Attribute: BinaryLayout
@@ -32,7 +32,7 @@ namespace bm
             std::cout << json << std::endl;
             /// NOTE: json is filepath for cliExampleTests::48 using SchemaFile
             json.at("offset").get_to(offset);
-            
+
             for (const auto &fieldsJSON : json.at("fields"))
             {
                 auto attribute = FieldAttribute{fieldsJSON};
@@ -41,7 +41,7 @@ namespace bm
             }
         }
         // Remove Default Cnstr
-        LayoutAttribute(){}
+        LayoutAttribute() {}
         LayoutAttribute(const nlohmann::json &json) { __init(json); }
         LayoutAttribute(const std::string &id, const nlohmann::json &json) : id{id}
         {
@@ -55,11 +55,12 @@ namespace bm
         inline const std::size_t &byteLength() const noexcept { return length; }
         inline const std::size_t &startOffset() const noexcept { return offset; }
         inline const std::size_t endOffset() const noexcept { return length + offset; }
-        bool overlaps(const LayoutAttribute& l) const noexcept {
+        bool overlaps(const LayoutAttribute &l) const noexcept
+        {
             // start, end
             // this: 0, 100
             // l   : 50, 200
-            if(l.endOffset() < offset)
+            if (l.endOffset() < offset)
                 return true;
             return false;
         }
@@ -75,7 +76,7 @@ namespace bm
     {
         const bool operator()(const LayoutAttribute &lhs, const LayoutAttribute &rhs) const
         {
-            if(lhs.overlaps(rhs))
+            if (lhs.overlaps(rhs))
                 throw "Layout offsets overlap";
             return lhs.offset < rhs.offset;
         }

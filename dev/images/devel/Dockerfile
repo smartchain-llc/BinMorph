@@ -4,8 +4,10 @@ bash \
 base \
 gcc \
 g++-12 \
-cmake 
-    
+cmake \
+sudo
+
+RUN echo 'root:root' | chpasswd
 COPY user-init.sh /sbin/user-init
 RUN /sbin/user-init
 RUN chown -R dev:1000 /home/dev && chmod -R 755 /home/dev 

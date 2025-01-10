@@ -6,6 +6,7 @@ services:
     volumes:
       - ./core:/home/dev/BinMorph/core
       - ./tests:/home/dev/BinMorph/tests
+      - ./documentation:/home/dev/BinMorph/documentation
     working_dir: /home/dev/BinMorph
     environment:
       - BM_SRC=/home/dev/BinMorph

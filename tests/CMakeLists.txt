@@ -12,6 +12,8 @@ configure_file(TestUtils.h.in ./TestUtils.h)
 
 file(GLOB TEST_CATEGORY "./*")
 
+option(PREPROCESSOR_INSPECT "Inspect Preprocessor source" OFF)
+
 foreach(DIR ${TEST_CATEGORY})
     file(GLOB_RECURSE TEST_SRCS "${DIR}/*.cxx")
 
@@ -37,6 +39,14 @@ foreach(DIR ${TEST_CATEGORY})
                 PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
                 PUBLIC ${Boost_INCLUDE_DIR}
             )
+            if(${PREPROCESSOR_INSPECT})
+                message(INFO "Inspecting Preprocessor Generation")
+                target_compile_definitions(
+                    "${EXEC_TARGET}"
+                    PUBLIC -E
+                )
+            endif()
+            
         endif()
         
     endforeach()

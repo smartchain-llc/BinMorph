@@ -1,9 +1,35 @@
 #pragma once
 #include <json.hpp>
 #include <iostream>
-
+#include <variant>
+#include <functional>
 namespace bm
 {
+    template <typename T>
+    struct Attribute
+    {
+        Attribute(T t) : get{
+                             [&]() -> decltype(auto)
+                             {
+                                 return value;
+                             }} {}
+        T value;
+        std::function<T &()> get;
+    };
+
+    template <typename... Attributes>
+    struct AttributeSpecification
+    {
+        AttributeSpecification(std::initializer_list<std::pair<std::string, std::variant<Attributes...>>> att)
+        {
+            for (const auto &[id, value] : att)
+            {
+                _attMap[id] = value;
+            }
+        }
+        inline std::size_t attribute_count() const noexcept { return _attMap.size(); }
+        std::map<std::string, std::variant<Attributes...>> _attMap;
+    };
     struct FieldAttribute
     {
         FieldAttribute(const nlohmann::json &json)
@@ -15,9 +41,54 @@ namespace bm
         std::size_t length;
         std::string name;
         std::string endian;
+
+        static bool containsRequired(const nlohmann::json &json)
+        {
+            if (!json.contains("name"))
+            {
+                return false;
+            }
+            if (!json.contains("length"))
+            {
+                return false;
+            }
+            if (!json.contains("endian"))
+            {
+                return false;
+            }
+            return true;
+        }
     };
     void from_json(const nlohmann::json &json, FieldAttribute &att);
 
+    struct DefaultLayoutSpec{
+        static bool containsProperLayout(const nlohmann::json &json)
+        {
+            if(!json.contains("offset"))
+            {
+                std::cerr << "Layout element 'offset' missing\n";
+                return false;
+            }
+            if (!json.contains("fields"))
+            {
+                std::cerr << "Layout element 'fields' missing\n";
+                return false;
+            }
+            return true;
+        } 
+    };
+    struct ProceduralOffsetLayouts
+    {
+        static bool containsProperLayout(const nlohmann::json &json)
+        {
+            if (!json.contains("fields"))
+            {
+                std::cerr << "Layout element 'fields' missing\n";
+                return false;
+            }
+            return true;
+        }
+    };
     /**
         ### Schema JSON Attribute: BinaryLayout
         A json object with an 'offset' attribute and 'fields' attribute.
@@ -29,8 +100,6 @@ namespace bm
     {
         void __init(const nlohmann::json &json)
         {
-            std::cout << json << std::endl;
-            /// NOTE: json is filepath for cliExampleTests::48 using SchemaFile
             json.at("offset").get_to(offset);
 
             for (const auto &fieldsJSON : json.at("fields"))
@@ -64,7 +133,13 @@ namespace bm
                 return true;
             return false;
         }
+        template<typename Spec = DefaultLayoutSpec>
+        static bool containsProperLayout(const nlohmann::json &json)
+        {
+            return Spec::containsProperLayout(json);
+        }
     };
+
     struct LayoutComparator
     {
         constexpr bool operator()(const LayoutAttribute &lhs, const LayoutAttribute &rhs) const

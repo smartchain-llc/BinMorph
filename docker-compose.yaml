@@ -6,7 +6,18 @@ services:
     volumes:
       - ./core:/home/dev/BinMorph/core
       - ./tests:/home/dev/BinMorph/tests
+      - ./documentation:/home/dev/BinMorph/documentation
     working_dir: /home/dev/BinMorph
     environment:
       - BM_SRC=/home/dev/BinMorph
       - BM_BUILD=/home/dev/BinMorph/build
+
+  dev-latest:
+    container_name: BM_Dev
+    hostname: binmorph-devel
+    image: binmorph-devel:updated
+    volumes:
+      - ./core:/home/dev/BinMorph/core
+      - ./tests:/home/dev/BinMorph/tests
+      - ./documentation:/home/dev/BinMorph/documentation
+    working_dir: /home/dev/BinMorph

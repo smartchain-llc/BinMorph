@@ -1,7 +1,7 @@
 #pragma once
 #include <set>
 #include <types/traits.h>
-#include <schema/FieldAttribute.h>
+#include "FieldAttribute.h"
 
 namespace bm
 {
@@ -31,21 +31,8 @@ namespace bm
 
     namespace traits
     {
-        /**
-         * @brief Concept to satifies for types that contain, or are implicitly, `Schema`s.
-         * @details Should contain a `schema()` member function returning the generated `Schema`
-         */
-        template <typename T>
-        concept SchemaProvider = requires {
-            requires(
-                std::derived_from<Schema, T> || std::convertible_to<Schema, T> ||
-                requires(T t) {{ t.schema() } noexcept -> std::same_as<Schema>; });
-        };
-        template <typename T, typename SP, typename DP>
-        concept SchemaMappable = requires {
-            requires(SchemaProvider<SP> && DataProvider<DP>);
-            requires(
-                requires(T t, SP &sp, DP &dp) { {t.map(sp, dp)} -> std::same_as<void>; });
-        };
+        
+        template<typename S>
+        concept is_schema_type = std::same_as<Schema, S> || std::convertible_to<S, Schema>;
     }
 }

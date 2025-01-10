@@ -1,4 +1,4 @@
-#include <schema/Schema.h>
+#include "Schema.h"
 #include <sstream>
 #include <algorithm>
 
@@ -31,4 +31,12 @@ const LayoutAttribute& Schema::get(const std::string& id) const {
         return attr.id == id;
     });
     return *found;
+}
+
+const std::size_t Schema::calculatedSize() const noexcept
+{
+    std::size_t ret{0};
+    for (const auto &layout : layouts)
+        ret += layout.byteLength();
+    return ret;
 }

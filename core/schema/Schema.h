@@ -1,7 +1,7 @@
 #pragma once
 #include <set>
 #include <types/traits.h>
-#include <schema/FieldAttribute.h>
+#include "FieldAttribute.h"
 
 namespace bm
 {
@@ -17,13 +17,7 @@ namespace bm
 
         void operator<<(const LayoutAttribute &);
         const LayoutAttribute &get(const std::string &id) const;
-        const std::size_t calculatedSize() const noexcept
-        {
-            std::size_t ret{0};
-            for (const auto &layout : layouts)
-                ret += layout.byteLength();
-            return ret;
-        }
+        const std::size_t calculatedSize() const noexcept;
 
     private:
         std::set<LayoutAttribute, LayoutOverlapComparator> layouts = {};
@@ -31,21 +25,8 @@ namespace bm
 
     namespace traits
     {
-        /**
-         * @brief Concept to satifies for types that contain, or are implicitly, `Schema`s.
-         * @details Should contain a `schema()` member function returning the generated `Schema`
-         */
-        template <typename T>
-        concept SchemaProvider = requires {
-            requires(
-                std::derived_from<Schema, T> || std::convertible_to<Schema, T> ||
-                requires(T t) {{ t.schema() } noexcept -> std::same_as<Schema>; });
-        };
-        template <typename T, typename SP, typename DP>
-        concept SchemaMappable = requires {
-            requires(SchemaProvider<SP> && DataProvider<DP>);
-            requires(
-                requires(T t, SP &sp, DP &dp) { {t.map(sp, dp)} -> std::same_as<void>; });
-        };
+        
+        template<typename S>
+        concept is_schema_type = std::same_as<Schema, S> || std::convertible_to<S, Schema>;
     }
 }

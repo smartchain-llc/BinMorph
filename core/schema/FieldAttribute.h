@@ -15,9 +15,29 @@ namespace bm
         std::size_t length;
         std::string name;
         std::string endian;
+
+        static bool containsRequired(const nlohmann::json& json){
+            if (!json.contains("name"))
+            {
+                return false;
+            }
+            if (!json.contains("length"))
+            {
+                return false;
+            }
+            if (!json.contains("endian"))
+            {
+                return false;
+            }
+            return true;
+
+        }
     };
     void from_json(const nlohmann::json &json, FieldAttribute &att);
 
+    struct LayoutAttributeSpecification
+    {
+    };
     /**
         ### Schema JSON Attribute: BinaryLayout
         A json object with an 'offset' attribute and 'fields' attribute.
@@ -64,7 +84,23 @@ namespace bm
                 return true;
             return false;
         }
+
+        static bool containsProperLayout(const nlohmann::json &json)
+        {
+            if (!json.contains("offset"))
+            {
+                std::cerr << "Layout element 'offset' missing\n";
+                return false;
+            }
+            if (!json.contains("fields"))
+            {
+                std::cerr << "Layout element 'fields' missing\n";
+                return false;
+            }
+            return true;
+        }
     };
+
     struct LayoutComparator
     {
         constexpr bool operator()(const LayoutAttribute &lhs, const LayoutAttribute &rhs) const

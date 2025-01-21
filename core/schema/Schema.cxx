@@ -23,7 +23,7 @@ void Schema::operator<<(const LayoutAttribute &layout)
             throw os.str();
         }
     }
-    layouts.insert(layout);
+    layouts.insert(std::move(layout));
 }
 
 const LayoutAttribute& Schema::get(const std::string& id) const {

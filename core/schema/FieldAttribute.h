@@ -112,6 +112,15 @@ namespace bm
         // Remove Default Cnstr
         LayoutAttribute() {}
         LayoutAttribute(const nlohmann::json &json) { __init(json); }
+        // LayoutAttribute(nlohmann::json &json, const std::size_t& offset) {
+        //     nlohmann::json _w_offset = nlohmann::json::parse(json);
+        //     _w_offset["offset"] = offset;
+        //     _w_offset.emplace_back()
+        //     // for(const auto&[key,value] : json.items())
+        //     //     _w_offset[key] = value;
+        //     std::cout << "PROC JSON: \n"<<_w_offset<<std::endl;
+        //     __init(_w_offset); 
+        // }
         LayoutAttribute(const std::string &id, const nlohmann::json &json) : id{id}
         {
             __init(json);
@@ -124,12 +133,13 @@ namespace bm
         inline const std::size_t &byteLength() const noexcept { return length; }
         inline const std::size_t &startOffset() const noexcept { return offset; }
         inline const std::size_t endOffset() const noexcept { return length + offset; }
+        bool operator<(const LayoutAttribute& rhs) const noexcept{ return offset < rhs.offset; }
         bool overlaps(const LayoutAttribute &l) const noexcept
         {
             // start, end
             // this: 0, 100
             // l   : 50, 200
-            if (l.endOffset() < offset)
+            if (offset < l.endOffset())
                 return true;
             return false;
         }
@@ -151,9 +161,10 @@ namespace bm
     {
         const bool operator()(const LayoutAttribute &lhs, const LayoutAttribute &rhs) const
         {
-            if (lhs.overlaps(rhs))
+            bool _overlaps = lhs < rhs ? rhs.overlaps(lhs) : lhs.overlaps(rhs);
+            if (_overlaps)
                 throw "Layout offsets overlap";
-            return lhs.offset < rhs.offset;
+            return lhs < rhs;
         }
     };
     // why multiple def here?

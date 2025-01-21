@@ -16,3 +16,4 @@ tests/utils/data/*
 documentation/html
 documentation/latex
 .old/
+tests/scratchpad

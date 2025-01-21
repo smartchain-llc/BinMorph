@@ -66,7 +66,7 @@ namespace bm
         }
         [[nodiscard]] inline const std::filesystem::path &path() const noexcept { return _m_path; }
         [[nodiscard]] inline const Status &status() const noexcept { return _m_file_status; }
-
+        
     private:
         InputFile(const std::initializer_list<std::filesystem::path> filePaths)
         {

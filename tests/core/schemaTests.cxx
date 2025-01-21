@@ -80,5 +80,27 @@ TEST(Schema, GeneratesLengthOfBytesToMap){
 }
 
 TEST(Schema, CanBeDerivedFromJSONFile){
-    const auto schemaFile = bm::InputFile::create({TEST_SCHEMAS_PATH, "26.json"});
+    const auto schemaFile = bm::InputFile::create({TEST_SCHEMAS_PATH, "256.json"});
+
+    const auto schema = bm::schema_from_file(schemaFile);
+    ASSERT_EQ(schema.begin()->id, "header");
+}
+
+TEST(Schema, CanHaveOffsetsGenerated){
+    const auto schema = create_schema<bm::ProceduralOffsetValidator>(R"(
+{
+    "p1": {
+        "fields":[{"name": "p1.header","length": 16, "endian":"big"}]
+    },
+    "p2": {
+        "fields":[{"name": "p2","length": 32, "endian":"big"},{"name": "p2.2","length": 8, "endian":"big"}]
+    },
+    "p3": {
+        "fields":[{"name": "p3","length": 32, "endian":"big"}]
+    }
+}
+)");
+    const auto p2 = (++schema.begin());
+    ASSERT_EQ(p2->startOffset(), 16);
+
 }

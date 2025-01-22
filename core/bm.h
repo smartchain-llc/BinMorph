@@ -18,7 +18,7 @@ Schema create_schema(const char* json){
  return V::validate(nlohmann::json::parse( std::string(json) ));
 }
 
-Schema schema_from_file(const InputFile& sFile){
+Schema schema_from_file(const file::File& sFile){
     std::ifstream _in { sFile.path() };
     
     char buffer[2048];

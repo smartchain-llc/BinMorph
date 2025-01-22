@@ -8,7 +8,7 @@
             "name": "TEST_OUTPUT",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/tests/TEST_paramPackMapperTests",
+            "program": "${workspaceFolder}/build/tests/TEST_mapperImplTests",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",

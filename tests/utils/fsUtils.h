@@ -99,6 +99,7 @@ namespace test_utils
         GenerateBinaryData(): _m_length{ Length }{}
         uint8_t *operator()() noexcept { return m_data; }
         operator uint8_t *() noexcept { return m_data; }
+        operator char *() noexcept { return (char*)m_data; }
 
         void set(const std::size_t &from, std::function<void(uint8_t *)> DataSetter)
         {

@@ -80,7 +80,7 @@ TEST(Schema, GeneratesLengthOfBytesToMap){
 }
 
 TEST(Schema, CanBeDerivedFromJSONFile){
-    const auto schemaFile = bm::InputFile::create({TEST_SCHEMAS_PATH, "256.json"});
+    const auto schemaFile = bm::file::FileFactory::create({TEST_SCHEMAS_PATH, "256.json"});
 
     const auto schema = bm::schema_from_file(schemaFile);
     ASSERT_EQ(schema.begin()->id, "header");

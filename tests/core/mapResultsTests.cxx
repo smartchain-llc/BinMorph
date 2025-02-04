@@ -17,7 +17,7 @@ struct ToMemWrite{
         auto l = sizeof(t);
         // for(auto i = 0; i < l; i++)
             // data[i] = *(&t+i);
-        memcpy(data, &t, l);
+        memcpy(data, &t, len);
     }
     char* operator()() const { return data; }
 };
@@ -49,7 +49,26 @@ TEST(MapperResultsOutput, CanOutputAnyWay)
     }
     std::cout << '\n';
     std::cout << (memdata) << std::endl;
-    // bm::MapAndWrite<bm::ToJSONMapper, CoutWrite>(schema, dataToMap, 32);
+    bm::MapAndWrite<bm::ToJSONMapper, CoutWrite>(schema, dataToMap, 32);
     // const auto r = Results(&results);
     // std::cout << typeid(r._r).name() << std::endl;
 }
+
+// template<> void bm::MapAndWrite<bm::ToJSONMapper, bm::Schema, T, std::size_t>(
+//     ToMemWrite& w, bm::Schema& s, T t, std::size_t l
+// ){
+//     w.write(t, l);
+// }
+// TEST(MapperResultsOutput, CanBeSpecializedExternally){
+//     char dataToMap[32];
+//     auto schema = bm::create_schema(R"(
+// {
+//     "p1": {
+//         "offset": 0,
+//         "fields":[{"name": "p1.header","length": 8, "endian":"big"}]
+//     }
+// }
+// )");
+//     bm::MapAndWrite<bm::ToJSONMapper, ToMemWrite>(schema, dataToMap, 32);
+
+// }

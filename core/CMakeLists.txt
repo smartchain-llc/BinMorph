@@ -34,3 +34,15 @@ target_include_directories(
     PUBLIC ${JSON_INCLUDE_DIR}
     PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
 )
+add_library(
+    binmorphui SHARED ui.cxx
+)
+target_include_directories(
+    binmorphui PUBLIC .
+    PUBLIC ${JSON_INCLUDE_DIR}
+)
+target_compile_definitions(
+    binmorphui
+    PUBLIC fPIC
+    PUBLIC shared
+)

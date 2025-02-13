@@ -11,7 +11,10 @@ typedef struct {
     const char* endian;
 } bm_FieldAtt;
 
-void bm_fa_create(const char*, bm_FieldAtt*);
+bm_FieldAtt bm_fa_create(const char*);
+
+bm_FieldAtt* bm_fa_alloc(const char*);
+void bm_fa_free(bm_FieldAtt*);
 
 const char* to_json(const char*);
 

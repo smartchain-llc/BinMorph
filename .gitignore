@@ -17,3 +17,5 @@ documentation/html
 documentation/latex
 .old/
 tests/scratchpad
+**bin
+**obj

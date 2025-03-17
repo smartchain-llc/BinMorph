@@ -10,7 +10,7 @@ static unsigned char __registered_file_paths = 0;
 static std::filesystem::path __registery_data_file_paths[REGISTRY_CAPACITY];
 static schema_id_t __refernces[REGISTRY_CAPACITY];
 
-size_t SchemaHash::operator()(Schema& schema){ return schema.id() % REGISTRY_CAPACITY; }
+// size_t SchemaHash::operator()(Schema& schema){ return schema.id() % REGISTRY_CAPACITY; }
 
 void register_schema_file(const char* filePath){
     std::filesystem::path _path { filePath };
@@ -31,12 +31,12 @@ void registry_list_files(){
     }
 }
 
-size_t IdGenerator::operator()(Schema& s){
-    size_t ret;
-    char _firstC = s.filePath().c_str()[0];
-    ret = _firstC ^ __registered_file_paths;
-    return ret;
-}
+// size_t IdGenerator::operator()(Schema& s){
+//     size_t ret;
+//     char _firstC = s.filePath().c_str()[0];
+//     ret = _firstC ^ __registered_file_paths;
+//     return ret;
+// }
 
 bool InputFileValidator::operator()(const char* filePath){
     return false;

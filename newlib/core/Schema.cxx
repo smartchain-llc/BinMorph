@@ -2,9 +2,8 @@
 #include <sstream>
 #include <algorithm>
 
-using namespace bm;
 
-bool bm::areOverlapping(const LayoutAttribute &l1, const LayoutAttribute &l2)
+bool areOverlapping(const LayoutAttribute &l1, const LayoutAttribute &l2)
 {
     const auto &[first, second] = l1.startOffset() < l2.startOffset() ? std::tuple<LayoutAttribute, LayoutAttribute>(l1, l2) : std::tuple<LayoutAttribute, LayoutAttribute>(l2, l1);
     return second.startOffset() < first.endOffset() ? true : false;

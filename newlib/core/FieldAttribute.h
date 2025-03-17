@@ -3,8 +3,6 @@
 #include <iostream>
 #include <variant>
 #include <functional>
-namespace bm
-{
     template <typename T>
     struct Attribute
     {
@@ -168,4 +166,3 @@ namespace bm
         }
     };
     // why multiple def here?
-}

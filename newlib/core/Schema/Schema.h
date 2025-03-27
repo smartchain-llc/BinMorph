@@ -1,7 +1,6 @@
 #pragma once
 #include <set>
-#include <types/traits.h>
-#include "FieldAttribute.h"
+#include "Attributes/FieldAttribute.h"
 
 bool areOverlapping(const LayoutAttribute &, const LayoutAttribute &);
 
@@ -26,3 +25,5 @@ namespace traits
     template<typename S>
     concept is_schema_type = std::same_as<Schema, S> || std::convertible_to<S, Schema>;
 }
+
+Schema&& from_literal(const char*);

@@ -39,3 +39,15 @@ const std::size_t Schema::calculatedSize() const noexcept
         ret += layout.byteLength();
     return ret;
 }
+
+Schema&& from_literal(const char* json){
+    Schema ret;
+
+    auto parsedJSON = nlohmann::json::parse(json);
+
+    for(auto& [key, value] : parsedJSON.items()){
+        ret << LayoutAttribute{value};
+    }
+
+    return std::move(ret);
+}

@@ -82,14 +82,19 @@ public:
         }
         _bin_paths[schema->id] = filePath;
         const auto s = _parsing[schema->id].get();
+
         std::cout << "[libbm]: Registered data file <"
             << filePath << "> to Schema file <"
             << _paths[schema->id] << ">\n";
+        
+        auto f = _mapPromises[schema->id].get_future();
+        
     }
 private:
     static inline size_t RegistryIndex = 0;
     static inline std::filesystem::path _paths[10];
     static inline std::future<Schema> _parsing[10];
+    static inline std::promise<nlohmann::json> _mapPromises[10];
     static inline std::filesystem::path _bin_paths[10];
 };
 

@@ -1,30 +1,20 @@
 #pragma once
+#include <stdlib.h>
+#include <stdio.h>
 
-#include "schema/SchemaValidator.h"
-#include "io/output/Mapper.h"
-#include "io/input/InputFile.h"
-#include <fstream>
-namespace bm{
+#ifdef __cplusplus
+extern "C"{
+#endif
 
-template<traits::is_schema_validator V = DefaultSchemaValidator, typename J> 
-Schema create_schema(J json){
-    if( std::is_same_v<J, std::string> ){
-        return V::validate(nlohmann::json::parse( json ));
-    }
-    return V::validate(nlohmann::json::parse( std::string(json) ));
+typedef struct {
+    unsigned long id;
+} schema_id_t;
+
+schema_id_t register_schema(const char*);
+schema_id_t register_schema_file(const char*);
+void registry_list_files();
+void set_schema_data_file(schema_id_t*,const char*);
+
+#ifdef __cplusplus
 }
-template<const char*, traits::is_schema_validator V = DefaultSchemaValidator>
-Schema create_schema(const char* json){
- return V::validate(nlohmann::json::parse( std::string(json) ));
-}
-
-Schema schema_from_file(const file::File& sFile){
-    std::ifstream _in { sFile.path() };
-    
-    char buffer[2048];
-    _in.read(buffer, 2048);
-    return create_schema(buffer);
-}
-
-}
-
+#endif

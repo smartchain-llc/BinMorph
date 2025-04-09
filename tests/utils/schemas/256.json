@@ -7,8 +7,8 @@
         ]
     },
     "payload":{
-        "offset":16,
-        "fields":[
+        "offset": 16,
+        "fields": [
             {"name": "unknown", "length": 240, "endian": "little"}
         ]
     }

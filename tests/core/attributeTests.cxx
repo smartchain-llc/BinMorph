@@ -78,7 +78,6 @@ TEST(AttributeSpecification, RecievesIDArgsForEachAttributeType){
         value = 0x69;
     });
     spec.valueOf(1, [](const auto& value){
-        std::cout << value << std::endl;
     });
     // auto len = spec.get(0);
 }

@@ -11,7 +11,7 @@ namespace bm
         using ResultsType = nlohmann::json;
 
         template <bm::traits::is_schema_type S>
-        ResultsType map(S s, char *buffer, const std::size_t &len) // buffer should be vector<char>
+        ResultsType map(S s, char *buffer) // buffer should be vector<char>
         {
             nlohmann::json _m_results = nlohmann::json::object();
             const auto schema = static_cast<Schema>(s);

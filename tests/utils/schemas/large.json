@@ -1,0 +1,433 @@
+{
+    "header":{
+        "fields":[
+            {"name": "magic", "length": 8, "endian": "little"},
+            {"name": "reserved", "length": 8, "endian": "little"}
+        ]
+    },
+    "payload":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "payload2":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "payload3":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "payload4":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "payload5":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "payload11":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "payload12":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "13":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "payload1q4":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "payload21q":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "4242":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "124124":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "2323":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "141414":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "asdasdasd":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "asdasd":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "asdf":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "ff":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "bb":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "bbcbc":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    },
+    "bbbbb":{
+        "fields": [
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"},
+            {"name": "unknown", "length": 240, "endian": "little"}
+        ]
+    }
+}

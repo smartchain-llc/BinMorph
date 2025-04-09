@@ -79,13 +79,6 @@ TEST(Schema, GeneratesLengthOfBytesToMap){
     ASSERT_EQ(schema.calculatedSize(), p1Size + p2Size);
 }
 
-TEST(Schema, CanBeDerivedFromJSONFile){
-    const auto schemaFile = bm::file::FileFactory::create({TEST_SCHEMAS_PATH, "256.json"});
-
-    const auto schema = bm::schema_from_file(schemaFile);
-    ASSERT_EQ(schema.begin()->id, "header");
-}
-
 TEST(Schema, CanHaveOffsetsGenerated){
     const auto schema = create_schema<bm::ProceduralOffsetValidator>(R"(
 {
@@ -103,4 +96,18 @@ TEST(Schema, CanHaveOffsetsGenerated){
     const auto p2 = (++schema.begin());
     ASSERT_EQ(p2->startOffset(), 16);
 
+}
+
+TEST(Schema, CanBeDerivedFromJSONFile){
+    const auto schemaFile = bm::file::FileFactory::create({TEST_SCHEMAS_PATH, "256.json"});
+
+    auto schema = schema_from_file(schemaFile);
+    ASSERT_EQ(schema.calculatedSize(), 256);
+}
+
+TEST(Schema, CanBeDerivedFromLargeJSONFile){
+    const auto schemaFile = bm::file::FileFactory::create({TEST_SCHEMAS_PATH, "large.json"});
+    auto schema = schema_from_file<ProceduralOffsetValidator>(schemaFile);
+
+    ASSERT_EQ(schema.get("bb").id, "bb");
 }

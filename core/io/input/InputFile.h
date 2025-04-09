@@ -1,6 +1,6 @@
 #pragma once
 #include <filesystem>
-
+#include <json.hpp>
 namespace bm
 {
 namespace file
@@ -29,6 +29,7 @@ namespace traits
     public:
         [[nodiscard]] inline const std::filesystem::path &path() const noexcept { return _m_path; }
         [[nodiscard]] inline const Status &status() const noexcept { return _m_file_status; }
+        [[nodiscard]] nlohmann::json json() const; 
         friend class FileFactory;
 
     private:

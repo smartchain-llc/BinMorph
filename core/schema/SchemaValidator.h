@@ -46,7 +46,6 @@ namespace bm
             for(const auto&[key, value] : json.items()){
                 _w_offset = value;
                 _w_offset += {"offset", _offset};
-                std::cout << "_w_offset: \n" << _w_offset << std::endl;
                 if(!LayoutAttribute::containsProperLayout<ProceduralOffsetLayouts>(_w_offset))
                     throw "[PROFF_V] LayoutAttribute is invalid";
                 

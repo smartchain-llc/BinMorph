@@ -1,0 +1,9 @@
+{
+  "header": {
+    "offset": 0,
+    "fields": [
+      { "name": "magic", "length": 8, "endian": "little" },
+      { "name": "version", "length": 8, "endian": "little" }
+    ]
+  }
+}

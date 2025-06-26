@@ -28,8 +28,18 @@ public:
   }
 
   SchemaResults validate(uint8_t *buffer);
-  std::vector<Partition>::const_iterator begin() const { return _m_parts.begin(); }
-  std::vector<Partition>::const_iterator end() const { return _m_parts.end(); }
+  std::vector<Partition>::const_iterator begin() const
+  {
+    return _m_parts.begin();
+    // return Partition::const_iterator(
+    //     &_m_parts, 0);
+  }
+  std::vector<Partition>::const_iterator end() const
+  {
+    return _m_parts.end();
+    // return Partition::const_iterator(
+    //     &_m_parts, _m_parts.size());
+  }
 
 protected:
   Schema() {}

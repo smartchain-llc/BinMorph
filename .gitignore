@@ -11,13 +11,10 @@ CTestTestfile.cmake
 _deps
 CMakeUserPresets.json
 
-build/
+build
 tests/utils/data/*
+
 documentation/html
 documentation/latex
-.old/
-tests/scratchpad
-**bin
-**obj
+
 .cache
-tests/lib/obj/*

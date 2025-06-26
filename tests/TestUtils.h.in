@@ -27,7 +27,9 @@ namespace test_utils
         {"scllc2", test_utils::toPath({TEST_SCHEMAS_PATH, "scllc2.json"})},
         {"header", test_utils::toPath({TEST_SCHEMAS_PATH, "header.json"})},
         {"multispec", test_utils::toPath({TEST_SCHEMAS_PATH, "multispec.json"})},
-        {"256", test_utils::toPath({TEST_SCHEMAS_PATH, "256.json"})}
+        {"256", test_utils::toPath({TEST_SCHEMAS_PATH, "256.json"})},
+        {"typeGen", test_utils::toPath({TEST_SCHEMAS_PATH, "typeGen.json"})},
+
     };
 
     static constexpr auto JSONFrom = [](const std::string &key)
@@ -47,7 +49,7 @@ namespace test_utils
         EndianJSON(std::string type) : _m_type{std::move(type)} {}
         std::string _m_type;
     };
-    
+
     // struct InlineJSON{
     //     InlineJSON& operator<<(const std::string& rawJSON){
     //         const auto processJSON = nlohmann::json::parse(rawJSON);

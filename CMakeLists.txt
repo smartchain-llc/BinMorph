@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(BinMorph)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -29,4 +29,3 @@ if(${BUILD_TESTS})
   # add_compile_definitions(CROW_USE_BOOST)
   add_subdirectory(tests)
 endif()
-add_subdirectory(newlib)

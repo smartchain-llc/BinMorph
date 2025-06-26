@@ -1,0 +1,16 @@
+{
+  "part1": {
+    "offset": 0,
+    "fields": [
+      { "name": "na", "length": 8, "endian": "little" },
+      { "name": "na", "length": 8, "endian": "little" }
+    ]
+  },
+  "overlap": {
+    "offset": 8,
+    "fields": [
+      { "name": "na", "length": 8, "endian": "little" },
+      { "name": "na", "length": 8, "endian": "little" }
+    ]
+  }
+}

@@ -10,3 +10,14 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 CMakeUserPresets.json
+
+build/
+tests/utils/data/*
+documentation/html
+documentation/latex
+.old/
+tests/scratchpad
+**bin
+**obj
+.cache
+tests/lib/obj/*

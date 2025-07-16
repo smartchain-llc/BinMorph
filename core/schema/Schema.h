@@ -1,8 +1,5 @@
 #include "attributes/Partition.h"
 
-struct SchemaResults
-{
-};
 class Schema
 {
 public:
@@ -27,7 +24,6 @@ public:
       return _m_parts[key];
   }
 
-  SchemaResults validate(uint8_t *buffer);
   std::vector<Partition>::const_iterator begin() const
   {
     return _m_parts.begin();

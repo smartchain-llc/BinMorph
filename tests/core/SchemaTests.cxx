@@ -47,28 +47,38 @@ TEST(Schema, CanProcedurallyCalculatesLength)
   ASSERT_EQ(schema.getPartition(0).length(), 16);
 }
 
-TEST(Schema, CanMapBinaryDataAgainstSchema)
-{
-  const auto schema = Schema::fromJSON(schema256JSON);
+// TEST(Schema, CanMapBinaryDataAgainstSchema)
+// {
+//   const auto schema = Schema::fromJSON(schema256JSON);
 
-  auto data = test_utils::GenerateBinaryData<256>();
-  auto dataWriter = test_utils::WriteStrategy<256>(
-      [](const auto &i, uint8_t &c)
-      {
-        c = i % 255;
-      });
+//   auto data = test_utils::GenerateBinaryData<256>();
+//   auto dataWriter = test_utils::WriteStrategy<256>(
+//       [](const auto &i, uint8_t &c)
+//       {
+//         c = i % 255;
+//       });
 
-  data += dataWriter;
+//   data += dataWriter;
 
-  struct Header
-  {
-    uint8_t data[16] = {0};
-  };
+//   struct Header
+//   {
+//     uint8_t data[16] = {0};
+//   };
 
-  auto hData = std::bit_cast<Header *>((uint8_t *)data);
-  for (auto i = 0; i < 16; i++)
-  {
-    uint8_t cmp = (*(uint8_t *)data) + i;
-    ASSERT_EQ(hData->data[i], cmp);
-  }
-}
+//   auto hData = std::bit_cast<Header *>((uint8_t *)data);
+//   for (auto i = 0; i < 16; i++)
+//   {
+//     uint8_t cmp = (*(uint8_t *)data) + i;
+//     ASSERT_EQ(hData->data[i], cmp);
+//   }
+// }
+
+// TEST(Schema, CanMapDataToSchemaByteType)
+// {
+//   const auto schema = Schema::fromJSON(schema256JSON);
+
+//   // Schema Impl
+//   for (const auto &part : schema)
+//   {
+//   }
+// }

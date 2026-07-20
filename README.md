@@ -8,6 +8,49 @@ This package documents an executable/daemon that:
 4. Loads the generated library to interpret arbitrary binary inputs.
 5. Supports both one-shot CLI execution and long-running daemon operation.
 
+## Barebones CLI implementation
+
+This repository now includes a first vertical slice of the one-shot CLI:
+
+```bash
+cmake --preset projects
+cmake --build --preset projects
+./build/projects/binmorph inspect --schema schema.json --input data.bin --output architecture.json
+```
+
+Use `--input -` or `--output -` for stdin/stdout.
+
+Supported schema dialect:
+
+```json
+{
+  "dialect": "binmorph.schema.v1",
+  "name": "example",
+  "endianness": "little",
+  "root": {
+    "type": "struct",
+    "fields": [
+      { "name": "magic", "type": "bytes", "offset": 0, "size": 4 },
+      { "name": "version", "type": "u16", "offset": 4 },
+      { "name": "label", "type": "ascii", "offset": 6, "size": 3 }
+    ]
+  }
+}
+```
+
+Supported field types are `u8/u16/u32/u64`, `i8/i16/i32/i64`, `bytes`, and `ascii`.
+Multi-byte integer endianness must be explicit at schema level through `endianness`
+or at field level through `endian`.
+
+The output DTO is `binmorph.inspect.v1` JSON containing schema metadata, binary
+source/size, decoded root fields, raw bytes as hex, and structured diagnostics.
+
+Run tests with:
+
+```bash
+ctest --preset projects
+```
+
 ## Intended audiences
 
 ### Users
@@ -53,4 +96,3 @@ For SVG output:
 ```bash
 plantuml -tsvg uml/*.puml
 ```
-

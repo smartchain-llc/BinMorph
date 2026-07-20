@@ -155,6 +155,20 @@ A structured warning or error containing a code, severity, source location, sche
 7. Validate constraints and checksums.
 8. Return a dynamic tree, typed object, query result, or serialized representation.
 
+### Implemented barebones CLI workflow
+
+The initial executable implements the generic interpretation path only:
+
+1. CLI adapter parses `binmorph inspect --schema <json> --input <binary|-> --output <json|->`.
+2. Schema input is read under a fixed byte limit and parsed as JSON.
+3. The schema compiler validates `binmorph.schema.v1` root struct fields and produces an immutable in-memory `NormalizedSchema`.
+4. Binary input is read from a file or stdin under a fixed byte limit.
+5. `BinaryView` performs checked range access for each normalized field.
+6. The interpreter decodes supported primitive fields and emits the public `binmorph.inspect.v1` DTO.
+7. Stable diagnostics are included in the DTO; any error diagnostic returns a non-zero process status.
+
+This slice intentionally does not generate typed libraries, load artifacts, run as a daemon, or support dynamic expressions. Those surfaces should continue to use the same `NormalizedSchema` and runtime access rules rather than introducing separate decoding semantics.
+
 ## 8. Safety and correctness invariants
 
 - Every read and write is range-checked.
@@ -198,4 +212,3 @@ A complete architecture package should include:
 - Code-generation pipeline diagram.
 - Deployment diagram.
 - Extension-point diagram.
-

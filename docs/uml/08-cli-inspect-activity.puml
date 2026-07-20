@@ -1,0 +1,27 @@
+@startuml
+title BinMorph Barebones CLI Inspect Activity
+
+start
+:Parse CLI arguments;
+if (command is inspect?) then (yes)
+  :Read schema JSON under schema byte limit;
+  :Parse and validate schema DTO;
+  :Compile immutable NormalizedSchema;
+  :Read binary file or stdin under binary byte limit;
+  :Create bounded BinaryView;
+  :Decode each normalized field with checked ranges;
+  :Render binmorph.inspect.v1 JSON DTO;
+  if (diagnostics contain errors?) then (yes)
+    :Write output JSON;
+    :Exit non-zero;
+  else (no)
+    :Write output JSON;
+    :Exit zero;
+  endif
+else (no)
+  :Print usage;
+  :Exit non-zero;
+endif
+stop
+
+@enduml

@@ -1,0 +1,24 @@
+services:
+  gcc-debug:
+    build:
+      context: ../..
+      dockerfile: docker/Dockerfile
+      target: test
+      args:
+        CONFIGURE_PRESET: docker-gcc-debug
+        BUILD_PRESET: docker-gcc-debug
+        TEST_PRESET: docker-gcc-debug
+    volumes:
+      - ../../artifacts/gcc-debug:/workspace/artifacts
+
+  clang-debug:
+    build:
+      context: ../..
+      dockerfile: docker/Dockerfile
+      target: test
+      args:
+        CONFIGURE_PRESET: docker-clang-debug
+        BUILD_PRESET: docker-clang-debug
+        TEST_PRESET: docker-clang-debug
+    volumes:
+      - ../../artifacts/clang-debug:/workspace/artifacts

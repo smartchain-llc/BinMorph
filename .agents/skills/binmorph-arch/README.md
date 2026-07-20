@@ -2,14 +2,14 @@
 
 Install this directory as a Codex skill, preserving the directory name and all relative paths.
 
-Typical personal installation:
+Repository-local installation:
 
 ```bash
-mkdir -p ~/.codex/skills
-cp -R binmorph-architecture-skill ~/.codex/skills/binmorph-architecture
+mkdir -p .agents/skills
+cp -R binmorph-arch .agents/skills/binmorph-arch
 ```
 
-Repository-local installation may use the Codex skill directory convention adopted by that repository.
+Personal installation may use `$HOME/.agents/skills/binmorph-arch` with the same directory layout.
 
 Validate the package before installation:
 

@@ -1,0 +1,28 @@
+services:
+  cli-contract:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: build
+      args:
+        USER_ID: ${BINMORPH_DOCKER_UID:-1000}
+        GROUP_ID: ${BINMORPH_DOCKER_GID:-1000}
+        CONFIGURE_PRESET: docker-gcc-debug
+        BUILD_PRESET: docker-gcc-debug
+    image: binmorph/test-runner:integration-cli
+    user: "0:0"
+    command: ["./scripts/container/run-test-container.sh", "docker-gcc-debug"]
+    networks:
+      - binmorph-integration
+    volumes:
+      - ../artifacts/docker/integration-cli:/workspace/artifacts
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+
+# Add a future binmorphd service to this internal network when the daemon target lands.
+# Keep daemon readiness protocol-based and have clients use service DNS, not host ports.
+networks:
+  binmorph-integration:
+    internal: true

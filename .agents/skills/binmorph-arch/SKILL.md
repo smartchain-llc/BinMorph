@@ -162,6 +162,15 @@ Update PlantUML when a change affects:
 
 Use `checklists/uml-change-checklist.md`.
 
+## Formatting Files
+
+### VSCode extension
+
+- Update the vscode extension recommendations for this project if any extension requirements have changed.
+- Check if a C/C++ formatter is installed
+  - If a formatter is found then format all c++ files with it.
+  - If no formatter is found then install the C/C++ formatter from microsft.
+
 ## Testing floor
 
 At minimum, select all applicable categories from `references/testing-strategy.md`:

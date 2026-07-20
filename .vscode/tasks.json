@@ -1,0 +1,84 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "cmake: configure projects",
+      "type": "shell",
+      "command": "cmake --preset projects",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "cmake: build projects",
+      "type": "shell",
+      "command": "cmake --build --preset projects",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": "$gcc",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOn": [
+        "cmake: configure projects"
+      ],
+      "dependsOrder": "sequence"
+    },
+    {
+      "label": "ctest: projects",
+      "type": "shell",
+      "command": "ctest --preset projects --output-on-failure",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "dependsOn": [
+        "cmake: build projects"
+      ],
+      "dependsOrder": "sequence"
+    },
+    {
+      "label": "debug resources: sample binary",
+      "type": "shell",
+      "command": "python3 -c \"import pathlib; root = pathlib.Path.cwd(); out = root / 'build' / 'vscode-debug'; out.mkdir(parents=True, exist_ok=True); data = bytes.fromhex((root / 'tests' / 'resources' / 'sample-binary.hex').read_text()); (out / 'sample.bin').write_bytes(data)\"",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "debug resources: truncated binary",
+      "type": "shell",
+      "command": "python3 -c \"import pathlib; root = pathlib.Path.cwd(); out = root / 'build' / 'vscode-debug'; out.mkdir(parents=True, exist_ok=True); data = bytes.fromhex((root / 'tests' / 'resources' / 'truncated-binary.hex').read_text()); (out / 'truncated.bin').write_bytes(data)\"",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "debug setup: sample inspect",
+      "dependsOn": [
+        "cmake: build projects",
+        "debug resources: sample binary"
+      ],
+      "dependsOrder": "sequence",
+      "problemMatcher": []
+    },
+    {
+      "label": "debug setup: truncated inspect",
+      "dependsOn": [
+        "cmake: build projects",
+        "debug resources: truncated binary"
+      ],
+      "dependsOrder": "sequence",
+      "problemMatcher": []
+    }
+  ]
+}

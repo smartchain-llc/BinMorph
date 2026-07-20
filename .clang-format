@@ -1,0 +1,61 @@
+---
+Language: Cpp
+BasedOnStyle: LLVM
+Standard: Latest
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 100
+BreakBeforeBraces: Attach
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLambdasOnASingleLine: Empty
+AllowShortLoopsOnASingleLine: false
+BinPackArguments: false
+BinPackParameters: false
+AlignAfterOpenBracket: Align
+AlignOperands: Align
+AlignConsecutiveAssignments: None
+AlignConsecutiveDeclarations: None
+AlignConsecutiveMacros: None
+PointerAlignment: Left
+ReferenceAlignment: Pointer
+DerivePointerAlignment: false
+SortIncludes: CaseSensitive
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^<.*>'
+    Priority: 1
+    SortPriority: 1
+  - Regex: '^".*"'
+    Priority: 2
+    SortPriority: 2
+NamespaceIndentation: None
+FixNamespaceComments: true
+CompactNamespaces: false
+IndentAccessModifiers: false
+AccessModifierOffset: -4
+ConstructorInitializerIndentWidth: 4
+BreakConstructorInitializers: BeforeComma
+PackConstructorInitializers: Never
+Cpp11BracedListStyle: true
+SpaceBeforeParens: ControlStatements
+SpacesInAngles: Never
+SpacesInContainerLiterals: false
+SpaceBeforeSquareBrackets: false
+EmptyLineAfterAccessModifier: Never
+EmptyLineBeforeAccessModifier: LogicalBlock
+KeepEmptyLinesAtTheStartOfBlocks: false
+MaxEmptyLinesToKeep: 1
+ReflowComments: true
+SeparateDefinitionBlocks: Always
+BreakBeforeBinaryOperators: None
+BreakBeforeTernaryOperators: true
+AlwaysBreakTemplateDeclarations: MultiLine
+PenaltyReturnTypeOnItsOwnLine: 200
+IndentPPDirectives: AfterHash
+PPIndentWidth: 2
+...

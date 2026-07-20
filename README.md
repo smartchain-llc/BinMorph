@@ -1,98 +1,122 @@
-# BinMorph Declarative Binary Data Architecture — UML Documentation Set
+# BinMorph
 
-This package documents an executable/daemon that:
+BinMorph is a C++ command-line prototype for describing byte-oriented binary
+layouts with JSON schemas and decoding binary inputs into a structured JSON
+inspection report. The implemented surface is intentionally small: a
+`binmorph inspect` CLI, a testable `binmorph_core` library, and schema fixtures
+for the current `binmorph.schema.v1` dialect.
 
-1. Accepts JSON schema files describing byte-oriented binary layouts.
-2. Validates and compiles those schemas into an internal representation.
-3. Generates a language-specific library exposing typed APIs for schema-defined regions.
-4. Loads the generated library to interpret arbitrary binary inputs.
-5. Supports both one-shot CLI execution and long-running daemon operation.
+The broader architecture documents future generated-library and daemon
+capabilities, but those surfaces are not implemented yet.
 
-## Barebones CLI implementation
+## Quick Start
 
-This repository now includes a first vertical slice of the one-shot CLI:
+### Prerequisites
+
+- CMake 3.20 or newer
+- A C++17 compiler such as GCC or Clang
+- Python 3 for CLI contract fixtures
+- Optional: Docker 26 or compatible for containerized validation
+- Optional: Doxygen and clang-tidy for documentation and static-analysis checks
+
+### Configure, Build, And Test
 
 ```bash
 cmake --preset projects
 cmake --build --preset projects
-./build/projects/binmorph inspect --schema schema.json --input data.bin --output architecture.json
-```
-
-Use `--input -` or `--output -` for stdin/stdout.
-
-Supported schema dialect:
-
-```json
-{
-  "dialect": "binmorph.schema.v1",
-  "name": "example",
-  "endianness": "little",
-  "root": {
-    "type": "struct",
-    "fields": [
-      { "name": "magic", "type": "bytes", "offset": 0, "size": 4 },
-      { "name": "version", "type": "u16", "offset": 4 },
-      { "name": "label", "type": "ascii", "offset": 6, "size": 3 }
-    ]
-  }
-}
-```
-
-Supported field types are `u8/u16/u32/u64`, `i8/i16/i32/i64`, `bytes`, and `ascii`.
-Multi-byte integer endianness must be explicit at schema level through `endianness`
-or at field level through `endian`.
-
-The output DTO is `binmorph.inspect.v1` JSON containing schema metadata, binary
-source/size, decoded root fields, raw bytes as hex, and structured diagnostics.
-
-Run tests with:
-
-```bash
 ctest --preset projects
 ```
 
-## Intended audiences
+The primary executable is written to:
 
-### Users
-Users need to understand the supported workflows, schema lifecycle, input/output behavior, error handling, generated artifacts, and daemon interaction model.
-
-Recommended diagrams:
-- `01-system-context.puml`
-- `02-user-use-cases.puml`
-- `08-cli-daemon-activity.puml`
-- `11-deployment.puml`
-
-### Developers
-Developers need component boundaries, domain types, lifecycle rules, extension points, sequencing, ownership, failure behavior, and deployment assumptions.
-
-Recommended diagrams:
-- `03-container-architecture.puml`
-- `04-component-architecture.puml`
-- `05-domain-model.puml`
-- `06-schema-compilation-sequence.puml`
-- `07-binary-interpretation-sequence.puml`
-- `09-schema-state-machine.puml`
-- `10-code-generation.puml`
-- `12-extension-points.puml`
-
-### Codex agents
-Codex needs explicit architectural constraints, dependency direction, invariants, canonical workflows, modification boundaries, and traceability from requirements to components.
-
-Recommended inputs:
-- All UML files
-- `ARCHITECTURE.md`
-- `CODEX_GUIDANCE.md`
-
-## Rendering
-
-All diagrams use PlantUML syntax.
-
-```bash
-plantuml uml/*.puml
+```text
+build/projects/binmorph
 ```
 
-For SVG output:
+### Run The CLI
+
+Create a small binary from the checked-in hex fixture, then inspect it with the
+sample schema:
 
 ```bash
-plantuml -tsvg uml/*.puml
+python3 - <<'PY'
+import pathlib
+pathlib.Path("build/projects/sample.bin").write_bytes(
+    bytes.fromhex(pathlib.Path("tests/resources/sample-binary.hex").read_text())
+)
+PY
+
+./build/projects/binmorph inspect \
+  --schema tests/resources/sample-schema.json \
+  --input build/projects/sample.bin \
+  --output build/projects/sample-output.json
 ```
+
+Expected behavior: the command exits with status `0` and writes
+`binmorph.inspect.v1` JSON containing decoded fields such as `version` with the
+numeric value `4660`.
+
+Use `--input -` for stdin and `--output -` for stdout.
+
+## Repository Layout
+
+```text
+include/   Public C++ API for the current CLI/core slice
+src/       Library implementation and the binmorph executable entry point
+tests/     GoogleTest unit tests, CLI contract test, and fixtures
+docs/      Architecture notes, getting-started guide, and UML diagrams
+docker/    Containerized build/test images and Compose test lanes
+scripts/   Formatting, documentation, static-analysis, and container helpers
+.vscode/   Shared VS Code settings, tasks, launch configs, and extensions
+```
+
+The root `codex-skills/` directory is local agent tooling and is not part of
+the project build or validation surface.
+
+## Schema Slice
+
+Supported field types are:
+
+- Unsigned integers: `u8`, `u16`, `u32`, `u64`
+- Signed integers: `i8`, `i16`, `i32`, `i64`
+- Byte strings: `bytes`
+- Printable text: `ascii`
+
+Multi-byte integer endianness must be explicit at schema level through
+`endianness` or at field level through `endian`.
+
+## Quality Checks
+
+```bash
+scripts/check-repository-hygiene.sh
+scripts/check-format.sh
+scripts/check-doxygen.sh
+BUILD_DIR=build/projects scripts/run-clang-tidy.sh
+```
+
+The CMake project also exposes `format`, `format-check`, `docs-check`, and
+`hygiene-check` custom targets.
+
+## Docker Validation
+
+```bash
+docker compose -f docker/compose.test.yml run --rm --build gcc-debug
+```
+
+See [docker/README.md](docker/README.md) for the compiler matrix, sanitizer
+lane, artifact layout, and daemon-ready integration shape.
+
+## Documentation
+
+- [Getting started](docs/getting-started.md)
+- [Architecture](docs/ARCHITECTURE.md)
+- [Docker test images](docker/README.md)
+- [Contributing](CONTRIBUTING.md)
+
+Generate API documentation with:
+
+```bash
+scripts/check-doxygen.sh
+```
+
+Generated documentation is written under `build/docs/html/`.

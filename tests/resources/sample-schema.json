@@ -1,0 +1,14 @@
+{
+  "dialect": "binmorph.schema.v1",
+  "name": "sample",
+  "endianness": "little",
+  "root": {
+    "type": "struct",
+    "fields": [
+      { "name": "magic", "type": "bytes", "offset": 0, "size": 4 },
+      { "name": "version", "type": "u16", "offset": 4 },
+      { "name": "signed_delta", "type": "i16", "offset": 6, "endian": "big" },
+      { "name": "label", "type": "ascii", "offset": 8, "size": 3 }
+    ]
+  }
+}

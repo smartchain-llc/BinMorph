@@ -1,0 +1,30 @@
+services:
+  daemon:
+    build:
+      context: ../..
+      dockerfile: docker/Dockerfile
+      target: build
+    command: ["/workspace/build/bin/binmorphd", "--listen", "0.0.0.0:8080"]
+    networks: [testnet]
+    read_only: true
+    tmpfs: [/tmp]
+    healthcheck:
+      test: ["CMD", "/workspace/build/bin/binmorph", "health", "--endpoint", "http://localhost:8080"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+
+  integration-tests:
+    build:
+      context: ../..
+      dockerfile: docker/Dockerfile
+      target: build
+    depends_on:
+      daemon:
+        condition: service_healthy
+    command: ["ctest", "--preset", "docker-integration", "--output-on-failure"]
+    networks: [testnet]
+
+networks:
+  testnet:
+    internal: true

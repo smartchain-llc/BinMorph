@@ -1,0 +1,30 @@
+---
+Checks: >
+  -*,
+  bugprone-*,
+  clang-analyzer-*,
+  concurrency-*,
+  cppcoreguidelines-*,
+  modernize-*,
+  performance-*,
+  portability-*,
+  readability-*,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -readability-magic-numbers,
+  -readability-identifier-length,
+  -readability-function-cognitive-complexity
+WarningsAsErrors: ''
+HeaderFilterRegex: '^(?!.*(?:third_party|external|vendor|build|codex-skills)/).*$'
+FormatStyle: file
+CheckOptions:
+  readability-identifier-naming.ClassCase: CamelCase
+  readability-identifier-naming.StructCase: CamelCase
+  readability-identifier-naming.EnumCase: CamelCase
+  readability-identifier-naming.FunctionCase: camelBack
+  readability-identifier-naming.MethodCase: camelBack
+  readability-identifier-naming.VariableCase: camelBack
+  readability-identifier-naming.ParameterCase: camelBack
+  readability-identifier-naming.PrivateMemberCase: camelBack
+  readability-identifier-naming.PrivateMemberSuffix: '_'
+  modernize-use-override.IgnoreDestructors: 'false'
+...

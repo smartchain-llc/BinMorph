@@ -1,0 +1,9 @@
+{
+  "dialect": "binmorph.schema.v1",
+  "root": {
+    "type": "struct",
+    "fields": [
+      { "name": "version", "type": "u16", "offset": 0 }
+    ]
+  }
+}

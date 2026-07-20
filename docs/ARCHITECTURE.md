@@ -169,6 +169,16 @@ The initial executable implements the generic interpretation path only:
 
 This slice intentionally does not generate typed libraries, load artifacts, run as a daemon, or support dynamic expressions. Those surfaces should continue to use the same `NormalizedSchema` and runtime access rules rather than introducing separate decoding semantics.
 
+### Implemented test seam
+
+The CLI orchestration is split into:
+
+- `binmorph_core`, containing parser, schema compiler, bounded binary view, runtime interpreter, output rendering, and command orchestration.
+- `binmorph`, a thin production composition root that wires `FilesystemApplicationIO` to stdin/stdout/filesystem.
+- `IApplicationIO`, a narrow port used by `runInspect` for schema input, binary input, and output writing.
+
+This keeps external construction at the executable boundary. Unit tests inject GoogleMock implementations of `IApplicationIO` to verify success, schema-read failure, malformed schema short-circuiting, binary-read failure, help handling, and usage errors without depending on real files. File-backed CLI behavior remains covered by an end-to-end contract test.
+
 ## 8. Safety and correctness invariants
 
 - Every read and write is range-checked.

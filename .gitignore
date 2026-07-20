@@ -12,9 +12,15 @@ _deps
 CMakeUserPresets.json
 
 build
+artifacts
+*.gcda
+*.gcno
+*.gcov
+coverage.info
 tests/utils/data/*
 
 documentation/html
 documentation/latex
+build/docs
 
 .cache

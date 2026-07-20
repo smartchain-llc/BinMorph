@@ -1,0 +1,28 @@
+@startuml
+title BinMorph Testable Core Components
+
+component "binmorph executable" as Cli
+component "FilesystemApplicationIO" as FsIo
+interface "IApplicationIO" as Io
+component "binmorph_core" as Core
+component "GoogleTest / GoogleMock tests" as Tests
+
+Cli --> FsIo : constructs
+FsIo ..|> Io
+Cli --> Core : runProduction()
+Core --> Io : runInspect(options, io)
+Tests ..> Core : unit tests
+Tests ..> Io : mock implementation
+
+note right of Core
+Parser, schema compiler, BinaryView,
+interpreter, renderer, and CLI
+orchestration live here.
+end note
+
+note bottom of FsIo
+Filesystem/stdin/stdout access remains
+at the production composition boundary.
+end note
+
+@enduml

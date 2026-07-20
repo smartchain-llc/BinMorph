@@ -1,0 +1,83 @@
+services:
+  gcc-debug:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: build
+      args:
+        USER_ID: ${BINMORPH_DOCKER_UID:-1000}
+        GROUP_ID: ${BINMORPH_DOCKER_GID:-1000}
+        CONFIGURE_PRESET: docker-gcc-debug
+        BUILD_PRESET: docker-gcc-debug
+    image: binmorph/test-runner:gcc-debug
+    user: "0:0"
+    command: ["./scripts/container/run-test-container.sh", "docker-gcc-debug"]
+    volumes:
+      - ../artifacts/docker/gcc-debug:/workspace/artifacts
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+
+  clang-debug:
+    profiles: ["clang"]
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: build
+      args:
+        USER_ID: ${BINMORPH_DOCKER_UID:-1000}
+        GROUP_ID: ${BINMORPH_DOCKER_GID:-1000}
+        CONFIGURE_PRESET: docker-clang-debug
+        BUILD_PRESET: docker-clang-debug
+    image: binmorph/test-runner:clang-debug
+    user: "0:0"
+    command: ["./scripts/container/run-test-container.sh", "docker-clang-debug"]
+    volumes:
+      - ../artifacts/docker/clang-debug:/workspace/artifacts
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+
+  gcc-release:
+    profiles: ["release"]
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: build
+      args:
+        USER_ID: ${BINMORPH_DOCKER_UID:-1000}
+        GROUP_ID: ${BINMORPH_DOCKER_GID:-1000}
+        CONFIGURE_PRESET: docker-gcc-release
+        BUILD_PRESET: docker-gcc-release
+    image: binmorph/test-runner:gcc-release
+    user: "0:0"
+    command: ["./scripts/container/run-test-container.sh", "docker-gcc-release"]
+    volumes:
+      - ../artifacts/docker/gcc-release:/workspace/artifacts
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+
+  asan-ubsan:
+    profiles: ["sanitizer"]
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: build
+      args:
+        USER_ID: ${BINMORPH_DOCKER_UID:-1000}
+        GROUP_ID: ${BINMORPH_DOCKER_GID:-1000}
+        CONFIGURE_PRESET: docker-asan-ubsan
+        BUILD_PRESET: docker-asan-ubsan
+    image: binmorph/test-runner:asan-ubsan
+    user: "0:0"
+    command: ["./scripts/container/run-test-container.sh", "docker-asan-ubsan"]
+    volumes:
+      - ../artifacts/docker/asan-ubsan:/workspace/artifacts
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true

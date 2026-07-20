@@ -1,0 +1,63 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug binmorph inspect: sample",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/projects/binmorph",
+      "args": [
+        "inspect",
+        "--schema",
+        "${workspaceFolder}/tests/resources/sample-schema.json",
+        "--input",
+        "${workspaceFolder}/build/vscode-debug/sample.bin",
+        "--output",
+        "${workspaceFolder}/build/vscode-debug/sample-output.json"
+      ],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "preLaunchTask": "debug setup: sample inspect"
+    },
+    {
+      "name": "Debug binmorph inspect: truncated input",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/projects/binmorph",
+      "args": [
+        "inspect",
+        "--schema",
+        "${workspaceFolder}/tests/resources/sample-schema.json",
+        "--input",
+        "${workspaceFolder}/build/vscode-debug/truncated.bin",
+        "--output",
+        "${workspaceFolder}/build/vscode-debug/truncated-output.json"
+      ],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "preLaunchTask": "debug setup: truncated inspect"
+    },
+    {
+      "name": "Debug binmorph unit tests",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/projects/binmorph_unit_tests",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "environment": [],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/usr/bin/gdb",
+      "preLaunchTask": "cmake: build projects"
+    }
+  ]
+}

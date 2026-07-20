@@ -7,7 +7,55 @@
       "generator": "Unix Makefiles",
       "binaryDir": "${sourceDir}/build/projects",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug"
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    },
+    {
+      "name": "docker-base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    },
+    {
+      "name": "docker-gcc-debug",
+      "displayName": "Docker GCC Debug",
+      "inherits": "docker-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_COMPILER": "g++"
+      }
+    },
+    {
+      "name": "docker-clang-debug",
+      "displayName": "Docker Clang Debug",
+      "inherits": "docker-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_COMPILER": "clang++"
+      }
+    },
+    {
+      "name": "docker-gcc-release",
+      "displayName": "Docker GCC Release",
+      "inherits": "docker-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CXX_COMPILER": "g++"
+      }
+    },
+    {
+      "name": "docker-asan-ubsan",
+      "displayName": "Docker Clang ASan UBSan",
+      "inherits": "docker-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_COMPILER": "clang++",
+        "CMAKE_CXX_FLAGS": "-fsanitize=address,undefined -fno-omit-frame-pointer",
+        "CMAKE_EXE_LINKER_FLAGS": "-fsanitize=address,undefined"
       }
     }
   ],
@@ -15,12 +63,60 @@
     {
       "name": "projects",
       "configurePreset": "projects"
+    },
+    {
+      "name": "docker-gcc-debug",
+      "configurePreset": "docker-gcc-debug"
+    },
+    {
+      "name": "docker-clang-debug",
+      "configurePreset": "docker-clang-debug"
+    },
+    {
+      "name": "docker-gcc-release",
+      "configurePreset": "docker-gcc-release"
+    },
+    {
+      "name": "docker-asan-ubsan",
+      "configurePreset": "docker-asan-ubsan"
     }
   ],
   "testPresets": [
     {
       "name": "projects",
       "configurePreset": "projects",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "docker-gcc-debug",
+      "configurePreset": "docker-gcc-debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "docker-clang-debug",
+      "configurePreset": "docker-clang-debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "docker-gcc-release",
+      "configurePreset": "docker-gcc-release",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "docker-asan-ubsan",
+      "configurePreset": "docker-asan-ubsan",
+      "environment": {
+        "ASAN_OPTIONS": "detect_leaks=1:halt_on_error=1",
+        "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1"
+      },
       "output": {
         "outputOnFailure": true
       }

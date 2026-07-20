@@ -1,4 +1,5 @@
-set -eu
+#!/usr/bin/env bash
+set -euo pipefail
 
 BINMORPH="$1"
 TMPDIR="$(mktemp -d)"

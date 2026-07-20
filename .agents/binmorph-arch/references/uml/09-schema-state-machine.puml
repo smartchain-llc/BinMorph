@@ -1,0 +1,19 @@
+@startuml
+!theme plain
+[*] --> Draft
+Draft --> Parsed : JSON syntax valid
+Draft --> Rejected : syntax error
+Parsed --> Resolved : references/imports resolved
+Parsed --> Rejected : unresolved reference
+Resolved --> Validated : semantic checks pass
+Resolved --> Rejected : type/layout error
+Validated --> Registered : persisted with version/hash
+Registered --> Generating : generation requested
+Generating --> ArtifactAvailable : build and conformance pass
+Generating --> GenerationFailed : build/test failure
+GenerationFailed --> Generating : retry with corrected generator/options
+ArtifactAvailable --> Deprecated : superseded or withdrawn
+Registered --> Deprecated : schema withdrawn
+Deprecated --> Archived
+Rejected --> Draft : corrected and resubmitted
+@enduml

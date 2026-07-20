@@ -1,0 +1,80 @@
+@startuml
+!theme plain
+package "Interface Adapters" {
+  [CLI Adapter]
+  [HTTP/gRPC Adapter]
+  [SDK Adapter]
+}
+package "Application" {
+  [Schema Service]
+  [Generation Service]
+  [Interpretation Service]
+  [Registry Service]
+  [Job Coordinator]
+}
+package "Domain" {
+  [JSON Parser]
+  [Reference Resolver]
+  [Semantic Validator]
+  [Type System]
+  [Layout Engine]
+  [Normalized IR]
+  [Binary Object Model]
+  [Expression Evaluator]
+  [Diagnostic Engine]
+}
+package "Ports" {
+  interface ISchemaRepository
+  interface IArtifactRepository
+  interface ICodeGenerator
+  interface ICompilerToolchain
+  interface IDynamicLoader
+  interface IBinarySource
+  interface IJobStore
+  interface IObservability
+}
+package "Infrastructure" {
+  [File Schema Repository]
+  [Database Schema Repository]
+  [Filesystem Artifact Repository]
+  [C++ Generator]
+  [Rust Generator]
+  [Python Generator]
+  [Native Toolchain Adapter]
+  [Dynamic Loader Adapter]
+  [File/Stream Binary Sources]
+  [Persistent Job Store]
+  [Metrics/Tracing Adapter]
+}
+
+[CLI Adapter] --> [Schema Service]
+[HTTP/gRPC Adapter] --> [Generation Service]
+[SDK Adapter] --> [Interpretation Service]
+[Schema Service] --> [JSON Parser]
+[JSON Parser] --> [Reference Resolver]
+[Reference Resolver] --> [Semantic Validator]
+[Semantic Validator] --> [Type System]
+[Type System] --> [Layout Engine]
+[Layout Engine] --> [Normalized IR]
+[Interpretation Service] --> [Binary Object Model]
+[Binary Object Model] --> [Expression Evaluator]
+[Generation Service] --> ICodeGenerator
+[Generation Service] --> ICompilerToolchain
+[Generation Service] --> IArtifactRepository
+[Registry Service] --> ISchemaRepository
+[Interpretation Service] --> IBinarySource
+[Job Coordinator] --> IJobStore
+[Schema Service] --> IObservability
+
+[File Schema Repository] ..|> ISchemaRepository
+[Database Schema Repository] ..|> ISchemaRepository
+[Filesystem Artifact Repository] ..|> IArtifactRepository
+[C++ Generator] ..|> ICodeGenerator
+[Rust Generator] ..|> ICodeGenerator
+[Python Generator] ..|> ICodeGenerator
+[Native Toolchain Adapter] ..|> ICompilerToolchain
+[Dynamic Loader Adapter] ..|> IDynamicLoader
+[File/Stream Binary Sources] ..|> IBinarySource
+[Persistent Job Store] ..|> IJobStore
+[Metrics/Tracing Adapter] ..|> IObservability
+@enduml

@@ -1,0 +1,36 @@
+@startuml
+!theme plain
+skinparam componentStyle rectangle
+actor User
+actor Developer
+component "CLI" as CLI
+component "Daemon API\nHTTP/gRPC" as API
+component "Application Services" as App
+component "Schema Compiler" as Compiler
+component "Code Generation Engine" as Generator
+component "Binary Runtime" as Runtime
+component "Artifact Builder" as Builder
+component "Schema Registry" as Registry
+component "Artifact Repository" as Artifacts
+component "Job Store" as Jobs
+component "Observability" as Obs
+component "Generated Library" as GenLib
+
+User --> CLI
+User --> API
+Developer --> CLI
+Developer --> API
+CLI --> App
+API --> App
+App --> Compiler
+App --> Generator
+App --> Runtime
+App --> Registry
+App --> Jobs
+Generator --> Builder
+Builder --> Artifacts
+Compiler --> Registry
+App --> Obs
+GenLib --> Runtime : stable runtime API/ABI
+Developer --> GenLib
+@enduml

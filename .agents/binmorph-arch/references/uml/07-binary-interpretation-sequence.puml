@@ -1,0 +1,32 @@
+@startuml
+!theme plain
+actor Client
+participant "Interpretation Service" as Service
+participant "Schema Repository" as Repo
+participant "Binary Source" as Source
+participant "BinaryView" as View
+participant "Object Factory" as Factory
+participant "Expression Evaluator" as Eval
+participant "Primitive Codec" as Codec
+participant "Constraint Validator" as Constraints
+
+Client -> Service : interpret(schemaId, input, query)
+Service -> Repo : load normalized schema
+Repo --> Service : NormalizedSchema
+Service -> Source : open input
+Source --> Service : bounded source
+Service -> View : create(source, limits)
+Service -> Factory : create root object(schema.root, view)
+Factory --> Service : ObjectInstance
+loop fields accessed lazily
+  Service -> Eval : evaluate offset/length/condition
+  Eval --> Service : resolved layout
+  Service -> View : slice(offset, length)
+  View --> Service : child view
+  Service -> Codec : decode(type, child view, endian)
+  Codec --> Service : value/object
+  Service -> Constraints : validate(value, context)
+  Constraints --> Service : diagnostics
+end
+Service --> Client : decoded result + diagnostics
+@enduml

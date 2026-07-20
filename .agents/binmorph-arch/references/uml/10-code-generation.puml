@@ -1,0 +1,28 @@
+@startuml
+!theme plain
+component "NormalizedSchema" as IR
+component "Generation Model Builder" as Model
+interface ICodeGenerator
+component "C++ Generator" as Cpp
+component "Rust Generator" as Rust
+component "Python Generator" as Py
+component "Template/AST Renderer" as Renderer
+component "Source Package" as Source
+component "Sandboxed Toolchain" as Toolchain
+component "Generated Conformance Tests" as Tests
+component "Artifact Manifest" as Manifest
+artifact "Library / Package" as Artifact
+
+IR --> Model
+Model --> ICodeGenerator
+Cpp ..|> ICodeGenerator
+Rust ..|> ICodeGenerator
+Py ..|> ICodeGenerator
+ICodeGenerator --> Renderer
+Renderer --> Source
+Source --> Toolchain
+Tests --> Toolchain
+Toolchain --> Artifact
+Toolchain --> Manifest
+Manifest --> Artifact : records schema hash, ABI, target
+@enduml

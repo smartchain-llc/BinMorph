@@ -1,0 +1,41 @@
+@startuml
+!theme plain
+node "Client Host" {
+  artifact "CLI" as CLI
+  artifact "Generated Application" as App
+  artifact "Generated Library" as Lib
+  artifact "Runtime Library" as Runtime
+  App --> Lib
+  Lib --> Runtime
+}
+node "BinMorph Service Host" {
+  node "API Process" {
+    component "Daemon API"
+    component "Application Services"
+  }
+  node "Worker Sandbox" {
+    component "Schema Compiler Worker"
+    component "Generator Worker"
+    component "Toolchain Process"
+    component "Interpreter Worker"
+  }
+  database "Schema Registry DB" as DB
+  folder "Artifact Store" as Store
+  folder "Job/Result Store" as Jobs
+  component "Metrics/Tracing Agent" as Obs
+}
+cloud "Object/File Inputs" as Inputs
+
+CLI --> "Daemon API" : HTTPS/gRPC
+"Daemon API" --> "Application Services"
+"Application Services" --> "Schema Compiler Worker"
+"Application Services" --> "Generator Worker"
+"Application Services" --> "Interpreter Worker"
+"Generator Worker" --> "Toolchain Process"
+"Application Services" --> DB
+"Application Services" --> Store
+"Application Services" --> Jobs
+"Interpreter Worker" --> Inputs
+Store --> Lib : package retrieval
+"Application Services" --> Obs
+@enduml

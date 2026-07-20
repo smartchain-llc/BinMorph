@@ -1,0 +1,33 @@
+@startuml
+!theme plain
+actor Client
+participant "Schema Service" as Service
+participant "JSON Parser" as Parser
+participant "Reference Resolver" as Resolver
+participant "Semantic Validator" as Validator
+participant "Type System" as Types
+participant "Layout Engine" as Layout
+participant "Schema Repository" as Repo
+participant "Diagnostic Engine" as Diag
+
+Client -> Service : registerSchema(json, options)
+Service -> Parser : parse(json)
+Parser --> Service : SchemaDocument
+Service -> Resolver : resolveImports(document)
+Resolver --> Service : resolved document
+Service -> Validator : validate(document)
+Validator -> Types : resolve/check types
+Types --> Validator : typed model
+Validator -> Layout : calculate offsets, sizes, alignment
+Layout --> Validator : NormalizedSchema
+alt valid
+  Validator --> Service : schema + warnings
+  Service -> Repo : persist(schema, hash, metadata)
+  Repo --> Service : schemaVersion
+  Service --> Client : registration result
+else invalid
+  Validator -> Diag : build structured diagnostics
+  Diag --> Service : diagnostics
+  Service --> Client : validation failure
+end
+@enduml

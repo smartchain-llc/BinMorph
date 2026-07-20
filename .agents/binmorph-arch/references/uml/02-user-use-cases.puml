@@ -1,0 +1,38 @@
+@startuml
+!theme plain
+left to right direction
+actor "Schema Author" as Author
+actor "Developer" as Developer
+actor "Binary Analyst" as Analyst
+actor "Operator" as Operator
+rectangle "BinMorph" {
+  usecase "Create schema" as UC1
+  usecase "Validate schema" as UC2
+  usecase "Register/version schema" as UC3
+  usecase "Generate typed library" as UC4
+  usecase "Inspect generation diagnostics" as UC5
+  usecase "Interpret binary input" as UC6
+  usecase "Query object tree" as UC7
+  usecase "Export decoded representation" as UC8
+  usecase "Mutate and reserialize data" as UC9
+  usecase "Manage daemon jobs" as UC10
+  usecase "Monitor health and metrics" as UC11
+}
+Author --> UC1
+Author --> UC2
+Author --> UC3
+Developer --> UC4
+Developer --> UC5
+Analyst --> UC6
+Analyst --> UC7
+Analyst --> UC8
+Analyst --> UC9
+Operator --> UC10
+Operator --> UC11
+UC3 .> UC2 : <<include>>
+UC4 .> UC3 : <<include>>
+UC6 .> UC2 : <<include>>
+UC7 .> UC6 : <<extend>>
+UC8 .> UC6 : <<extend>>
+UC9 .> UC6 : <<extend>>
+@enduml

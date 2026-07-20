@@ -1,0 +1,57 @@
+@startuml
+!theme plain
+interface ISchemaDialect {
+  +parse(document)
+  +validateSyntax(document)
+}
+interface ICodeGenerator {
+  +capabilities()
+  +generate(schema, options)
+}
+interface IPrimitiveCodec {
+  +decode(view, type, endian)
+  +encode(value, view, type, endian)
+}
+interface IBinarySource {
+  +size()
+  +read(offset, length)
+}
+interface ISchemaRepository
+interface IArtifactRepository
+interface IProtocolAdapter
+interface IExpressionFunction {
+  +name()
+  +evaluate(arguments, context)
+}
+
+class JsonDialect
+class CppGenerator
+class RustGenerator
+class IntegerCodec
+class FloatCodec
+class FileSource
+class StreamSource
+class DatabaseSchemaRepository
+class FilesystemArtifactRepository
+class GrpcAdapter
+class HttpAdapter
+class ChecksumFunction
+
+JsonDialect ..|> ISchemaDialect
+CppGenerator ..|> ICodeGenerator
+RustGenerator ..|> ICodeGenerator
+IntegerCodec ..|> IPrimitiveCodec
+FloatCodec ..|> IPrimitiveCodec
+FileSource ..|> IBinarySource
+StreamSource ..|> IBinarySource
+DatabaseSchemaRepository ..|> ISchemaRepository
+FilesystemArtifactRepository ..|> IArtifactRepository
+GrpcAdapter ..|> IProtocolAdapter
+HttpAdapter ..|> IProtocolAdapter
+ChecksumFunction ..|> IExpressionFunction
+
+note right of IExpressionFunction
+Only deterministic, side-effect-free,
+resource-bounded functions are allowed.
+end note
+@enduml

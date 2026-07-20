@@ -1,0 +1,28 @@
+@startuml
+!theme plain
+left to right direction
+actor "Schema Author" as Author
+actor "Application Developer" as Dev
+actor "Binary Analyst / User" as Analyst
+actor "Operations Engineer" as Ops
+rectangle "BinMorph System" as System {
+  component "Declarative Binary Schema\nExecutable / Daemon" as BinMorph
+}
+cloud "Build Toolchain" as Toolchain
+folder "JSON Schema Files" as Schemas
+file "Binary Inputs" as Inputs
+artifact "Generated Libraries" as Libraries
+system "Client Applications" as Apps
+
+Author --> Schemas : defines byte layouts
+Author --> BinMorph : validates/registers schemas
+Dev --> BinMorph : requests code generation
+BinMorph --> Toolchain : compiles/packages generated code
+BinMorph --> Libraries : publishes versioned artifacts
+Dev --> Libraries : links/imports typed API
+Apps --> Libraries : reads/writes schema objects
+Analyst --> BinMorph : interprets arbitrary binary input
+Inputs --> BinMorph : files, streams, memory blobs
+Ops --> BinMorph : deploys, monitors, configures
+BinMorph --> Schemas : loads/imports
+@enduml

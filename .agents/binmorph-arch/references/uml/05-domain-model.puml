@@ -1,0 +1,90 @@
+@startuml
+!theme plain
+hide empty methods
+class SchemaDocument {
+  +schemaId: String
+  +dialectVersion: Version
+  +content: JsonValue
+  +sourceUri: URI
+}
+class NormalizedSchema {
+  +schemaId: String
+  +version: Version
+  +contentHash: Hash
+  +rootType: TypeId
+  +types: Map<TypeId, TypeDefinition>
+}
+abstract class TypeDefinition {
+  +id: TypeId
+  +name: String
+  +alignment: Alignment
+}
+class PrimitiveType
+class EnumType
+class BitfieldType
+class StructType
+class ArrayType
+class UnionType
+class PointerType
+class StringType
+class OpaqueType
+class FieldDefinition {
+  +name: String
+  +type: TypeId
+  +offset: LayoutExpression
+  +condition: LayoutExpression
+}
+class LayoutExpression {
+  +ast: ExpressionNode
+  +resultType: ValueType
+}
+class Constraint {
+  +code: String
+  +severity: Severity
+}
+class GeneratedArtifact {
+  +artifactId: String
+  +schemaHash: Hash
+  +generatorVersion: Version
+  +runtimeAbi: Version
+  +target: TargetTriple
+}
+class BinaryView {
+  +size(): UInt64
+  +slice(offset, length): BinaryView
+  +read(type, offset): Value
+}
+class ObjectInstance {
+  +type: TypeDefinition
+  +view: BinaryView
+  +get(field): Value
+  +set(field, value)
+}
+class Diagnostic {
+  +code: String
+  +severity: Severity
+  +schemaPath: String
+  +binaryOffset: UInt64
+  +message: String
+}
+
+SchemaDocument --> NormalizedSchema : compiles to
+NormalizedSchema "1" o-- "1..*" TypeDefinition
+TypeDefinition <|-- PrimitiveType
+TypeDefinition <|-- EnumType
+TypeDefinition <|-- BitfieldType
+TypeDefinition <|-- StructType
+TypeDefinition <|-- ArrayType
+TypeDefinition <|-- UnionType
+TypeDefinition <|-- PointerType
+TypeDefinition <|-- StringType
+TypeDefinition <|-- OpaqueType
+StructType "1" o-- "0..*" FieldDefinition
+UnionType "1" o-- "1..*" FieldDefinition
+FieldDefinition --> LayoutExpression
+FieldDefinition --> Constraint
+NormalizedSchema --> GeneratedArtifact
+ObjectInstance --> TypeDefinition
+ObjectInstance --> BinaryView
+ObjectInstance --> Diagnostic
+@enduml

@@ -1,0 +1,33 @@
+@startuml
+!theme plain
+start
+:Receive command or API request;
+if (Operation?) then (validate/register)
+  :Parse and compile schema;
+  if (Valid?) then (yes)
+    :Persist normalized schema;
+    :Return schema ID/version;
+  else (no)
+    :Return structured diagnostics;
+  endif
+elseif (generate)
+  :Load normalized schema;
+  :Select generator target;
+  :Render source package;
+  :Compile/package in sandbox;
+  :Run conformance checks;
+  :Publish artifact manifest;
+elseif (interpret)
+  :Load schema;
+  :Open bounded binary source;
+  :Create root object;
+  :Decode/query requested regions;
+  :Return values and diagnostics;
+elseif (daemon job)
+  :Create persistent job record;
+  :Execute with resource limits;
+  :Store result and telemetry;
+  :Expose status/result endpoint;
+endif
+stop
+@enduml

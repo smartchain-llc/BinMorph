@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.20)
 project(BinMorph)
 
 set(CMAKE_CXX_STANDARD 23)
@@ -9,23 +9,56 @@ configure_file(thirdparty/json.hpp include/json.hpp)
 set(JSON_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/include)
 add_subdirectory(core)
 
-option(BUILD_TESTS "Build the IFR Test Files" ON)
+option(BUILD_EXAMPLES "Build BinMorph examples" ON)
+if(BUILD_EXAMPLES)
+  add_subdirectory(examples)
+endif()
+
+option(BUILD_TESTS "Build BinMorph tests" ON)
+if(BUILD_TESTS)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 --coverage")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 --coverage")
   enable_testing()
-if(${BUILD_TESTS})
-
   message("== [BinMorph] Building Tests")
-
-  include(FetchContent)
-  FetchContent_Declare(
-    googletest
-    URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
-  )
-
-  FetchContent_MakeAvailable(googletest)
-  include(GoogleTest)
-  # option(Boost_INCLUDE_DIR "Path to Boost include" /usr/local/boost)
-  # message( "== [BinMorph] Boost Root: ${Boost_INCLUDE_DIR}")
-  # find_package(Boost REQUIRED)
-  # add_compile_definitions(CROW_USE_BOOST)
   add_subdirectory(tests)
+
+  find_program(LCOV_EXECUTABLE lcov)
+  if(LCOV_EXECUTABLE)
+    add_custom_target(
+      coverage_reset
+      COMMAND ${LCOV_EXECUTABLE}
+        --quiet
+        --zerocounters
+        --directory ${CMAKE_BINARY_DIR}
+      COMMENT "Resetting coverage counters"
+      VERBATIM
+    )
+
+    add_custom_target(
+      coverage
+      COMMAND ${LCOV_EXECUTABLE}
+        --quiet
+        --capture
+        --directory ${CMAKE_BINARY_DIR}
+        --base-directory ${CMAKE_SOURCE_DIR}
+        --include "${CMAKE_SOURCE_DIR}/core/*"
+        --output-file ${CMAKE_BINARY_DIR}/coverage.info
+      COMMENT "Generating LCOV coverage report at ${CMAKE_BINARY_DIR}/coverage.info"
+      VERBATIM
+    )
+  else()
+    add_custom_target(
+      coverage_reset
+      COMMAND ${CMAKE_COMMAND} -E echo "lcov was not found; install lcov to reset coverage counters."
+      COMMAND ${CMAKE_COMMAND} -E false
+      VERBATIM
+    )
+
+    add_custom_target(
+      coverage
+      COMMAND ${CMAKE_COMMAND} -E echo "lcov was not found; install lcov to generate ${CMAKE_BINARY_DIR}/coverage.info."
+      COMMAND ${CMAKE_COMMAND} -E false
+      VERBATIM
+    )
+  endif()
 endif()

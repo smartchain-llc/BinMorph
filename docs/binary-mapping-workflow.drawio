@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" agent="Codex drawio-mxgraph skill" version="24.7.17" type="device" compressed="false">
+  <diagram id="page-1" name="BinMorph Library Workflow">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="host-project" value="Host project links BinMorph&lt;br&gt;CLI, service, analyzer, embedded app, test harness" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eceff1;strokeColor=#455a64;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="365" y="45" width="250" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="schema-inputs" value="Schema inputs&lt;br&gt;JSON layout, imported dialects, domain packs" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#e3f2fd;strokeColor=#1565c0;fontSize=12;" vertex="1" parent="compile-time">
+          <mxGeometry x="50" y="22" width="235" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="binary-inputs" value="Binary inputs&lt;br&gt;files, mmap, streams, packets, firmware images" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#fff3e0;strokeColor=#ef6c00;fontSize=12;" vertex="1" parent="runtime-input">
+          <mxGeometry x="35" y="22" width="250" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="load-schemas" value="Load schemas and resolve imports" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;fontSize=12;" vertex="1" parent="compile-time">
+          <mxGeometry x="65" y="162" width="215" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="validate-schemas" value="Validate structure, constraints, compatibility, and limits" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;fontSize=12;" vertex="1" parent="compile-time">
+          <mxGeometry x="45" y="272" width="255" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="compile-ir" value="Compile canonical format model&lt;br&gt;fields, choices, repeats, bit ranges, expressions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f8e9;strokeColor=#558b2f;fontSize=12;" vertex="1" parent="compile-time">
+          <mxGeometry x="30" y="397" width="285" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="optimize-plan" value="Build optimized execution plan&lt;br&gt;cache, generate APIs, precompute offsets when possible" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#f9a825;fontSize=12;" vertex="1" parent="compile-time">
+          <mxGeometry x="30" y="532" width="285" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="open-binary" value="Open binary source&lt;br&gt;bounded reader, streaming window, mmap view" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#ef6c00;fontSize=12;" vertex="1" parent="runtime-input">
+          <mxGeometry x="30" y="162" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="select-mode" value="Operation mode?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fffde7;strokeColor=#f9a825;fontSize=12;" vertex="1" parent="runtime-execution">
+          <mxGeometry x="380" y="22" width="150" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="parse-engine" value="Parse engine walks execution plan" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e5f5;strokeColor=#7b1fa2;fontSize=12;" vertex="1" parent="runtime-execution">
+          <mxGeometry x="185" y="172" width="230" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="build-engine" value="Build engine writes native binary from object graph" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e5f5;strokeColor=#7b1fa2;fontSize=12;" vertex="1" parent="runtime-execution">
+          <mxGeometry x="510" y="172" width="260" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="node-kind" value="Current node kind?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fffde7;strokeColor=#f9a825;fontSize=12;" vertex="1" parent="runtime-execution">
+          <mxGeometry x="240" y="307" width="160" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="container-choice-repeat" value="Resolve container, choice, repeat, pointer, or dependent length" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f8e9;strokeColor=#558b2f;fontSize=12;" vertex="1" parent="runtime-execution">
+          <mxGeometry x="30" y="327" width="250" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="read-leaf" value="Read leaf field&lt;br&gt;byte range, bit range, endian, signedness" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#c2185b;fontSize=12;" vertex="1" parent="runtime-execution">
+          <mxGeometry x="470" y="327" width="245" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="decode-transform" value="Decode and transform&lt;br&gt;varints, enums, timestamps, decimals, compression, checksums" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#c2185b;fontSize=12;" vertex="1" parent="runtime-execution">
+          <mxGeometry x="455" y="472" width="280" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="validate-data" value="Validate mapped value&lt;br&gt;magic, ranges, assertions, schema version, security policy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;fontSize=12;" vertex="1" parent="runtime-execution">
+          <mxGeometry x="440" y="622" width="310" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="record-diagnostics" value="Record diagnostics&lt;br&gt;offsets, decisions, warnings, recoverable errors" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffebee;strokeColor=#c62828;fontSize=12;" vertex="1" parent="runtime-execution">
+          <mxGeometry x="800" y="487" width="260" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="append-result" value="Append to mapped document&lt;br&gt;typed value plus raw byte provenance" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede7f6;strokeColor=#5e35b1;fontSize=12;" vertex="1" parent="runtime-execution">
+          <mxGeometry x="465" y="777" width="260" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="more-work" value="More nodes or stream frames?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fffde7;strokeColor=#f9a825;fontSize=12;" vertex="1" parent="runtime-execution">
+          <mxGeometry x="520" y="922" width="160" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="library-surfaces" value="Expose library surfaces&lt;br&gt;query API, generated C++, JSON/XML, Arrow/table, events, visual trace, rewritten binary" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e0f2f1;strokeColor=#00695c;fontSize=12;" vertex="1" parent="host-integration">
+          <mxGeometry x="30" y="22" width="330" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="host-consumes" value="Host project consumes results&lt;br&gt;analysis, interop, data pipeline, simulator, editor, test fixture" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eceff1;strokeColor=#455a64;fontSize=12;" vertex="1" parent="host-integration">
+          <mxGeometry x="30" y="187" width="330" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-host-schema" value="provides" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="host-project" target="schema-inputs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-host-binary" value="provides" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="host-project" target="binary-inputs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-schema-load" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="schema-inputs" target="load-schemas">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-load-validate" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="load-schemas" target="validate-schemas">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-validate-ir" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="validate-schemas" target="compile-ir">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-ir-plan" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="compile-ir" target="optimize-plan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-binary-open" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="binary-inputs" target="open-binary">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-plan-mode" value="ready plan" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="optimize-plan" target="select-mode">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-open-mode" value="reader/writer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="open-binary" target="select-mode">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-mode-parse" value="parse / inspect" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="select-mode" target="parse-engine">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-mode-build" value="build / rewrite" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="select-mode" target="build-engine">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-parse-kind" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="parse-engine" target="node-kind">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-kind-container" value="container" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="node-kind" target="container-choice-repeat">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-container-parse" value="next child" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="container-choice-repeat" target="parse-engine">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-kind-leaf" value="leaf" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="node-kind" target="read-leaf">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-leaf-decode" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="read-leaf" target="decode-transform">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-decode-validate" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="decode-transform" target="validate-data">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-validate-diagnostics" value="warning/error" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="validate-data" target="record-diagnostics">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-validate-append" value="accepted" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="validate-data" target="append-result">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-diagnostics-append" value="recover" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="record-diagnostics" target="append-result">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-append-more" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="append-result" target="more-work">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-more-parse" value="yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="more-work" target="parse-engine">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-more-surfaces" value="no" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="more-work" target="library-surfaces">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-build-surfaces" value="binary artifact" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="build-engine" target="library-surfaces">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-surfaces-host" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="library-surfaces" target="host-consumes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="compile-time" value="Compile-Time Schema Pipeline" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f7fbff;strokeColor=#9e9e9e;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="120" width="345" height="680" as="geometry" />
+        </mxCell>
+        <mxCell id="runtime-input" value="Runtime Input Pipeline" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fffdf6;strokeColor=#9e9e9e;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="120" width="320" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="runtime-execution" value="Runtime Parse / Build Execution" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fffaff;strokeColor=#9e9e9e;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="35" y="765" width="1090" height="1085" as="geometry" />
+        </mxCell>
+        <mxCell id="host-integration" value="Reusable Library Outputs" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fbfffd;strokeColor=#9e9e9e;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="1830" width="390" height="335" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

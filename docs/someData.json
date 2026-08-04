@@ -1,0 +1,11 @@
+{
+    "architecture":[
+        {
+            "magic":{ "len": 4, "endian": "little" },
+            "header":{ "len": 4, "endian": "little" },
+            "payload":{ 
+                "metadata":{ "len": 256, "endian": "little" }
+            }
+        }
+    ]
+}

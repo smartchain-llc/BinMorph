@@ -1,0 +1,425 @@
+{
+  "title": "BinMorph Library Workflow",
+  "direction": "TB",
+  "auto_icons": false,
+  "nodes": [
+    {
+      "id": "host-project",
+      "label": "Host project links BinMorph<br>CLI, service, analyzer, embedded app, test harness",
+      "type": "actor",
+      "x": 365,
+      "y": 45,
+      "width": 250,
+      "height": 80,
+      "style": "rounded=1;whiteSpace=wrap;html=1;fillColor=#eceff1;strokeColor=#455a64;fontSize=12;"
+    },
+    {
+      "id": "schema-inputs",
+      "label": "Schema inputs<br>JSON layout, imported dialects, domain packs",
+      "type": "document",
+      "x": 90,
+      "y": 170,
+      "width": 235,
+      "height": 85,
+      "style": "shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#e3f2fd;strokeColor=#1565c0;fontSize=12;"
+    },
+    {
+      "id": "binary-inputs",
+      "label": "Binary inputs<br>files, mmap, streams, packets, firmware images",
+      "type": "document",
+      "x": 645,
+      "y": 170,
+      "width": 250,
+      "height": 85,
+      "style": "shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#fff3e0;strokeColor=#ef6c00;fontSize=12;"
+    },
+    {
+      "id": "load-schemas",
+      "label": "Load schemas and resolve imports",
+      "type": "process",
+      "x": 105,
+      "y": 310,
+      "width": 215,
+      "height": 70,
+      "style": "rounded=1;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;fontSize=12;"
+    },
+    {
+      "id": "validate-schemas",
+      "label": "Validate structure, constraints, compatibility, and limits",
+      "type": "process",
+      "x": 85,
+      "y": 420,
+      "width": 255,
+      "height": 80,
+      "style": "rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;fontSize=12;"
+    },
+    {
+      "id": "compile-ir",
+      "label": "Compile canonical format model<br>fields, choices, repeats, bit ranges, expressions",
+      "type": "process",
+      "x": 70,
+      "y": 545,
+      "width": 285,
+      "height": 85,
+      "style": "rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f8e9;strokeColor=#558b2f;fontSize=12;"
+    },
+    {
+      "id": "optimize-plan",
+      "label": "Build optimized execution plan<br>cache, generate APIs, precompute offsets when possible",
+      "type": "process",
+      "x": 70,
+      "y": 680,
+      "width": 285,
+      "height": 90,
+      "style": "rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#f9a825;fontSize=12;"
+    },
+    {
+      "id": "open-binary",
+      "label": "Open binary source<br>bounded reader, streaming window, mmap view",
+      "type": "process",
+      "x": 640,
+      "y": 310,
+      "width": 260,
+      "height": 80,
+      "style": "rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#ef6c00;fontSize=12;"
+    },
+    {
+      "id": "select-mode",
+      "label": "Operation mode?",
+      "type": "decision",
+      "x": 415,
+      "y": 815,
+      "width": 150,
+      "height": 100,
+      "style": "rhombus;whiteSpace=wrap;html=1;fillColor=#fffde7;strokeColor=#f9a825;fontSize=12;"
+    },
+    {
+      "id": "parse-engine",
+      "label": "Parse engine walks execution plan",
+      "type": "process",
+      "x": 220,
+      "y": 965,
+      "width": 230,
+      "height": 70,
+      "style": "rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e5f5;strokeColor=#7b1fa2;fontSize=12;"
+    },
+    {
+      "id": "build-engine",
+      "label": "Build engine writes native binary from object graph",
+      "type": "process",
+      "x": 545,
+      "y": 965,
+      "width": 260,
+      "height": 75,
+      "style": "rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e5f5;strokeColor=#7b1fa2;fontSize=12;"
+    },
+    {
+      "id": "node-kind",
+      "label": "Current node kind?",
+      "type": "decision",
+      "x": 275,
+      "y": 1100,
+      "width": 160,
+      "height": 105,
+      "style": "rhombus;whiteSpace=wrap;html=1;fillColor=#fffde7;strokeColor=#f9a825;fontSize=12;"
+    },
+    {
+      "id": "container-choice-repeat",
+      "label": "Resolve container, choice, repeat, pointer, or dependent length",
+      "type": "process",
+      "x": 65,
+      "y": 1120,
+      "width": 250,
+      "height": 85,
+      "style": "rounded=1;whiteSpace=wrap;html=1;fillColor=#f1f8e9;strokeColor=#558b2f;fontSize=12;"
+    },
+    {
+      "id": "read-leaf",
+      "label": "Read leaf field<br>byte range, bit range, endian, signedness",
+      "type": "process",
+      "x": 505,
+      "y": 1120,
+      "width": 245,
+      "height": 85,
+      "style": "rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#c2185b;fontSize=12;"
+    },
+    {
+      "id": "decode-transform",
+      "label": "Decode and transform<br>varints, enums, timestamps, decimals, compression, checksums",
+      "type": "process",
+      "x": 490,
+      "y": 1265,
+      "width": 280,
+      "height": 95,
+      "style": "rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#c2185b;fontSize=12;"
+    },
+    {
+      "id": "validate-data",
+      "label": "Validate mapped value<br>magic, ranges, assertions, schema version, security policy",
+      "type": "process",
+      "x": 475,
+      "y": 1415,
+      "width": 310,
+      "height": 95,
+      "style": "rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;fontSize=12;"
+    },
+    {
+      "id": "record-diagnostics",
+      "label": "Record diagnostics<br>offsets, decisions, warnings, recoverable errors",
+      "type": "process",
+      "x": 835,
+      "y": 1280,
+      "width": 260,
+      "height": 90,
+      "style": "rounded=1;whiteSpace=wrap;html=1;fillColor=#ffebee;strokeColor=#c62828;fontSize=12;"
+    },
+    {
+      "id": "append-result",
+      "label": "Append to mapped document<br>typed value plus raw byte provenance",
+      "type": "process",
+      "x": 500,
+      "y": 1570,
+      "width": 260,
+      "height": 85,
+      "style": "rounded=1;whiteSpace=wrap;html=1;fillColor=#ede7f6;strokeColor=#5e35b1;fontSize=12;"
+    },
+    {
+      "id": "more-work",
+      "label": "More nodes or stream frames?",
+      "type": "decision",
+      "x": 555,
+      "y": 1715,
+      "width": 160,
+      "height": 105,
+      "style": "rhombus;whiteSpace=wrap;html=1;fillColor=#fffde7;strokeColor=#f9a825;fontSize=12;"
+    },
+    {
+      "id": "library-surfaces",
+      "label": "Expose library surfaces<br>query API, generated C++, JSON/XML, Arrow/table, events, visual trace, rewritten binary",
+      "type": "process",
+      "x": 390,
+      "y": 1880,
+      "width": 330,
+      "height": 105,
+      "style": "rounded=1;whiteSpace=wrap;html=1;fillColor=#e0f2f1;strokeColor=#00695c;fontSize=12;"
+    },
+    {
+      "id": "host-consumes",
+      "label": "Host project consumes results<br>analysis, interop, data pipeline, simulator, editor, test fixture",
+      "type": "process",
+      "x": 390,
+      "y": 2045,
+      "width": 330,
+      "height": 90,
+      "style": "rounded=1;whiteSpace=wrap;html=1;fillColor=#eceff1;strokeColor=#455a64;fontSize=12;"
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-host-schema",
+      "source": "host-project",
+      "target": "schema-inputs",
+      "label": "provides"
+    },
+    {
+      "id": "edge-host-binary",
+      "source": "host-project",
+      "target": "binary-inputs",
+      "label": "provides"
+    },
+    {
+      "id": "edge-schema-load",
+      "source": "schema-inputs",
+      "target": "load-schemas"
+    },
+    {
+      "id": "edge-load-validate",
+      "source": "load-schemas",
+      "target": "validate-schemas"
+    },
+    {
+      "id": "edge-validate-ir",
+      "source": "validate-schemas",
+      "target": "compile-ir"
+    },
+    {
+      "id": "edge-ir-plan",
+      "source": "compile-ir",
+      "target": "optimize-plan"
+    },
+    {
+      "id": "edge-binary-open",
+      "source": "binary-inputs",
+      "target": "open-binary"
+    },
+    {
+      "id": "edge-plan-mode",
+      "source": "optimize-plan",
+      "target": "select-mode",
+      "label": "ready plan"
+    },
+    {
+      "id": "edge-open-mode",
+      "source": "open-binary",
+      "target": "select-mode",
+      "label": "reader/writer"
+    },
+    {
+      "id": "edge-mode-parse",
+      "source": "select-mode",
+      "target": "parse-engine",
+      "label": "parse / inspect"
+    },
+    {
+      "id": "edge-mode-build",
+      "source": "select-mode",
+      "target": "build-engine",
+      "label": "build / rewrite"
+    },
+    {
+      "id": "edge-parse-kind",
+      "source": "parse-engine",
+      "target": "node-kind"
+    },
+    {
+      "id": "edge-kind-container",
+      "source": "node-kind",
+      "target": "container-choice-repeat",
+      "label": "container"
+    },
+    {
+      "id": "edge-container-parse",
+      "source": "container-choice-repeat",
+      "target": "parse-engine",
+      "label": "next child"
+    },
+    {
+      "id": "edge-kind-leaf",
+      "source": "node-kind",
+      "target": "read-leaf",
+      "label": "leaf"
+    },
+    {
+      "id": "edge-leaf-decode",
+      "source": "read-leaf",
+      "target": "decode-transform"
+    },
+    {
+      "id": "edge-decode-validate",
+      "source": "decode-transform",
+      "target": "validate-data"
+    },
+    {
+      "id": "edge-validate-diagnostics",
+      "source": "validate-data",
+      "target": "record-diagnostics",
+      "label": "warning/error"
+    },
+    {
+      "id": "edge-validate-append",
+      "source": "validate-data",
+      "target": "append-result",
+      "label": "accepted"
+    },
+    {
+      "id": "edge-diagnostics-append",
+      "source": "record-diagnostics",
+      "target": "append-result",
+      "label": "recover"
+    },
+    {
+      "id": "edge-append-more",
+      "source": "append-result",
+      "target": "more-work"
+    },
+    {
+      "id": "edge-more-parse",
+      "source": "more-work",
+      "target": "parse-engine",
+      "label": "yes"
+    },
+    {
+      "id": "edge-more-surfaces",
+      "source": "more-work",
+      "target": "library-surfaces",
+      "label": "no"
+    },
+    {
+      "id": "edge-build-surfaces",
+      "source": "build-engine",
+      "target": "library-surfaces",
+      "label": "binary artifact"
+    },
+    {
+      "id": "edge-surfaces-host",
+      "source": "library-surfaces",
+      "target": "host-consumes"
+    }
+  ],
+  "groups": [
+    {
+      "id": "compile-time",
+      "label": "Compile-Time Schema Pipeline",
+      "members": [
+        "schema-inputs",
+        "load-schemas",
+        "validate-schemas",
+        "compile-ir",
+        "optimize-plan"
+      ],
+      "x": 40,
+      "y": 145,
+      "width": 350,
+      "height": 660,
+      "style": "swimlane;whiteSpace=wrap;html=1;fillColor=#f7fbff;strokeColor=#9e9e9e;fontStyle=1;"
+    },
+    {
+      "id": "runtime-input",
+      "label": "Runtime Input Pipeline",
+      "members": [
+        "binary-inputs",
+        "open-binary"
+      ],
+      "x": 610,
+      "y": 145,
+      "width": 325,
+      "height": 280,
+      "style": "swimlane;whiteSpace=wrap;html=1;fillColor=#fffdf6;strokeColor=#9e9e9e;fontStyle=1;"
+    },
+    {
+      "id": "runtime-execution",
+      "label": "Runtime Parse / Build Execution",
+      "members": [
+        "select-mode",
+        "parse-engine",
+        "build-engine",
+        "node-kind",
+        "container-choice-repeat",
+        "read-leaf",
+        "decode-transform",
+        "validate-data",
+        "record-diagnostics",
+        "append-result",
+        "more-work"
+      ],
+      "x": 35,
+      "y": 790,
+      "width": 1095,
+      "height": 1070,
+      "style": "swimlane;whiteSpace=wrap;html=1;fillColor=#fffaff;strokeColor=#9e9e9e;fontStyle=1;"
+    },
+    {
+      "id": "host-integration",
+      "label": "Reusable Library Outputs",
+      "members": [
+        "library-surfaces",
+        "host-consumes"
+      ],
+      "x": 345,
+      "y": 1855,
+      "width": 420,
+      "height": 310,
+      "style": "swimlane;whiteSpace=wrap;html=1;fillColor=#fbfffd;strokeColor=#9e9e9e;fontStyle=1;"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+add_executable(binmorph_step_through step_through.cxx)
+target_link_libraries(binmorph_step_through PRIVATE binmorph)

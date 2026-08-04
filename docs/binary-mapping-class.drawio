@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" agent="Codex drawio-mxgraph skill" version="24.7.17" type="device" compressed="false">
+  <diagram id="page-1" name="BinMorph Powerhouse Library Class Model">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="schema-source" value="&lt;b&gt;SchemaSource&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;+ uri()&lt;br&gt;+ format()&lt;br&gt;+ read()&lt;br&gt;&lt;br&gt;JSON layout, imported specs, embedded strings." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;align=left;verticalAlign=top;spacing=8;fontSize=12;" vertex="1" parent="schema-front-door">
+          <mxGeometry x="30" y="22" width="220" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="schema-registry" value="&lt;b&gt;SchemaRegistry&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;+ register(source)&lt;br&gt;+ resolve(id, version)&lt;br&gt;+ importsFor(schema)&lt;br&gt;&lt;br&gt;Owns known format definitions." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;align=left;verticalAlign=top;spacing=8;fontSize=12;" vertex="1" parent="schema-front-door">
+          <mxGeometry x="300" y="22" width="235" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="schema-parser" value="&lt;b&gt;SchemaParser&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;+ parse(source)&lt;br&gt;+ parseJsonLayout()&lt;br&gt;+ importExternalSpec()&lt;br&gt;&lt;br&gt;Builds a normalized IR." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;align=left;verticalAlign=top;spacing=8;fontSize=12;" vertex="1" parent="schema-front-door">
+          <mxGeometry x="590" y="22" width="235" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="schema-validator" value="&lt;b&gt;SchemaValidator&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;+ checkRequiredKeys()&lt;br&gt;+ checkBounds()&lt;br&gt;+ checkEvolution()&lt;br&gt;+ checkSecurityLimits()" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;align=left;verticalAlign=top;spacing=8;fontSize=12;" vertex="1" parent="schema-front-door">
+          <mxGeometry x="590" y="212" width="235" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="format-model" value="&lt;b&gt;FormatModel&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;- schemaId&lt;br&gt;- version&lt;br&gt;- root: LayoutNode&lt;br&gt;- typeSystem&lt;br&gt;- metadata&lt;br&gt;&lt;br&gt;Canonical description used by runtime and codegen." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f1f8e9;strokeColor=#558b2f;align=left;verticalAlign=top;spacing=8;fontSize=12;" vertex="1" parent="canonical-ir">
+          <mxGeometry x="30" y="22" width="260" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="layout-node" value="&lt;b&gt;LayoutNode&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;- name, path&lt;br&gt;- kind: container | field | choice | repeat&lt;br&gt;- lenExpr, offsetExpr&lt;br&gt;- endian, bitRange&lt;br&gt;- constraints, docs" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f1f8e9;strokeColor=#558b2f;align=left;verticalAlign=top;spacing=8;fontSize=12;" vertex="1" parent="canonical-ir">
+          <mxGeometry x="30" y="232" width="260" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="type-system" value="&lt;b&gt;TypeSystem&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;+ primitive(name)&lt;br&gt;+ enum(name)&lt;br&gt;+ composite(name)&lt;br&gt;+ logicalType(field)&lt;br&gt;&lt;br&gt;Numbers, strings, blobs, timestamps, decimals, enums." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f1f8e9;strokeColor=#558b2f;align=left;verticalAlign=top;spacing=8;fontSize=12;" vertex="1" parent="canonical-ir">
+          <mxGeometry x="30" y="437" width="260" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="execution-plan" value="&lt;b&gt;ExecutionPlan&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;+ steps()&lt;br&gt;+ optimize()&lt;br&gt;+ cacheKey()&lt;br&gt;&lt;br&gt;Precomputed read/write plan for low-latency use." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#f9a825;align=left;verticalAlign=top;spacing=8;fontSize=12;" vertex="1" parent="runtime-core">
+          <mxGeometry x="30" y="22" width="245" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="binary-view" value="&lt;b&gt;BinaryView&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;+ fromFile()&lt;br&gt;+ fromMemory()&lt;br&gt;+ fromStream()&lt;br&gt;+ slice(offset, len)&lt;br&gt;&lt;br&gt;File, mmap, packet, firmware image, or buffer." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#ef6c00;align=left;verticalAlign=top;spacing=8;fontSize=12;" vertex="1" parent="runtime-core">
+          <mxGeometry x="30" y="222" width="245" height="155" as="geometry" />
+        </mxCell>
+        <mxCell id="mapping-session" value="&lt;b&gt;MappingSession&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;+ parse(input)&lt;br&gt;+ build(document)&lt;br&gt;+ stream(events)&lt;br&gt;+ setPolicy(options)&lt;br&gt;&lt;br&gt;Public API entry point." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f3e5f5;strokeColor=#7b1fa2;align=left;verticalAlign=top;spacing=8;fontSize=12;" vertex="1" parent="runtime-core">
+          <mxGeometry x="355" y="117" width="255" height="155" as="geometry" />
+        </mxCell>
+        <mxCell id="reader-writer" value="&lt;b&gt;BinaryReaderWriter&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;+ readBits()&lt;br&gt;+ readEndian()&lt;br&gt;+ writeValue()&lt;br&gt;+ seek()&lt;br&gt;&lt;br&gt;Byte and bit accurate cursor." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#ef6c00;align=left;verticalAlign=top;spacing=8;fontSize=12;" vertex="1" parent="runtime-core">
+          <mxGeometry x="355" y="332" width="255" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="codec-registry" value="&lt;b&gt;CodecRegistry&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;+ decoder(type)&lt;br&gt;+ encoder(type)&lt;br&gt;+ transform(name)&lt;br&gt;&lt;br&gt;Endian, varint, BCD, compression, checksums, crypto hooks." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#c2185b;align=left;verticalAlign=top;spacing=8;fontSize=12;" vertex="1" parent="runtime-core">
+          <mxGeometry x="355" y="527" width="255" height="155" as="geometry" />
+        </mxCell>
+        <mxCell id="mapped-document" value="&lt;b&gt;MappedDocument&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;+ root()&lt;br&gt;+ find(path)&lt;br&gt;+ rawRange(path)&lt;br&gt;+ typedValue(path)&lt;br&gt;&lt;br&gt;Inspectable object graph with raw byte provenance." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ede7f6;strokeColor=#5e35b1;align=left;verticalAlign=top;spacing=8;fontSize=12;" vertex="1" parent="library-surfaces">
+          <mxGeometry x="30" y="22" width="270" height="155" as="geometry" />
+        </mxCell>
+        <mxCell id="diagnostics" value="&lt;b&gt;Diagnostics&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;+ trace()&lt;br&gt;+ errors()&lt;br&gt;+ coverage()&lt;br&gt;+ explain(path)&lt;br&gt;&lt;br&gt;Offsets, field decisions, validation failures, recoverable errors." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffebee;strokeColor=#c62828;align=left;verticalAlign=top;spacing=8;fontSize=12;" vertex="1" parent="library-surfaces">
+          <mxGeometry x="30" y="227" width="270" height="155" as="geometry" />
+        </mxCell>
+        <mxCell id="exporter-suite" value="&lt;b&gt;ExporterSuite&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;+ toJson()&lt;br&gt;+ toCppStruct()&lt;br&gt;+ toArrow()&lt;br&gt;+ toEvents()&lt;br&gt;+ toHexView()&lt;br&gt;&lt;br&gt;Outputs for apps, pipelines, analyzers, and codegen." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e0f2f1;strokeColor=#00695c;align=left;verticalAlign=top;spacing=8;fontSize=12;" vertex="1" parent="library-surfaces">
+          <mxGeometry x="30" y="432" width="270" height="175" as="geometry" />
+        </mxCell>
+        <mxCell id="plugin-api" value="&lt;b&gt;PluginApi&lt;/b&gt;&lt;hr size=&quot;1&quot;&gt;+ registerSchemaDialect()&lt;br&gt;+ registerCodec()&lt;br&gt;+ registerExporter()&lt;br&gt;+ registerDomainPack()&lt;br&gt;&lt;br&gt;Lets other projects extend the library." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e0f7fa;strokeColor=#00838f;align=left;verticalAlign=top;spacing=8;fontSize=12;" vertex="1" parent="runtime-core">
+          <mxGeometry x="30" y="527" width="245" height="165" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-source-registry" value="registered as" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="schema-source" target="schema-registry">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-registry-parser" value="resolved sources" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="schema-registry" target="schema-parser">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-parser-model" value="creates" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="schema-parser" target="format-model">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-validator-model" value="validates" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="schema-validator" target="format-model">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-model-node" value="owns tree" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="format-model" target="layout-node">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-model-types" value="uses" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="format-model" target="type-system">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-model-plan" value="compiled to" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="format-model" target="execution-plan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-plan-session" value="drives" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="execution-plan" target="mapping-session">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-binary-session" value="input or output" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="binary-view" target="mapping-session">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-session-reader" value="seeks and reads" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="mapping-session" target="reader-writer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-session-codecs" value="encodes / decodes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="mapping-session" target="codec-registry">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-session-document" value="parse result" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="mapping-session" target="mapped-document">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-session-diagnostics" value="trace and errors" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="mapping-session" target="diagnostics">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-document-exporters" value="projected as" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="mapped-document" target="exporter-suite">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-plugin-codecs" value="extends" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="plugin-api" target="codec-registry">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-plugin-parser" value="adds dialects" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="plugin-api" target="schema-parser">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-plugin-export" value="adds targets" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#64748B;strokeWidth=1.5;endArrow=block;endFill=1;fontColor=#334155;fontSize=10;labelBackgroundColor=#FFFFFF;labelBorderColor=#E2E8F0;spacing=4;" edge="1" parent="1" source="plugin-api" target="exporter-suite">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="schema-front-door" value="Schema Front Door" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f7fbff;strokeColor=#9e9e9e;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="60" width="855" height="405" as="geometry" />
+        </mxCell>
+        <mxCell id="canonical-ir" value="Canonical Format Model" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fbfff6;strokeColor=#9e9e9e;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="890" y="60" width="320" height="655" as="geometry" />
+        </mxCell>
+        <mxCell id="runtime-core" value="Runtime Parse / Build Core" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fffdf6;strokeColor=#9e9e9e;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="95" width="640" height="750" as="geometry" />
+        </mxCell>
+        <mxCell id="library-surfaces" value="Library Surfaces For Host Projects" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fbfffd;strokeColor=#9e9e9e;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1905" y="80" width="330" height="665" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

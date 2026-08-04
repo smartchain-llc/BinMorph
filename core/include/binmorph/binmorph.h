@@ -1,0 +1,16 @@
+#pragma once
+
+#include "binary_view.h"
+#include "codec.h"
+#include "diagnostics.h"
+#include "execution_plan.h"
+#include "exporters.h"
+#include "format_model.h"
+#include "mapped_document.h"
+#include "mapping_session.h"
+#include "plugin_api.h"
+#include "schema_parser.h"
+#include "schema_registry.h"
+#include "schema_source.h"
+#include "schema_validator.h"
+#include "types.h"

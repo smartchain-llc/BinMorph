@@ -1,0 +1,333 @@
+{
+  "title": "BinMorph Powerhouse Library Class Model",
+  "direction": "LR",
+  "auto_icons": false,
+  "nodes": [
+    {
+      "id": "schema-source",
+      "label": "<b>SchemaSource</b><hr size=\"1\">+ uri()<br>+ format()<br>+ read()<br><br>JSON layout, imported specs, embedded strings.",
+      "type": "service",
+      "x": 60,
+      "y": 110,
+      "width": 220,
+      "height": 130,
+      "style": "rounded=0;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;align=left;verticalAlign=top;spacing=8;fontSize=12;"
+    },
+    {
+      "id": "schema-registry",
+      "label": "<b>SchemaRegistry</b><hr size=\"1\">+ register(source)<br>+ resolve(id, version)<br>+ importsFor(schema)<br><br>Owns known format definitions.",
+      "type": "service",
+      "x": 330,
+      "y": 110,
+      "width": 235,
+      "height": 140,
+      "style": "rounded=0;whiteSpace=wrap;html=1;fillColor=#e3f2fd;strokeColor=#1565c0;align=left;verticalAlign=top;spacing=8;fontSize=12;"
+    },
+    {
+      "id": "schema-parser",
+      "label": "<b>SchemaParser</b><hr size=\"1\">+ parse(source)<br>+ parseJsonLayout()<br>+ importExternalSpec()<br><br>Builds a normalized IR.",
+      "type": "service",
+      "x": 620,
+      "y": 110,
+      "width": 235,
+      "height": 140,
+      "style": "rounded=0;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;align=left;verticalAlign=top;spacing=8;fontSize=12;"
+    },
+    {
+      "id": "schema-validator",
+      "label": "<b>SchemaValidator</b><hr size=\"1\">+ checkRequiredKeys()<br>+ checkBounds()<br>+ checkEvolution()<br>+ checkSecurityLimits()",
+      "type": "service",
+      "x": 620,
+      "y": 300,
+      "width": 235,
+      "height": 135,
+      "style": "rounded=0;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;align=left;verticalAlign=top;spacing=8;fontSize=12;"
+    },
+    {
+      "id": "format-model",
+      "label": "<b>FormatModel</b><hr size=\"1\">- schemaId<br>- version<br>- root: LayoutNode<br>- typeSystem<br>- metadata<br><br>Canonical description used by runtime and codegen.",
+      "type": "service",
+      "x": 920,
+      "y": 110,
+      "width": 260,
+      "height": 165,
+      "style": "rounded=0;whiteSpace=wrap;html=1;fillColor=#f1f8e9;strokeColor=#558b2f;align=left;verticalAlign=top;spacing=8;fontSize=12;"
+    },
+    {
+      "id": "layout-node",
+      "label": "<b>LayoutNode</b><hr size=\"1\">- name, path<br>- kind: container | field | choice | repeat<br>- lenExpr, offsetExpr<br>- endian, bitRange<br>- constraints, docs",
+      "type": "service",
+      "x": 920,
+      "y": 320,
+      "width": 260,
+      "height": 160,
+      "style": "rounded=0;whiteSpace=wrap;html=1;fillColor=#f1f8e9;strokeColor=#558b2f;align=left;verticalAlign=top;spacing=8;fontSize=12;"
+    },
+    {
+      "id": "type-system",
+      "label": "<b>TypeSystem</b><hr size=\"1\">+ primitive(name)<br>+ enum(name)<br>+ composite(name)<br>+ logicalType(field)<br><br>Numbers, strings, blobs, timestamps, decimals, enums.",
+      "type": "service",
+      "x": 920,
+      "y": 525,
+      "width": 260,
+      "height": 160,
+      "style": "rounded=0;whiteSpace=wrap;html=1;fillColor=#f1f8e9;strokeColor=#558b2f;align=left;verticalAlign=top;spacing=8;fontSize=12;"
+    },
+    {
+      "id": "execution-plan",
+      "label": "<b>ExecutionPlan</b><hr size=\"1\">+ steps()<br>+ optimize()<br>+ cacheKey()<br><br>Precomputed read/write plan for low-latency use.",
+      "type": "service",
+      "x": 1260,
+      "y": 145,
+      "width": 245,
+      "height": 135,
+      "style": "rounded=0;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#f9a825;align=left;verticalAlign=top;spacing=8;fontSize=12;"
+    },
+    {
+      "id": "binary-view",
+      "label": "<b>BinaryView</b><hr size=\"1\">+ fromFile()<br>+ fromMemory()<br>+ fromStream()<br>+ slice(offset, len)<br><br>File, mmap, packet, firmware image, or buffer.",
+      "type": "service",
+      "x": 1260,
+      "y": 345,
+      "width": 245,
+      "height": 155,
+      "style": "rounded=0;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#ef6c00;align=left;verticalAlign=top;spacing=8;fontSize=12;"
+    },
+    {
+      "id": "mapping-session",
+      "label": "<b>MappingSession</b><hr size=\"1\">+ parse(input)<br>+ build(document)<br>+ stream(events)<br>+ setPolicy(options)<br><br>Public API entry point.",
+      "type": "service",
+      "x": 1585,
+      "y": 240,
+      "width": 255,
+      "height": 155,
+      "style": "rounded=0;whiteSpace=wrap;html=1;fillColor=#f3e5f5;strokeColor=#7b1fa2;align=left;verticalAlign=top;spacing=8;fontSize=12;"
+    },
+    {
+      "id": "reader-writer",
+      "label": "<b>BinaryReaderWriter</b><hr size=\"1\">+ readBits()<br>+ readEndian()<br>+ writeValue()<br>+ seek()<br><br>Byte and bit accurate cursor.",
+      "type": "service",
+      "x": 1585,
+      "y": 455,
+      "width": 255,
+      "height": 140,
+      "style": "rounded=0;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#ef6c00;align=left;verticalAlign=top;spacing=8;fontSize=12;"
+    },
+    {
+      "id": "codec-registry",
+      "label": "<b>CodecRegistry</b><hr size=\"1\">+ decoder(type)<br>+ encoder(type)<br>+ transform(name)<br><br>Endian, varint, BCD, compression, checksums, crypto hooks.",
+      "type": "service",
+      "x": 1585,
+      "y": 650,
+      "width": 255,
+      "height": 155,
+      "style": "rounded=0;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#c2185b;align=left;verticalAlign=top;spacing=8;fontSize=12;"
+    },
+    {
+      "id": "mapped-document",
+      "label": "<b>MappedDocument</b><hr size=\"1\">+ root()<br>+ find(path)<br>+ rawRange(path)<br>+ typedValue(path)<br><br>Inspectable object graph with raw byte provenance.",
+      "type": "service",
+      "x": 1935,
+      "y": 130,
+      "width": 270,
+      "height": 155,
+      "style": "rounded=0;whiteSpace=wrap;html=1;fillColor=#ede7f6;strokeColor=#5e35b1;align=left;verticalAlign=top;spacing=8;fontSize=12;"
+    },
+    {
+      "id": "diagnostics",
+      "label": "<b>Diagnostics</b><hr size=\"1\">+ trace()<br>+ errors()<br>+ coverage()<br>+ explain(path)<br><br>Offsets, field decisions, validation failures, recoverable errors.",
+      "type": "service",
+      "x": 1935,
+      "y": 335,
+      "width": 270,
+      "height": 155,
+      "style": "rounded=0;whiteSpace=wrap;html=1;fillColor=#ffebee;strokeColor=#c62828;align=left;verticalAlign=top;spacing=8;fontSize=12;"
+    },
+    {
+      "id": "exporter-suite",
+      "label": "<b>ExporterSuite</b><hr size=\"1\">+ toJson()<br>+ toCppStruct()<br>+ toArrow()<br>+ toEvents()<br>+ toHexView()<br><br>Outputs for apps, pipelines, analyzers, and codegen.",
+      "type": "service",
+      "x": 1935,
+      "y": 540,
+      "width": 270,
+      "height": 175,
+      "style": "rounded=0;whiteSpace=wrap;html=1;fillColor=#e0f2f1;strokeColor=#00695c;align=left;verticalAlign=top;spacing=8;fontSize=12;"
+    },
+    {
+      "id": "plugin-api",
+      "label": "<b>PluginApi</b><hr size=\"1\">+ registerSchemaDialect()<br>+ registerCodec()<br>+ registerExporter()<br>+ registerDomainPack()<br><br>Lets other projects extend the library.",
+      "type": "service",
+      "x": 1260,
+      "y": 650,
+      "width": 245,
+      "height": 165,
+      "style": "rounded=0;whiteSpace=wrap;html=1;fillColor=#e0f7fa;strokeColor=#00838f;align=left;verticalAlign=top;spacing=8;fontSize=12;"
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-source-registry",
+      "source": "schema-source",
+      "target": "schema-registry",
+      "label": "registered as"
+    },
+    {
+      "id": "edge-registry-parser",
+      "source": "schema-registry",
+      "target": "schema-parser",
+      "label": "resolved sources"
+    },
+    {
+      "id": "edge-parser-model",
+      "source": "schema-parser",
+      "target": "format-model",
+      "label": "creates"
+    },
+    {
+      "id": "edge-validator-model",
+      "source": "schema-validator",
+      "target": "format-model",
+      "label": "validates"
+    },
+    {
+      "id": "edge-model-node",
+      "source": "format-model",
+      "target": "layout-node",
+      "label": "owns tree"
+    },
+    {
+      "id": "edge-model-types",
+      "source": "format-model",
+      "target": "type-system",
+      "label": "uses"
+    },
+    {
+      "id": "edge-model-plan",
+      "source": "format-model",
+      "target": "execution-plan",
+      "label": "compiled to"
+    },
+    {
+      "id": "edge-plan-session",
+      "source": "execution-plan",
+      "target": "mapping-session",
+      "label": "drives"
+    },
+    {
+      "id": "edge-binary-session",
+      "source": "binary-view",
+      "target": "mapping-session",
+      "label": "input or output"
+    },
+    {
+      "id": "edge-session-reader",
+      "source": "mapping-session",
+      "target": "reader-writer",
+      "label": "seeks and reads"
+    },
+    {
+      "id": "edge-session-codecs",
+      "source": "mapping-session",
+      "target": "codec-registry",
+      "label": "encodes / decodes"
+    },
+    {
+      "id": "edge-session-document",
+      "source": "mapping-session",
+      "target": "mapped-document",
+      "label": "parse result"
+    },
+    {
+      "id": "edge-session-diagnostics",
+      "source": "mapping-session",
+      "target": "diagnostics",
+      "label": "trace and errors"
+    },
+    {
+      "id": "edge-document-exporters",
+      "source": "mapped-document",
+      "target": "exporter-suite",
+      "label": "projected as"
+    },
+    {
+      "id": "edge-plugin-codecs",
+      "source": "plugin-api",
+      "target": "codec-registry",
+      "label": "extends"
+    },
+    {
+      "id": "edge-plugin-parser",
+      "source": "plugin-api",
+      "target": "schema-parser",
+      "label": "adds dialects"
+    },
+    {
+      "id": "edge-plugin-export",
+      "source": "plugin-api",
+      "target": "exporter-suite",
+      "label": "adds targets"
+    }
+  ],
+  "groups": [
+    {
+      "id": "schema-front-door",
+      "label": "Schema Front Door",
+      "members": [
+        "schema-source",
+        "schema-registry",
+        "schema-parser",
+        "schema-validator"
+      ],
+      "x": 30,
+      "y": 55,
+      "width": 860,
+      "height": 425,
+      "style": "swimlane;whiteSpace=wrap;html=1;fillColor=#f7fbff;strokeColor=#9e9e9e;fontStyle=1;"
+    },
+    {
+      "id": "canonical-ir",
+      "label": "Canonical Format Model",
+      "members": [
+        "format-model",
+        "layout-node",
+        "type-system"
+      ],
+      "x": 890,
+      "y": 55,
+      "width": 325,
+      "height": 670,
+      "style": "swimlane;whiteSpace=wrap;html=1;fillColor=#fbfff6;strokeColor=#9e9e9e;fontStyle=1;"
+    },
+    {
+      "id": "runtime-core",
+      "label": "Runtime Parse / Build Core",
+      "members": [
+        "execution-plan",
+        "binary-view",
+        "mapping-session",
+        "reader-writer",
+        "codec-registry",
+        "plugin-api"
+      ],
+      "x": 1230,
+      "y": 55,
+      "width": 650,
+      "height": 800,
+      "style": "swimlane;whiteSpace=wrap;html=1;fillColor=#fffdf6;strokeColor=#9e9e9e;fontStyle=1;"
+    },
+    {
+      "id": "library-surfaces",
+      "label": "Library Surfaces For Host Projects",
+      "members": [
+        "mapped-document",
+        "diagnostics",
+        "exporter-suite"
+      ],
+      "x": 1900,
+      "y": 55,
+      "width": 345,
+      "height": 710,
+      "style": "swimlane;whiteSpace=wrap;html=1;fillColor=#fbfffd;strokeColor=#9e9e9e;fontStyle=1;"
+    }
+  ]
+}
